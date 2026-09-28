@@ -1,36 +1,39 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# XploreVietnam Navigator
 
-## Getting Started
+Client portal for XploreVietnam: sign-up, 8-step move profile, and a dashboard with the Vietnam journey,
+visa checklists and individual services. Next.js 16 + Supabase (auth, Postgres, storage) on Vercel.
 
-First, run the development server:
+Without Supabase keys the app runs in **demo mode**: the whole flow works and data stays in the browser.
+
+## Run locally
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+cp .env.example .env.local   # fill in the Supabase keys, or leave empty for demo mode
+npm run dev                  # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Connect Supabase (once)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. Create a project at supabase.com (region: Singapore).
+2. SQL Editor → paste `supabase/migrations/0001_init.sql` → Run.
+3. Authentication → URL Configuration
+   - Site URL: `https://navigator.xplorevietnam.com`
+   - Redirect URLs: `https://navigator.xplorevietnam.com/auth/callback`, `http://localhost:3000/auth/callback`
+4. Authentication → Emails → "Confirm signup": subject `Confirm your email - your Vietnam planning portal is ready`,
+   body = `supabase/email/confirm-signup.html`.
+5. Authentication → Emails → SMTP: use your own sender (e.g. hello@xplorevietnam.com). Supabase's built-in sender
+   is rate-limited and only for testing.
+6. Project Settings → API: copy the Project URL and publishable (or anon) key into Vercel env vars
+   `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+To make a team member staff (sees and updates every client's cases), insert a row into `public.staff` with their user id.
 
-## Learn More
+## Structure
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `src/app/auth` — split-screen login / sign-up, check-email, password reset, email callback
+- `src/app/vietnam` — portal: sidebar layout, dashboard, sections (`[section]`), profile
+- `src/components/onboarding-modal.tsx` — the 8 questions
+- `src/lib/journey.ts` — journey steps, date rules, visa options (copy from the website)
+- `src/lib/backend.ts` — Supabase calls, with the demo-mode fallback
+- `supabase/migrations` — tables and row-level security (profiles, journey, cases, documents, updates, storage)
