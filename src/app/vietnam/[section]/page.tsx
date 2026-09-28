@@ -1,11 +1,8 @@
 "use client";
-import Link from "next/link";
 import { notFound, useParams } from "next/navigation";
-import { ArrowUpRight, Check, Clock } from "lucide-react";
-import { usePortal } from "@/components/portal-context";
+import { ArrowUpRight, Clock } from "lucide-react";
 import { buttonClass } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { VISA_TYPES } from "@/lib/journey";
 import { SUPPORT_EMAIL, cn, siteLink } from "@/lib/utils";
 
 // Individual services: copy and prices are the ones on the website's Navigator section.
@@ -31,7 +28,6 @@ const SERVICES: Record<string, Service> = {
 
 type Page = { title: string; intro: string; service?: string; site?: { label: string; path: string }; soon?: string };
 const PAGES: Record<string, Page> = {
-  visa: { title: "Visa Checklists", intro: "The documents and steps for each visa route, based on the rules as we understand them in 2026." },
   "tax-code": { title: "Tax Code", intro: "Get your Vietnamese personal tax code (MST) without the trip to the tax office.", service: "tax-code" },
   "bank-account": { title: "Bank Account", intro: "Open a Vietnamese bank account in one visit.", service: "bank-account" },
   "relocation-packages": {
@@ -82,50 +78,6 @@ const PACKAGES = [
   { name: "Concierge Package", types: "Work · Investor · Family", price: "$4750", best: "Families, couples, and professionals who want one trusted person handling the entire move — not a checklist to manage themselves." },
 ];
 
-// Requirements per route, word for word from the website's visas page.
-const CHECKLISTS: Record<string, { title: string; lead: string; items: string[] }> = {
-  evisa: {
-    title: "E-Visa",
-    lead: "Citizens of every country can apply online for an e-visa valid for up to 90 days, with single or multiple entry.",
-    items: [
-      "A valid passport",
-      "Government fee: USD 25 (single entry) or USD 50 (multiple entry)",
-      "Processing: usually a few working days when the application is complete",
-      "Not allowed: working for a Vietnamese employer, applying for a TRC, staying beyond the dates on the visa",
-    ],
-  },
-  work: {
-    title: "Work Permit and Work Visa (LĐ)",
-    lead: "If you are employed by a Vietnamese company, this is your route.",
-    items: [
-      "A job offer from a Vietnamese employer that has registered its need for foreign workers",
-      "A health check certificate",
-      "A criminal record check, usually from your home country and legalised",
-      "Proof of qualifications or experience, such as a degree and work references, legalised and translated",
-      "A valid passport",
-    ],
-  },
-  investor: {
-    title: "Investor Visa (ĐT) and Residence Card",
-    lead: "The capital must be contributed to a Vietnamese company. Money sitting in a bank account does not count.",
-    items: [
-      "ĐT1: investment of VND 100 billion or more; visa up to 5 years, TRC up to 10 years",
-      "ĐT2: VND 50 billion to under 100 billion; visa up to 5 years, TRC up to 5 years",
-      "ĐT3: VND 3 billion to under 50 billion; visa up to 3 years, TRC up to 3 years",
-      "ĐT4: under VND 3 billion; visa up to 12 months, no TRC",
-    ],
-  },
-  family: {
-    title: "Family Visa (TT)",
-    lead: "For spouses and children of Vietnamese citizens or of foreigners holding a work, investor or similar visa.",
-    items: [
-      "Proof of the relationship, such as a marriage or birth certificate, legalised and translated",
-      "A sponsor: your Vietnamese spouse or parent, or the visa-holding family member’s employer or company",
-      "Proof of residence registration in Vietnam",
-    ],
-  },
-};
-
 function ServiceCard({ id }: { id: string }) {
   const s = SERVICES[id];
   return (
@@ -153,12 +105,9 @@ function ServiceCard({ id }: { id: string }) {
 
 export default function SectionPage() {
   const { section } = useParams<{ section: string }>();
-  const { profile } = usePortal();
   const page = PAGES[section];
   if (!page) notFound();
 
-  const mine = profile?.visa_type && CHECKLISTS[profile.visa_type] ? profile.visa_type : null;
-  const order = mine ? [mine, ...Object.keys(CHECKLISTS).filter((k) => k !== mine)] : Object.keys(CHECKLISTS);
 
   return (
     <>
@@ -168,44 +117,6 @@ export default function SectionPage() {
       </div>
 
       {page.service && <ServiceCard id={page.service} />}
-
-      {section === "visa" && (
-        <>
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-            {order.map((k) => {
-              const c = CHECKLISTS[k];
-              return (
-                <Card key={k} className={cn("border-2 shadow-sm", k === mine ? "border-primary" : "border-transparent")}>
-                  <CardContent className="pt-6">
-                    <div className="mb-2 flex items-center justify-between gap-3">
-                      <h2 className="text-lg font-semibold text-brand-navy">{c.title}</h2>
-                      {k === mine && (
-                        <span className="flex-shrink-0 whitespace-nowrap rounded-full bg-brand-tint px-2.5 py-0.5 text-xs font-medium text-primary">Your route</span>
-                      )}
-                    </div>
-                    <p className="mb-4 text-sm leading-relaxed text-brand-ink2">{c.lead}</p>
-                    <ul className="space-y-2">
-                      {c.items.map((i) => (
-                        <li key={i} className="flex gap-2 text-sm text-brand-navy">
-                          <Check className="mt-0.5 h-4 w-4 flex-shrink-0 text-[#10B981]" />
-                          {i}
-                        </li>
-                      ))}
-                    </ul>
-                  </CardContent>
-                </Card>
-              );
-            })}
-          </div>
-          {!mine && profile?.visa_type === "unsure" && (
-            <p className="text-sm text-gray-600">
-              Not sure which route fits? {VISA_TYPES.find((v) => v.value === "unsure")?.sub}.{" "}
-              <Link href="/vietnam/consultation" className="text-primary hover:underline">Book a free consultation</Link>
-            </p>
-          )}
-          <ServiceCard id="review" />
-        </>
-      )}
 
       {section === "relocation-packages" && (
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
