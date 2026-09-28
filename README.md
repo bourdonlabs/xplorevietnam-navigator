@@ -27,6 +27,23 @@ npm run dev                  # http://localhost:3000
 6. Project Settings → API: copy the Project URL and publishable (or anon) key into Vercel env vars
    `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`.
 
+7. SQL Editor → also run `supabase/migrations/0002_visa_documents.sql` (visa uploads, dependents, service requests).
+
+## Turn on payments (Stripe)
+
+Without these keys, "Get Started" records a request and the team follows up by email.
+
+1. Stripe Dashboard → (optional, recommended) create a separate account named XploreVietnam under your login, so
+   checkout says "Pay XploreVietnam" and payouts stay separate from BourdonLabs.
+2. Developers → API keys → copy the **Secret key** (`sk_live_…`) into Vercel as `STRIPE_SECRET_KEY`.
+3. Developers → Webhooks → Add endpoint `https://navigator.xplorevietnam.com/api/stripe/webhook`,
+   events `checkout.session.completed` and `checkout.session.async_payment_succeeded`.
+   Copy its **Signing secret** (`whsec_…`) into `STRIPE_WEBHOOK_SECRET`.
+4. Supabase → Project Settings → API → copy the **service_role** key into `SUPABASE_SERVICE_ROLE_KEY` (server only).
+5. Set `NEXT_PUBLIC_STRIPE_ENABLED=1` and redeploy.
+
+Prices live in `src/lib/services.ts`; the server recalculates every amount, the browser never sets a price.
+
 To make a team member staff (sees and updates every client's cases), insert a row into `public.staff` with their user id.
 
 ## Structure

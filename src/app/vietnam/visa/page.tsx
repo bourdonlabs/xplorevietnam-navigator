@@ -7,6 +7,7 @@ import {
 } from "lucide-react";
 import { toast } from "sonner";
 import { backend, type Dependent, type ServiceRequest, type UploadedDoc } from "@/lib/backend";
+import { readCheckoutReturn, startCheckout } from "@/lib/checkout";
 import { formatLongDate, VISA_TYPES } from "@/lib/journey";
 import { cn } from "@/lib/utils";
 import {
@@ -19,7 +20,7 @@ import { Input, Select } from "@/components/ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
 const MAIN = "main";
-const REVIEW_SERVICE = "visa_review";
+const REVIEW_SERVICE = "visa_review" as const;
 
 export default function VisaPage() {
   const { user, profile, saveProfile } = usePortal();
@@ -33,6 +34,7 @@ export default function VisaPage() {
   const [editing, setEditing] = useState<string | null>(null);
 
   useEffect(() => {
+    readCheckoutReturn();
     Promise.all([backend.listDependents(user.id), backend.listDocs(user.id), backend.listRequests(user.id)]).then(
       ([d, f, r]) => {
         setDeps(d);
@@ -213,14 +215,8 @@ export default function VisaPage() {
           uploaded={docs.length > 0}
           dependentsDefault={deps.length}
           request={review}
-          onRequest={async (n, amount) => {
-            const res = await backend.createRequest(user.id, REVIEW_SERVICE, n, amount);
-            if (res.error) {
-              toast.error(res.error);
-              return;
-            }
-            setRequests(await backend.listRequests(user.id));
-            toast.success("Expert review requested");
+          onRequest={async (n) => {
+            if (await startCheckout(user.id, REVIEW_SERVICE, 1, n)) setRequests(await backend.listRequests(user.id));
           }}
         />
       </div>
@@ -559,7 +555,7 @@ function ReviewCard({
   uploaded: boolean;
   dependentsDefault: number;
   request?: ServiceRequest;
-  onRequest: (dependents: number, amount: number) => Promise<void>;
+  onRequest: (dependents: number) => Promise<void>;
 }) {
   const [n, setN] = useState<number | null>(null);
   const [busy, setBusy] = useState(false);
@@ -618,8 +614,9 @@ function ReviewCard({
           <div className="flex gap-2 rounded-lg border border-green-200 bg-green-50 p-3 text-sm text-green-800">
             <CheckCircle2 className="mt-0.5 h-4 w-4 flex-shrink-0" />
             <span>
-              Review requested on {formatLongDate(new Date(request.created_at))}. We&apos;ll be in touch by email to confirm
-              and arrange payment.
+              {request.status === "requested"
+                ? `Review requested on ${formatLongDate(new Date(request.created_at))}. We'll be in touch by email to confirm and arrange payment.`
+                : `Paid on ${formatLongDate(new Date(request.created_at))}. We'll email you the next steps.`}
             </span>
           </div>
         ) : uploaded ? (
@@ -628,11 +625,11 @@ function ReviewCard({
             disabled={busy}
             onClick={async () => {
               setBusy(true);
-              await onRequest(count, total);
+              await onRequest(count);
               setBusy(false);
             }}
           >
-            {busy ? "Sending..." : `Request Expert Review · $${total.toLocaleString("en-US")}`}
+            {busy ? "Please wait..." : `Get Expert Review · $${total.toLocaleString("en-US")}`}
           </Button>
         ) : (
           <>

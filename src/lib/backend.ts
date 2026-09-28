@@ -38,6 +38,7 @@ export type UploadedDoc = {
 export type ServiceRequest = {
   id: string;
   service: string;
+  quantity: number;
   dependents: number;
   amount_usd: number;
   status: string;
@@ -163,8 +164,8 @@ const demo = {
   async listRequests(uid: string): Promise<ServiceRequest[]> {
     return store.get<ServiceRequest[]>("xv-demo-req-" + uid, []);
   },
-  async createRequest(uid: string, service: string, dependents: number, amount_usd: number): Promise<Result> {
-    const r = { id: uid4(), service, dependents, amount_usd, status: "requested", created_at: new Date().toISOString() };
+  async createRequest(uid: string, service: string, dependents: number, amount_usd: number, quantity = 1): Promise<Result> {
+    const r = { id: uid4(), service, quantity, dependents, amount_usd, status: "requested", created_at: new Date().toISOString() };
     store.set("xv-demo-req-" + uid, [...store.get<ServiceRequest[]>("xv-demo-req-" + uid, []), r]);
     return {};
   },
@@ -279,13 +280,13 @@ const live = {
   async listRequests(uid: string): Promise<ServiceRequest[]> {
     const { data } = await supabaseBrowser()
       .from("service_requests")
-      .select("id, service, dependents, amount_usd, status, created_at")
+      .select("id, service, quantity, dependents, amount_usd, status, created_at")
       .eq("user_id", uid)
       .order("created_at");
     return (data as ServiceRequest[]) || [];
   },
-  async createRequest(uid: string, service: string, dependents: number, amount_usd: number): Promise<Result> {
-    const { error } = await supabaseBrowser().from("service_requests").insert({ user_id: uid, service, dependents, amount_usd });
+  async createRequest(uid: string, service: string, dependents: number, amount_usd: number, quantity = 1): Promise<Result> {
+    const { error } = await supabaseBrowser().from("service_requests").insert({ user_id: uid, service, quantity, dependents, amount_usd });
     return error ? { error: error.message } : {};
   },
 };
