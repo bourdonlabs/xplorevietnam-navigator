@@ -8,9 +8,10 @@
         <h3>Visa updates, city guides and new videos, sent once a month for free.</h3>
       </div>
       <div>
-        <form id="news-form" data-demo novalidate>
-          <input id="n-name" type="text" placeholder="Name" autocomplete="name" aria-label="Name">
-          <input id="n-email" type="email" placeholder="Email Address" autocomplete="email" aria-label="Email address">
+        <form id="news-form" data-lead="newsletter" data-thanks="You are subscribed. Thank you." novalidate>
+          <input id="n-name" name="name" type="text" placeholder="Name" autocomplete="name" aria-label="Name">
+          <input id="n-email" name="email" type="email" placeholder="Email Address" autocomplete="email" aria-label="Email address">
+          <input class="hp" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true">
           <button type="submit">Subscribe</button>
           <p class="note" id="n-note" aria-live="polite"></p>
         </form>
@@ -37,7 +38,7 @@
       <div class="ftr-div"><hr></div>
       <div class="ftr-legal">
         <p>© 2026 XploreVietnam. All rights reserved.</p>
-        <div class="legal-links"><a href="#">Privacy Policy</a><a href="#">Terms &amp; Conditions</a><a href="#">Refund Policy</a></div>
+        <div class="legal-links"><a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms &amp; Conditions</a><a href="refunds.html">Refund Policy</a></div>
       </div>
     </div>
   </div>

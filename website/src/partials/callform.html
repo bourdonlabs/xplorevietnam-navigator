@@ -1,0 +1,21 @@
+        <form class="msg-form call-form" data-lead="consultation" data-thanks="Thank you. We will email you to set up your call." novalidate>
+          <div class="cf-row">
+            <div><label for="cf-name">Full Name <span class="req">*</span></label>
+            <input id="cf-name" name="name" type="text" placeholder="First and last name" autocomplete="name" required maxlength="200"></div>
+            <div><label for="cf-email">Email Address <span class="req">*</span></label>
+            <input id="cf-email" name="email" type="email" placeholder="you@example.com" autocomplete="email" required maxlength="320"></div>
+          </div>
+          <div class="cf-row">
+            <div><label for="cf-phone">WhatsApp or phone</label>
+            <input id="cf-phone" name="phone" type="tel" placeholder="Include your country code" autocomplete="tel" maxlength="60"></div>
+            <div><label for="cf-topic">What do you need help with?</label>
+            <select id="cf-topic" data-field="interest"><option value="">Choose one</option><option>Visa or extension</option><option>Temporary Residence Card</option><option>Work permit</option><option>Business setup</option><option>Relocation and housing</option><option>Teaching in Vietnam</option><option>Visa overstay</option><option>Something else</option></select></div>
+          </div>
+          <label for="cf-time">When suits you for a call?</label>
+          <input id="cf-time" data-field="preferred_time" type="text" placeholder="e.g. weekday mornings, Vietnam time" maxlength="200">
+          <label for="cf-msg">Anything we should know?</label>
+          <textarea id="cf-msg" name="message" placeholder="Where you are now, when you want to move, who is moving with you..." maxlength="5000"></textarea>
+          <input class="hp" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <button type="submit">Request my free call <svg class="arr"><use href="#i-arr"/></svg></button>
+          <p class="note" aria-live="polite"></p>
+        </form>

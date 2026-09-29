@@ -14,7 +14,7 @@
 .b-feat{margin-top:82px;padding:0 25.6px;position:relative}
 .bf-view{overflow:hidden;border-radius:20px}
 .bf-track{display:flex;gap:10px;transition:transform .45s cubic-bezier(.2,.7,.2,1)}
-.bf-slide{flex:0 0 100%;height:460px;border-radius:20px;padding:50px 172px;display:flex;justify-content:space-between;align-items:flex-end;color:#fff;isolation:isolate}
+.bf-slide{position:relative;flex:0 0 100%;height:460px;border-radius:20px;padding:50px 172px;display:flex;justify-content:space-between;align-items:flex-end;color:#fff;isolation:isolate}
 .bf-slide::after{content:"";position:absolute;inset:0;z-index:-1;border-radius:inherit;background:linear-gradient(rgba(9,8,37,.15),rgba(9,8,37,.6))}
 .bf-slide::before{z-index:1;color:rgba(255,255,255,.8)}
 .bf-l{max-width:523px;display:flex;flex-direction:column;gap:32px;align-items:flex-start}
@@ -39,13 +39,15 @@
 .b-tools .search input{font-size:18px}
 .b-grid{padding:65px var(--pad-x) 120px;display:grid;grid-template-columns:repeat(3,1fr);gap:65px 26px}
 .post{display:flex;flex-direction:column}
+.post[hidden]{display:none}
+.b-empty{padding:0 var(--pad-x) 120px;font:400 18px/27px var(--body);color:#777}
 .post .p-img{aspect-ratio:329/230;border-radius:15px}
 .post .meta{padding:30px 0 25px;display:flex;justify-content:space-between;font:400 18px/18px var(--body);color:#AAA}
 .post h3{font:400 26px/34px var(--head);color:var(--ink)}
 .post p{margin-top:16px;font:400 18px/26px var(--body);color:#3C3C46}
 .post .by{margin-top:auto;padding-top:35px;display:flex;align-items:center;justify-content:space-between}
 .post .by span{display:flex;align-items:center;gap:12px;font:700 18px/18px var(--body);color:var(--navy)}
-.post .by i{width:38px;height:38px;border-radius:50%;background:linear-gradient(140deg,#C9D2DC,#97A4B6)}
+.post .by i{width:38px;height:38px;border-radius:50%;background:url(img/logo-icon.png) center/70% no-repeat #fff;border:1px solid var(--line)}
 .post .by svg{width:20px;height:14px;color:var(--navy)}
 @media (max-width:1024px){
   .b-head{padding-top:120px}
@@ -88,12 +90,23 @@
   </section>
 
   <section class="b-filter">
-    <div class="b-tabs" role="tablist"><button type="button">All Cities</button><button type="button">Ho Chi Minh City</button><button type="button">Hanoi</button><button type="button" class="is-active">Da Nang<sup>9</sup></button><button type="button">Hoi An</button></div>
-    <div class="b-tools"><label for="topic" hidden>Topic</label><select id="topic"><option>Topic</option><option>Visas</option><option>Housing</option><option>Healthcare</option><option>Schools</option><option>Business</option></select>
+    <div class="b-tabs" role="tablist">{{@blog_tabs}}</div>
+    <div class="b-tools"><label for="topic" hidden>Topic</label><select id="topic">{{@blog_topics}}</select>
       <label class="search"><svg viewBox="0 0 21 21" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="8.5" cy="8.5" r="6.5"/><path d="M13.5 13.5l6 6"/></svg><input id="bq" type="search" placeholder="Search Blog"></label></div>
   </section>
 
-  <section class="b-grid">
+  <section class="b-grid" id="b-grid">
 {{@blog_posts}}
   </section>
+  <p class="b-empty" id="b-empty" hidden>No articles match. Try another city or topic.</p>
+  <script>
+  (function(){
+    var city='All',topic='',q='';
+    var tabs=document.querySelectorAll('.b-tabs button'),posts=document.querySelectorAll('#b-grid .post');
+    function run(){var n=0;posts.forEach(function(p){var ok=(city==='All'||p.dataset.city===city||p.dataset.city==='All')&&(!topic||p.dataset.topic===topic)&&(!q||p.textContent.toLowerCase().indexOf(q)>-1);p.hidden=!ok;if(ok)n++;});document.getElementById('b-empty').hidden=n>0;}
+    tabs.forEach(function(b){b.addEventListener('click',function(){tabs.forEach(function(x){x.classList.toggle('is-active',x===b)});city=b.dataset.city;run();});});
+    document.getElementById('topic').addEventListener('change',function(e){topic=e.target.value;run();});
+    document.getElementById('bq').addEventListener('input',function(e){q=e.target.value.trim().toLowerCase();run();});
+  })();
+  </script>
 </main>

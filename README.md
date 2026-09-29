@@ -69,3 +69,16 @@ owner, internal notes), requests queue, and team.
    ```
 3. They open `/admin`, or Admin in the avatar menu. Non-staff accounts see a "Staff only" page, and the database
    refuses their queries anyway (row level security), so hiding the page is not what protects the data.
+
+## Website (xplorevietnam.org)
+
+The public website lives in `website/` and is its own Vercel project (root directory `website`, build `python3 build.py`,
+output `dist`). `python3 website/build.py` also prints a PRE-LAUNCH list of anything still unfinished.
+
+- **Prices:** `website/src/data/catalog.json` is the only place prices live. The website renders them and the checkout
+  charges them. `price: null` = "Price on request" (the cart sends a quote request instead of charging).
+- **Forms** (contact, free-call request, newsletter, city quiz, order requests) post to `/api/leads` here and land in
+  Admin → Website leads. Run `supabase/migrations/0006_website.sql` once.
+- **Cart checkout** posts to `/api/shop/checkout`, which creates a Stripe Checkout session. The Stripe webhook records
+  paid orders in Admin → Website orders. It needs the same Stripe setup as Navigator payments (above) plus
+  `SUPABASE_SERVICE_ROLE_KEY`. Without a Stripe key the cart sends an order request instead of charging.

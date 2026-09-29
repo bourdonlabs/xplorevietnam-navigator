@@ -217,56 +217,56 @@
           <h3>Visa<br>Package</h3>
           <p class="types">E-visa · Work · Investor · Family</p>
           <p class="best"><b>Best for:</b> People who are confident managing their own move but want an expert handling the immigration process.</p>
-          <div class="pk-price"><b>$975</b><small>/total</small></div>
+          <div class="pk-price"><b>{{price:rl-visa}}</b><small>/total</small></div>
           <p class="pk-fees">Government application fees<br>(~$350/applicant) not included.</p>
           <div class="pk-div"></div>
           <label class="pk-lab" for="vt-1">Visa Type</label>
-          <select id="vt-1" class="vt"><option>E-visa (up to 90 days)</option><option>Business visa (DN)</option><option>Work visa + TRC (LĐ)</option><option>Investor visa + TRC (ĐT)</option><option>Family visa + TRC (TT)</option></select>
+          <select id="vt-1" class="vt" data-opt="visa_type"><option>E-visa (up to 90 days)</option><option>Business visa (DN)</option><option>Work visa + TRC (LĐ)</option><option>Investor visa + TRC (ĐT)</option><option>Family visa + TRC (TT)</option></select>
           <label class="pk-lab" for="dep-1">Dependents</label>
-          <select id="dep-1"><option>None</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select>
-          <label class="addon"><input type="checkbox" name="addon-1"><span>Vietnamese tax code (MST) – $150</span></label>
-          <label class="addon"><input type="checkbox" name="addon-1"><span>Vietnamese bank account – $325</span></label>
-          <label class="addon"><input type="checkbox" name="addon-1"><span>Driving licence conversion – $150</span></label>
+          <select id="dep-1" data-opt="dependents"><option value="0">None</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select>
+          <label class="addon"><input type="checkbox" name="addon-1" data-addon="tax-code"><span>Vietnamese tax code (MST) – {{addon:tax-code}}</span></label>
+          <label class="addon"><input type="checkbox" name="addon-1" data-addon="bank-account"><span>Vietnamese bank account – {{addon:bank-account}}</span></label>
+          <label class="addon"><input type="checkbox" name="addon-1" data-addon="driving-licence"><span>Driving licence conversion – {{addon:driving-licence}}</span></label>
           <ul class="pay"><li>{{i:info}}Payment due in full at booking</li></ul>
           <div class="pk-div"></div>
           <p class="pk-get"><b>You get:</b> The visa is the part of this process you cannot afford to get wrong. We choose the right route for your circumstances, prepare your documents to a standard that holds up to scrutiny, file your application and follow it up with the immigration office until it’s approved.</p>
         </div>
-        <div class="pk-actions"><a class="btn-line" href="cart.html">Add to Cart <svg class="arr"><use href="#i-arr"/></svg></a><a class="pk-ask" href="get-started.html">Have questions? Talk to an expert.</a></div>
+        <div class="pk-actions"><a class="btn-line" href="cart.html" data-add="rl-visa">Add to Cart <svg class="arr"><use href="#i-arr"/></svg></a><a class="pk-ask" href="get-started.html">Have questions? Talk to an expert.</a></div>
       </div></div>
       <div class="pk has-badge"><div class="pk-badge">Best Value</div><div class="pk-card">
         <div>
           <h3>Get to Vietnam<br>Package</h3>
           <p class="types">Work · Investor · Family</p>
           <p class="best"><b>Best for:</b> People who want the critical parts handled by experts and are comfortable managing the day-to-day of the move themselves.</p>
-          <div class="pk-price"><b>$2450</b><small>/total</small></div>
+          <div class="pk-price"><b>{{price:rl-get-to-vietnam}}</b><small>/total</small></div>
           <p class="pk-fees">Government application fees<br>(~$350/applicant) not included.</p>
           <div class="pk-div"></div>
           <label class="pk-lab" for="dep-2">Dependents</label>
-          <select id="dep-2"><option>None</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select>
-          <label class="addon"><input type="checkbox" name="addon-2"><span>Vietnamese tax code (MST) – $150</span></label>
-          <label class="addon"><input type="checkbox" name="addon-2"><span>Vietnamese bank account – $325</span></label>
-          <label class="addon"><input type="checkbox" name="addon-2"><span>Driving licence conversion – $150</span></label>
+          <select id="dep-2" data-opt="dependents"><option value="0">None</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select>
+          <label class="addon"><input type="checkbox" name="addon-2" data-addon="tax-code"><span>Vietnamese tax code (MST) – {{addon:tax-code}}</span></label>
+          <label class="addon"><input type="checkbox" name="addon-2" data-addon="bank-account"><span>Vietnamese bank account – {{addon:bank-account}}</span></label>
+          <label class="addon"><input type="checkbox" name="addon-2" data-addon="driving-licence"><span>Driving licence conversion – {{addon:driving-licence}}</span></label>
           <ul class="pay"><li>{{i:info}}Payment due in full at booking</li></ul>
           <div class="pk-div"></div>
           <p class="pk-get">You’ll arrive with your visa approved, a home lined up, and a bank account open. We’re in regular contact throughout, so you always know where things stand. Not every detail is managed for you, but the ones that can derail a move are.</p>
         </div>
-        <div class="pk-actions"><a class="btn-line" href="cart.html">Add to Cart <svg class="arr"><use href="#i-arr"/></svg></a><a class="pk-ask" href="get-started.html">Have questions? Talk to an expert.</a></div>
+        <div class="pk-actions"><a class="btn-line" href="cart.html" data-add="rl-get-to-vietnam">Add to Cart <svg class="arr"><use href="#i-arr"/></svg></a><a class="pk-ask" href="get-started.html">Have questions? Talk to an expert.</a></div>
       </div></div>
       <div class="pk"><div class="pk-card">
         <div>
           <h3>Concierge<br>Package</h3>
           <p class="types">Work · Investor · Family</p>
           <p class="best"><b>Best for:</b> Families, couples, and professionals who want one trusted person handling the entire move — not a checklist to manage themselves.</p>
-          <div class="pk-price"><b>$4750</b><small>/total</small></div>
+          <div class="pk-price"><b>{{price:rl-concierge}}</b><small>/total</small></div>
           <p class="pk-fees">Government application fees<br>(~$350/applicant) not included.</p>
           <div class="pk-div"></div>
           <label class="pk-lab" for="dep-3">Dependents</label>
-          <select id="dep-3"><option>None</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select>
+          <select id="dep-3" data-opt="dependents"><option value="0">None</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select>
           <ul class="pay"><li>{{i:info}}Pay 70% at booking</li><li>{{i:info}}Pay 30% after your visa application is submitted</li></ul>
           <div class="pk-div"></div>
           <p class="pk-get">Moving countries involves a thousand decisions, and the hardest ones are the ones you don’t know to ask about yet. As a Concierge client, you have a dedicated relocation specialist in your corner from day one: someone who knows what you’ll need before you need it, and is reachable on WhatsApp when anything comes up.</p>
         </div>
-        <div class="pk-actions"><a class="btn-line" href="cart.html">Add to Cart <svg class="arr"><use href="#i-arr"/></svg></a><a class="pk-ask" href="get-started.html">Have questions? Talk to an expert.</a></div>
+        <div class="pk-actions"><a class="btn-line" href="cart.html" data-add="rl-concierge">Add to Cart <svg class="arr"><use href="#i-arr"/></svg></a><a class="pk-ask" href="get-started.html">Have questions? Talk to an expert.</a></div>
       </div></div>
     </div>
   </section>
@@ -276,7 +276,7 @@
     <div class="table-wrap"><div class="c-table">
       <div class="t-head"><div class="t-f"></div><div class="t-c">Visa Support</div><div class="t-c">Get to Vietnam Package</div><div class="t-c hl">Concierge Package</div></div>
 {{@rl_rows}}
-      <div class="t-row price"><div class="t-f"></div><div class="t-c"><b>$975+</b><small>depending on visa type</small></div><div class="t-c"><b>$2450</b></div><div class="t-c"><b>$4750</b></div></div>
+      <div class="t-row price"><div class="t-f"></div><div class="t-c"><b>{{price:rl-visa}}+</b><small>depending on visa type</small></div><div class="t-c"><b>{{price:rl-get-to-vietnam}}</b></div><div class="t-c"><b>{{price:rl-concierge}}</b></div></div>
       <div class="t-row end"><div class="t-f"></div><div class="t-c"></div><div class="t-c"></div><div class="t-c"></div></div>
       <div class="t-hl" aria-hidden="true"><span>Full Service</span></div>
     </div></div>
@@ -290,11 +290,11 @@
     <div class="stay-card">
       <div class="stay-l">
         <h3>Residence Card Renewal</h3>
-        <p class="amt">$450</p>
+        <p class="amt">{{price:rl-trc-renewal}}</p>
         <div><label class="pk-lab" for="dep-4">Dependents</label><select id="dep-4"><option>None</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></div>
         <div class="nv-div"></div>
         <p>Keeping your residence card current is straightforward when you know what you’re doing. We manage your renewal from start to finish: documents, submission to the immigration office, and follow-up until your new card is issued.</p>
-        <a class="btn-line" href="cart.html">Add to Cart <svg class="arr"><use href="#i-arr"/></svg></a>
+        <a class="btn-line" href="cart.html" data-add="rl-trc-renewal">Add to Cart <svg class="arr"><use href="#i-arr"/></svg></a>
       </div>
       <ul class="ck-list">
         <li><i></i>No visa runs, no need to leave Vietnam</li>

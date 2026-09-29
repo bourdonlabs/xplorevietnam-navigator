@@ -8,28 +8,34 @@ import {
   Empty, Loading, PageHeader, Panel, StatusPill, clientName, daysUntil, fmtDate, moveStageLabel, serviceName, timeAgo, usd, visaLabel,
 } from "@/components/admin/ui";
 import { OPEN_STATUSES, PAID_STATUSES, STAGES, admin, type AdminClient } from "@/lib/admin";
+import { LEAD_KINDS, web, type Lead, type Order } from "@/lib/admin-web";
+import { Pill } from "@/components/admin/ui";
 import { cn } from "@/lib/utils";
 
 const DAY = 86400000;
 
 export default function AdminOverview() {
   // "now" is fixed when the data loads so every number on the page uses the same moment.
-  const [data, setData] = useState<{ clients: AdminClient[]; now: number } | null>(null);
+  const [data, setData] = useState<{ clients: AdminClient[]; leads: Lead[]; orders: Order[]; now: number } | null>(null);
   const [range, setRange] = useState<30 | 90>(30);
 
   useEffect(() => {
-    admin.listClients().then((clients) => setData({ clients, now: Date.now() }));
+    // Leads/orders tables arrive with migration 0006; if they don't exist yet the overview still loads.
+    Promise.all([admin.listClients(), web.listLeads().catch(() => []), web.listOrders().catch(() => [])]).then(([clients, leads, orders]) =>
+      setData({ clients, leads, orders, now: Date.now() }),
+    );
   }, []);
 
   const m = useMemo(() => {
     if (!data) return null;
-    const { clients, now } = data;
+    const { clients, leads, orders, now } = data;
     const since = (d: number) => clients.filter((c) => now - new Date(c.created_at).getTime() < d * DAY).length;
     const reqs = clients.flatMap((c) => c.requests.map((r) => ({ ...r, client: c })));
     const open = reqs.filter((r) => OPEN_STATUSES.includes(r.status)).sort((a, b) => a.created_at.localeCompare(b.created_at));
     const paid = reqs.filter((r) => PAID_STATUSES.includes(r.status));
     const paid30 = paid.filter((r) => now - new Date(r.created_at).getTime() < 30 * DAY);
     const onboarded = clients.filter((c) => c.onboarded_at);
+    const liveOrders = orders.filter((o) => o.status !== "refunded" && o.status !== "cancelled");
     const count = (key: (c: AdminClient) => string | null | undefined, label: (v: string) => string = (v) => v) => {
       const m = new Map<string, number>();
       for (const c of onboarded) {
@@ -47,8 +53,13 @@ export default function AdminOverview() {
       unconfirmed: clients.filter((c) => !c.email_confirmed_at).length,
       open,
       openValue: open.reduce((s, r) => s + r.amount_usd, 0),
-      revenue30: paid30.reduce((s, r) => s + r.amount_usd, 0),
-      revenueAll: paid.reduce((s, r) => s + r.amount_usd, 0),
+      // Navigator service requests + website orders (refunded/cancelled orders excluded)
+      revenue30:
+        paid30.reduce((s, r) => s + r.amount_usd, 0) +
+        Math.round(liveOrders.filter((o) => now - new Date(o.created_at).getTime() < 30 * DAY).reduce((s, o) => s + o.amount_total, 0) / 100),
+      revenueAll: paid.reduce((s, r) => s + r.amount_usd, 0) + Math.round(liveOrders.reduce((s, o) => s + o.amount_total, 0) / 100),
+      newLeads: leads.filter((l) => l.status === "new"),
+      openOrders: orders.filter((o) => o.status === "paid"),
       visa: count((c) => c.visa_type, visaLabel),
       city: count((c) => c.destination_city),
       stage: count((c) => c.move_stage, moveStageLabel),
@@ -185,6 +196,41 @@ export default function AdminOverview() {
           )}
         </Panel>
       </div>
+
+      <Panel
+        title={
+          <span>
+            Website: {m.newLeads.length} new lead{m.newLeads.length === 1 ? "" : "s"}
+            {m.openOrders.length > 0 && <span className="font-normal text-gray-500"> · {m.openOrders.length} paid order{m.openOrders.length === 1 ? "" : "s"} to start</span>}
+          </span>
+        }
+        action={
+          <div className="flex gap-4 text-xs font-medium">
+            <Link href="/admin/leads" className="text-primary hover:underline">All leads</Link>
+            <Link href="/admin/orders" className="text-primary hover:underline">All orders</Link>
+          </div>
+        }
+        bodyClass="p-0"
+      >
+        {m.newLeads.length === 0 ? (
+          <Empty>No new leads from the website.</Empty>
+        ) : (
+          <ul className="divide-y divide-gray-100">
+            {m.newLeads.slice(0, 5).map((l) => {
+              const k = LEAD_KINDS.find((x) => x.value === l.kind) || LEAD_KINDS[2];
+              return (
+                <li key={l.id}>
+                  <Link href="/admin/leads" className="flex items-center gap-3 px-5 py-3 hover:bg-gray-50">
+                    <Pill tone={k.tone}>{k.label}</Pill>
+                    <span className="min-w-0 flex-1 truncate text-sm text-brand-navy">{l.name || l.email}</span>
+                    <span className="flex-shrink-0 text-xs text-gray-500">{timeAgo(l.created_at)}</span>
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        )}
+      </Panel>
 
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
         <Panel title="Pipeline">

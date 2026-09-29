@@ -29,7 +29,8 @@ export default function PortalLayout({
   useEffect(() => {
     if (loading) return;
     if (!user) {
-      router.replace("/auth");
+      // Come back to the page they asked for (e.g. a website link to /vietnam/tax-code) after login.
+      router.replace(`/auth?next=${encodeURIComponent(pathname)}`);
       return;
     }
     admin.isStaff(user.id).then(setIsStaff); // shows the Admin link in the avatar menu for team members
@@ -38,6 +39,8 @@ export default function PortalLayout({
       setReady(true);
       if (!p?.onboarded_at) setOnboarding(true);
     });
+    // pathname is only read for the login redirect; re-running on every navigation would refetch the profile
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, loading, router]);
 
   const saveProfile = useCallback(

@@ -1,0 +1,39 @@
+<!-- title: Thank You | XploreVietnam -->
+<!-- style -->
+.ty .pill{padding:10px 22px;display:flex;align-items:center;gap:10px;font-weight:600}
+.ty-wrap{position:relative;padding:0 var(--pad-x) 120px;margin-top:-220px}
+.ty-card{max-width:760px;margin:0 auto;padding:48px;border-radius:20px;background:#fff;border:1px solid var(--line);text-align:center}
+.ty-card h2{font:400 40px/48px var(--head);color:var(--navy)}
+.ty-card ol{margin:28px auto 0;max-width:520px;padding-left:22px;text-align:left;font:400 18px/28px var(--body);color:var(--ink)}
+.ty-card li{margin-bottom:12px}
+.ty-card .acts{margin-top:32px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.ty-card .acts .btn-line{margin:0;width:auto;padding:8px 24px}
+.ty-card small{display:block;margin-top:24px;font:400 16px/24px var(--body);color:var(--steel)}
+@media (max-width:1024px){ .ty-wrap{margin-top:0;padding:64px var(--pad-x)} }
+@media (max-width:767px){ .ty-card{padding:28px 20px} .ty-card h2{font-size:28.8px;line-height:34.56px} }
+<!-- /style -->
+<main id="top" class="ty">
+  <section class="p-hero">
+    <div class="p-hero-in soft">
+      <div class="pill">Payment received</div>
+      <h1>Thank you</h1>
+      <p class="tag">Your order is confirmed.</p>
+    </div>
+  </section>
+  <section class="ty-wrap">
+    <div class="ty-card">
+      <h2>What happens next</h2>
+      <ol>
+        <li>You will receive a payment receipt by email.</li>
+        <li>We will email you to get started and tell you which documents we need from you.</li>
+        <li>In the meantime, create your free Navigator account to see your visa checklist and plan your move.</li>
+      </ol>
+      <div class="acts">
+        <a class="btn-orange md" href="https://navigator.xplorevietnam.org/auth?tab=signup">Create my Navigator account <svg class="arr"><use href="#i-arr"/></svg></a>
+        <a class="btn-line" href="index.html">Back to home</a>
+      </div>
+      <small>Questions about your order? Email <a href="mailto:info@xplorevietnam.org">info@xplorevietnam.org</a>.</small>
+    </div>
+  </section>
+  <script>document.addEventListener('DOMContentLoaded', function(){ XV.write([]); });</script>
+</main>

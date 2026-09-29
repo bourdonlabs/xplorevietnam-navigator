@@ -1,0 +1,189 @@
+{
+  "_readme": "Single source of truth for everything the website cart can charge. The website shows these prices and the Navigator checkout (navigator.xplorevietnam.org/api/shop/checkout) charges them; the browser never sets a price. price null = 'price on request': the item can only be sent as a quote request. dependent = extra per dependent in USD; null = dependents need a quote. deposit = share charged at checkout (the rest is due after the application is submitted); default 1.",
+  "currency": "usd",
+  "items": {
+    "rl-visa": {
+      "name": "Visa Package",
+      "group": "Relocation packages",
+      "price": 975,
+      "dependent": null,
+      "maxDependents": 5,
+      "fees": "Government application fees (~$350/applicant) not included.",
+      "options": {
+        "visa_type": [
+          "E-visa (up to 90 days)",
+          "Business visa (DN)",
+          "Work visa + TRC (LĐ)",
+          "Investor visa + TRC (ĐT)",
+          "Family visa + TRC (TT)"
+        ]
+      },
+      "addons": [
+        "tax-code",
+        "bank-account",
+        "driving-licence"
+      ],
+      "page": "relocate.html"
+    },
+    "rl-get-to-vietnam": {
+      "name": "Get to Vietnam Package",
+      "group": "Relocation packages",
+      "price": 2450,
+      "dependent": null,
+      "maxDependents": 5,
+      "fees": "Government application fees (~$350/applicant) not included.",
+      "addons": [
+        "tax-code",
+        "bank-account",
+        "driving-licence"
+      ],
+      "page": "relocate.html"
+    },
+    "rl-concierge": {
+      "name": "Concierge Package",
+      "group": "Relocation packages",
+      "price": 4750,
+      "dependent": null,
+      "maxDependents": 5,
+      "fees": "Government application fees (~$350/applicant) not included.",
+      "page": "relocate.html"
+    },
+    "rl-trc-renewal": {
+      "name": "Residence Card Renewal",
+      "group": "Stay in Vietnam",
+      "price": 450,
+      "page": "relocate.html"
+    },
+    "teach-in-vietnam": {
+      "name": "Teach in Vietnam Package",
+      "group": "Teachers",
+      "price": 2800,
+      "page": "teachers.html"
+    },
+    "svc-visas-1": {
+      "name": "Visa Package",
+      "group": "Visas & Extensions",
+      "price": 2650,
+      "dependent": 1250,
+      "maxDependents": 5,
+      "fees": "Includes government and admin fees (~$1,000).",
+      "page": "services.html",
+      "deposit": 0.7
+    },
+    "svc-visas-2": {
+      "name": "Visa + Stay Package",
+      "group": "Visas & Extensions",
+      "price": 4150,
+      "dependent": 2250,
+      "maxDependents": 5,
+      "fees": "Includes government and admin fees.",
+      "page": "services.html",
+      "deposit": 0.7
+    },
+    "svc-visas-3": {
+      "name": "Visa Concierge Package",
+      "group": "Visas & Extensions",
+      "price": 5495,
+      "dependent": 2350,
+      "maxDependents": 5,
+      "fees": "Includes government and admin fees.",
+      "page": "services.html",
+      "deposit": 0.7
+    },
+    "svc-trc-1": {
+      "name": "TRC Package",
+      "group": "Residence Card (TRC)",
+      "price": 1020,
+      "dependent": 395,
+      "maxDependents": 5,
+      "fees": "Government application fees (~$335/applicant) billed separately.",
+      "page": "services.html",
+      "deposit": 0.7
+    },
+    "svc-trc-2": {
+      "name": "TRC + Permit Package",
+      "group": "Residence Card (TRC)",
+      "price": 2845,
+      "dependent": 495,
+      "maxDependents": 5,
+      "fees": "Government application fees (~$335/applicant) billed separately.",
+      "page": "services.html",
+      "deposit": 0.7
+    },
+    "svc-trc-3": {
+      "name": "TRC Concierge Package",
+      "group": "Residence Card (TRC)",
+      "price": 3950,
+      "dependent": 1200,
+      "maxDependents": 5,
+      "fees": "Government application fees (~$335/applicant) billed separately.",
+      "page": "services.html",
+      "deposit": 0.7
+    },
+    "svc-business-1": {
+      "name": "Company Package",
+      "group": "Business Setup",
+      "price": null,
+      "page": "services.html",
+      "deposit": 0.7
+    },
+    "svc-business-2": {
+      "name": "Company + Visa Package",
+      "group": "Business Setup",
+      "price": null,
+      "maxDependents": 5,
+      "page": "services.html",
+      "deposit": 0.7
+    },
+    "svc-business-3": {
+      "name": "Business Concierge Package",
+      "group": "Business Setup",
+      "price": null,
+      "maxDependents": 5,
+      "page": "services.html",
+      "deposit": 0.7
+    },
+    "svc-relocation-1": {
+      "name": "Arrival Package",
+      "group": "Relocation",
+      "price": null,
+      "page": "services.html",
+      "deposit": 0.7
+    },
+    "svc-relocation-2": {
+      "name": "Home Package",
+      "group": "Relocation",
+      "price": null,
+      "page": "services.html",
+      "deposit": 0.7
+    },
+    "svc-relocation-3": {
+      "name": "Relocation Concierge Package",
+      "group": "Relocation",
+      "price": null,
+      "page": "services.html",
+      "deposit": 0.7
+    },
+    "overstay-review": {
+      "name": "Overstay Case Review",
+      "group": "Overstay",
+      "price": 59,
+      "fees": "Covers the assessment only. Fines and case handling are quoted separately.",
+      "page": "services.html"
+    }
+  },
+  "addons": {
+    "tax-code": {
+      "name": "Vietnamese tax code (MST)",
+      "price": 150
+    },
+    "bank-account": {
+      "name": "Vietnamese bank account",
+      "price": 325
+    },
+    "driving-licence": {
+      "name": "Driving licence conversion",
+      "price": 150
+    }
+  }
+}

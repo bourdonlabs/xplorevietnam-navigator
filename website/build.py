@@ -37,10 +37,42 @@ def review_cols(n=6):
         else:
             out.append(f'''      <div class="t-col{rev}"><div class="t-photo ph" data-ph="Client photo · 1:1"></div><div class="t-card"><div class="t-who"><div class="t-av ph"></div><h4>Client name</h4></div><p>“Placeholder for review {i+1}. Paste a real client review here, two to four sentences long, so it fits the card the same way.”</p><h6>Month YYYY</h6></div></div>''')
     return '\n'.join(out)
-def members(roles,cls=''):
-    return '\n'.join(f'      <div class="member"><div class="m-photo ph" data-ph="Photo · 1:1"></div><h3>Team member</h3><p>{r}</p></div>' for r in roles)
+ROLE_ICONS={  # lucide-style outline icons, 24x24
+ 'briefcase':'<path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/><rect width="20" height="14" x="2" y="6" rx="2"/>',
+ 'stamp':'<path d="M5 22h14"/><path d="M19.27 13.73A2.5 2.5 0 0 0 17.5 13h-11A2.5 2.5 0 0 0 4 15.5V17a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-1.5c0-.66-.26-1.3-.73-1.77Z"/><path d="M14 13V8.5C14 7 15 7 15 5a3 3 0 0 0-3-3c-1.69 0-3 1-3 3s1 2 1 3.5V13"/>',
+ 'house':'<path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>',
+ 'headset':'<path d="M3 11h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-5Zm0 0a9 9 0 1 1 18 0m0 0v5a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3Z"/><path d="M21 16v2a4 4 0 0 1-4 4h-5"/>',
+ 'building':'<rect width="16" height="20" x="4" y="2" rx="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01M16 6h.01M12 6h.01M12 10h.01M12 14h.01M16 10h.01M16 14h.01M8 10h.01M8 14h.01"/>',
+ 'users':'<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>',
+ 'megaphone':'<path d="m3 11 18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/>',
+ 'scale':'<path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="M7 21h10"/><path d="M12 3v18"/><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/>',
+ 'pen':'<path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/>',
+ 'key':'<circle cx="7.5" cy="15.5" r="5.5"/><path d="m21 2-9.6 9.6"/><path d="m15.5 7.5 3 3L22 7l-3-3"/>',
+ 'calculator':'<rect width="16" height="20" x="4" y="2" rx="2"/><path d="M8 6h8"/><path d="M16 14v4"/><path d="M16 10h.01M12 10h.01M8 10h.01M12 14h.01M8 14h.01M12 18h.01M8 18h.01"/>',
+ 'languages':'<path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/>',
+ 'school':'<path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/>',
+ 'health':'<path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/><path d="M3.22 12H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27"/>',
+ 'truck':'<path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/>',
+ 'bank':'<path d="M3 22h18"/><path d="M6 18v-7M10 18v-7M14 18v-7M18 18v-7"/><path d="m12 2 8 5H4z"/>',
+}
+TEAM=[('Case Manager','briefcase'),('Immigration Specialist','stamp'),('Relocation Manager','house'),('Client Operations','headset'),('Business Setup','building'),('Partnerships','users'),('Social Media','megaphone')]
+PARTNERS=[('Immigration Lawyer','scale'),('Notary Services','pen'),('Real Estate Advisor','key'),('Accounting Services','calculator'),('Translation Services','languages'),('School Placement','school'),('Healthcare Liaison','health'),('Moving &amp; Shipping','truck'),('Banking Support','bank')]
+def members(roles,sub):
+    """Role cards with an icon instead of a photo (no names or photos until the team is announced)."""
+    return '\n'.join(f'      <div class="member"><div class="m-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{ROLE_ICONS[ic]}</svg></div><h3>{r}</h3><p>{sub}</p></div>' for r,ic in roles)
 import sys; sys.path.insert(0, SRC+'/data')
 import services as SV
+import json
+CATALOG=json.load(open(SRC+'/data/catalog.json'))
+def money(n): return f'${n:,}'
+def price_label(sku):
+    it=CATALOG['items'][sku]; return money(it['price']) if it['price'] is not None else 'Price on request'
+def svc_sku(tab_id, idx): return f'svc-{tab_id}-{idx+1}'
+# The Services page text (services.py) must show the same prices the checkout charges.
+for _t in SV.TABS:
+    for _i,_p in enumerate(_t.get('packages',[])):
+        _c=CATALOG['items'][svc_sku(_t['id'],_i)]['price']; _txt=_p['price']
+        assert (_c is None and '[' in _txt) or (_c is not None and _txt.replace('$','').replace(',','')==str(_c)), f"price mismatch {_t['id']} {_i}: {_txt} vs catalog {_c}"
 CHECK='{{i:check ck}}'
 def svc_tabs():
     btns=''.join(f'<button type="button" class="s-tab{" is-active" if i==0 else ""}" data-tab="svc:{t["id"]}" aria-selected="{"true" if i==0 else "false"}">{t["tab"]}</button>' for i,t in enumerate(SV.TABS))
@@ -54,10 +86,10 @@ def svc_tabs():
       <div class="one-card">
         <div class="one-l">
           <h3>{o["name"]}</h3>
-          <p class="amt">{o["price"]}</p>
+          <p class="amt">{price_label('overstay-review')}</p>
           <p>{o["desc"]}</p>
           <ul class="s-pay"><li>{{{{i:info}}}}Payment due in full at booking</li></ul>
-          <div class="s-actions"><a class="btn-line" href="cart.html">Book a Case Review <svg class="arr"><use href="#i-arr"/></svg></a><a class="s-ask" href="get-started.html">Have questions? Talk to an expert.</a></div>
+          <div class="s-actions"><a class="btn-line" href="cart.html" data-add="overstay-review">Book a Case Review <svg class="arr"><use href="#i-arr"/></svg></a><a class="s-ask" href="get-started.html">Have questions? Talk to an expert.</a></div>
         </div>
         <ul class="one-list">{pts}</ul>
       </div>
@@ -67,28 +99,30 @@ def svc_tabs():
             continue
         cards=[]
         for p in t['packages']:
+            sku=svc_sku(t['id'],len(cards)); item=CATALOG['items'][sku]; priced=item['price'] is not None
+            dep_pct=int(round(item.get('deposit',1)*100))
             badge=f'<div class="s-badge">{p["badge"]}</div>' if p.get('badge') else ''
-            fees=''.join(f'<span>{f}</span>' for f in p['fees'])
+            fees=''.join(f'<span>{f}</span>' for f in p['fees'] if '[' not in f)
             dep=f'<div class="s-fees dep">{"".join(f"<span>{d}</span>" for d in p["dep"])}</div>' if p.get('dep') else ''
             cards.append(f'''      <div class="s-pkg{' has-badge' if badge else ''}">{badge}<div class="s-card">
         <div class="s-top">
           <h3>{p["name"]}</h3>
           <p class="s-desc">{p["desc"]}</p>
-          <div class="s-price"><b>{p["price"]}</b><small>/total</small></div>
+          <div class="s-price"><b>{price_label(sku)}</b>{'<small>/total</small>' if priced else ''}</div>
           <div class="s-fees">{fees}</div>{dep}
           <div class="s-div"></div>
           <label class="s-lab" for="dep-{t["id"]}-{len(cards)}">Dependents</label>
-          <select id="dep-{t["id"]}-{len(cards)}"><option>None</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select>
-          <ul class="s-pay"><li>{{{{i:info}}}}Pay 70% at booking</li><li>{{{{i:info}}}}Pay 30% after your application is submitted</li></ul>
+          <select id="dep-{t["id"]}-{len(cards)}" data-opt="dependents"><option value="0">None</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select>
+          {f'<ul class="s-pay"><li>{{{{i:info}}}}Pay {dep_pct}% at booking</li><li>{{{{i:info}}}}Pay {100-dep_pct}% after your application is submitted</li></ul>' if dep_pct<100 else '<ul class="s-pay"><li>{{i:info}}Payment due in full at booking</li></ul>' if priced else ''}
           <div class="s-div"></div>
           <p class="s-fine">*Government fees are passed through at cost and paid to the relevant Vietnamese authority. You would pay these whoever handles your case. Other providers may add them on top of their quote; we show them upfront.</p>
           <p class="s-get"><b>You get:</b> {p["get"]}<br><br><b>Best for:</b> {p["best"]}</p>
         </div>
-        <div class="s-actions"><a class="btn-line" href="cart.html">Add to Cart <svg class="arr"><use href="#i-arr"/></svg></a><a class="s-ask" href="get-started.html">Have questions? Talk to an expert.</a></div>
+        <div class="s-actions"><a class="btn-line" href="cart.html" data-add="{sku}">{'Add to Cart' if priced else 'Request a Quote'} <svg class="arr"><use href="#i-arr"/></svg></a><a class="s-ask" href="get-started.html">Have questions? Talk to an expert.</a></div>
       </div></div>''')
         rows=''.join(f'<div class="t-row"><div class="t-f">{f}</div>'+''.join(f'<div class="t-c">{CHECK if x else "{{i:dash dsh}}"}</div>' for x in inc)+'</div>' for f,inc in SV.FEATURES)
         names=[p['name'].replace('<br>',' ') for p in t['packages']]
-        prices=''.join(f'<div class="t-c"><b>{p["price"]}</b></div>' for p in t['packages'])
+        prices=''.join(f'<div class="t-c"><b>{price_label(svc_sku(t["id"],k))}</b></div>' for k in range(len(t['packages'])))
         out.append(f'''  <div class="s-panel" data-panel="svc:{t["id"]}"{'' if i==0 else ' hidden'}>
     <div class="s-head">
       <div class="split s70"><div class="l"><h2 class="sub">{t["title"]}</h2></div><div class="r"><h3 class="lead">{t["note"]}</h3><a class="btn-orange sm" href="#compare-{t["id"]}">Compare Packages <svg class="arr"><use href="#i-arr"/></svg></a></div></div>
@@ -138,30 +172,23 @@ def dive_rows():
     items=[('Visas','visas.html'),('Tax outlook','taxes.html'),('Cost of living','cost-of-living.html'),('Healthcare &amp; health insurance','healthcare.html'),('Housing &amp; rentals','real-estate.html'),('Schools &amp; childcare','schools.html'),('Pet relocation','pets.html'),('Shipping household goods','shipping.html'),('Popular destinations','destinations.html')]
     ico=''
     return '\n'.join(f'      <a href="{h}"><span class="inner">{{{{i:dv{n+1} di}}}}<h3>{t}</h3></span>{{{{i:dvgo go}}}}</a>' for n,(t,h) in enumerate(items))
+# Videos are not published yet: tiles show a "Coming soon" label instead of fake stats, and don't link anywhere.
+SOON='<span class="soon">Coming soon</span>'
+YT='https://www.youtube.com/@John_Bourdon'
+VIDEO_TITLES=['Moving to Vietnam in 2026: where to start','Vietnam e-visa explained','Temporary Residence Card, step by step',
+ 'Cost of living in Ho Chi Minh City','Best neighbourhoods for expats in Saigon','Moving to Da Nang: what to expect',
+ 'Opening a bank account as a foreigner','International schools in Vietnam','Healthcare and insurance for expats',
+ 'Renting an apartment in Hanoi','Opening a company in Vietnam','Bringing your pet to Vietnam']
 def video_cards():
-    return '\n'.join(f'      <a class="v-card" href="videos.html"><div class="v-thumb ph">{{{{i:play play}}}}</div><h3>Video title {i+1}</h3><p>Add one of your YouTube videos here: a one-line summary of what viewers will learn.</p></a>' for i in range(5))
-STATS='<span>{{i:st-views}} [views]</span><span>{{i:st-likes}} [likes]</span><span>{{i:st-com}} [comments]</span>'
+    return '\n'.join(f'      <a class="v-card" href="videos.html"><div class="v-thumb ph">{{{{i:play play}}}}</div><h3>{t}</h3><p>{SOON} New videos are on the way. Follow our YouTube channel to see them first.</p></a>' for t in VIDEO_TITLES[:5])
 def feat_slides():
-    return '\n'.join(f'      <a class="f-slide{" is-active" if i==0 else ""}" href="#"><div class="f-thumb ph">{{{{i:play play}}}}</div><h3>Featured video title {i+1}: replace with one of your YouTube videos</h3><p>[view count]</p></a>' for i in range(5))
+    return '\n'.join(f'      <a class="f-slide{" is-active" if i==0 else ""}" href="{YT}" target="_blank" rel="noopener"><div class="f-thumb ph">{{{{i:play play}}}}</div><h3>{t}</h3><p>{SOON}</p></a>' for i,t in enumerate(VIDEO_TITLES[:5]))
 def video_grid():
-    topics=['Vietnam e-visa explained','Extending your visa without leaving','Temporary Residence Card, step by step','Cost of living in Ho Chi Minh City','Best neighbourhoods for expats in Saigon','Moving to Da Nang: what to expect','Opening a bank account as a foreigner','International schools in Vietnam','Healthcare and insurance for expats','Renting an apartment in Hanoi','Opening a company in Vietnam','A week in our office']
-    return '\n'.join(f'    <a class="v-item" href="#"><div class="v-th ph">{{{{i:play play}}}}</div><div class="v-stats">{STATS}</div><h3>[Video] {t}</h3></a>' for t in topics)
-POSTS=[('How to extend your visa in Vietnam without leaving','A step-by-step look at in-country extensions: who qualifies, what it costs and how long it takes.'),
- ('Temporary Residence Card: the complete guide','Who can get a TRC, which documents you need and how to avoid the most common delays.'),
- ('Cost of living in Da Nang for expats','Rent, food, transport and healthcare costs, with example monthly budgets for singles and families.'),
- ('Choosing an international school in Ho Chi Minh City','What to look for, typical fees and how early you need to apply.'),
- ('Opening a bank account as a foreigner','Which banks work well for expats, what documents they ask for and how to transfer money in.'),
- ('Renting an apartment in Hanoi','Neighbourhoods, deposits, contracts and the questions to ask before you sign.'),
- ('Healthcare and insurance in Vietnam','How private hospitals work, what care costs and how to choose international insurance.'),
- ('Setting up a company in Vietnam','The main steps, timelines and licences, and how your own visa fits in.'),
- ('Moving to Vietnam with pets','Import rules, vaccinations and airline tips for bringing cats and dogs.')]
-def blog_posts():
-    return '\n'.join(f'''    <a class="post" href="#"><div class="p-img ph" data-ph="Photo · 329×230"></div><div class="meta"><span>Month DD, YYYY</span><span>X-Minute Read</span></div><h3>{t}</h3><p>{d}</p><div class="by"><span><i></i>Author name</span><svg viewBox="0 0 20 14" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M1 7h17M12 1.5L18 7l-6 5.5"/></svg></div></a>''' for t,d in POSTS)
-def blog_feat():
-    return '\n'.join(f'''      <a class="bf-slide ph" href="#" data-ph="Photo · 1389×460 · article cover"><div class="bf-l"><span class="bf-pill">Featured Article</span><h3>{POSTS[i][0]}</h3></div><div class="bf-r"><div class="bf-who"><span></span>Author name</div><div class="bf-meta"><span>Month DD, YYYY</span><span>·</span><span>X-Minute Read</span></div></div></a>''' for i in range(3))
-MACROS={'ref_symbols':lambda: '\n'.join(symbol(n,i) for n,i in [('chev','i-chev'),('arr','i-arr'),('prev','i-prev'),('next','i-next'),('go','i-go'),('gow','i-go-w')]),'review_cols':review_cols,'blog_posts':blog_posts,'blog_feat':blog_feat,'feat_slides':feat_slides,'video_grid':video_grid,'dive_rows':dive_rows,'video_cards':video_cards,'svc_tabs':svc_tabs,'svc_faqs':faqs,'rl_rows':rl_rows,'rl_faqs':rl_faqs,
- 'team_members':lambda: members(['Case Manager','Immigration Specialist','Relocation Manager','Client Operations','Business Setup','Partnerships','Social Media']),
- 'partner_members':lambda: members(['Immigration Lawyer','Notary Services','Real Estate Advisor','Real Estate Advisor','Accounting Services','Translation Services','School Placement','Healthcare Liaison','Moving &amp; Shipping','Banking Support'])}
+    return '\n'.join(f'    <div class="v-item"><div class="v-th ph">{{{{i:play play}}}}</div><div class="v-stats">{SOON}</div><h3>{t}</h3></div>' for t in VIDEO_TITLES)
+import blog
+MACROS={'catalog_json':lambda: json.dumps(CATALOG,ensure_ascii=False).replace('</','<\\/'),'ref_symbols':lambda: '\n'.join(symbol(n,i) for n,i in [('chev','i-chev'),('arr','i-arr'),('prev','i-prev'),('next','i-next'),('go','i-go'),('gow','i-go-w')]),'review_cols':review_cols,'blog_posts':blog.listing,'blog_feat':blog.featured,'blog_tabs':blog.city_tabs,'blog_topics':blog.topic_options,'feat_slides':feat_slides,'video_grid':video_grid,'dive_rows':dive_rows,'video_cards':video_cards,'svc_tabs':svc_tabs,'svc_faqs':faqs,'rl_rows':rl_rows,'rl_faqs':rl_faqs,
+ 'team_members':lambda: members(TEAM,'XploreVietnam team'),
+ 'partner_members':lambda: members(PARTNERS,'Partner network')}
 ICONS=SRC+'/data/icons/'
 def icon(name, cls=''):
     s=open(ICONS+name+'.svg').read().strip()
@@ -183,6 +210,8 @@ def expand(text, depth=0):
         return expand(body, depth+1)
     text=re.sub(r'\{\{>\s*(\w+)((?:\s+\w+=".*?")*)\s*\}\}',inc,text)
     text=re.sub(r'\{\{@(\w+)\}\}',lambda m: MACROS[m.group(1)](),text)
+    text=re.sub(r'\{\{price:([\w-]+)\}\}',lambda m: price_label(m.group(1)),text)
+    text=re.sub(r'\{\{addon:([\w-]+)\}\}',lambda m: money(CATALOG['addons'][m.group(1)]['price']),text)
     text=re.sub(r'\{\{i:([\w-]+)(?: ([\w -]+))?\}\}',lambda m: icon(m.group(1),m.group(2) or ''),text)
     return text
 def build():
@@ -190,20 +219,31 @@ def build():
     for f in ('site.css','site.js'): shutil.copy(f'{ROOT}/assets/{f}',f'{DIST}/{f}')
     shutil.copytree(f'{ROOT}/assets/img',f'{DIST}/img',dirs_exist_ok=True)
     pages=sorted(glob.glob(f'{SRC}/pages/*.html'))
+    def write(name, title, page_css, main, description=DESCRIPTION):
+        page_css=expand(page_css)
+        head=(f'<title>{title}</title>\n<meta name="description" content="{description}">\n<link rel="icon" href="img/logo-icon.png">\n'
+              f'<meta property="og:title" content="{title}">\n<meta property="og:description" content="{description}">\n'
+              f'<meta property="og:image" content="https://xplorevietnam.org/img/hero-home.jpg">\n{FONTS}\n<link rel="stylesheet" href="site.css">\n{page_css}')
+        body=expand(part('sprite')+part('header')+main+part('footer'))+'<script src="site.js"></script>\n'
+        # mark current page in nav
+        body=body.replace(f'href="{name}"',f'href="{name}" aria-current="page"',1) if name!='index.html' else body
+        out=f'<!doctype html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n{head}</head>\n<body>\n{body}</body>\n</html>\n'
+        open(f'{DIST}/{name}','w').write(out)
     for p in pages:
         name=os.path.basename(p); src=open(p).read()
         title=re.search(r'<!-- title: (.*?) -->',src).group(1)
         style=re.search(r'<!-- style -->(.*?)<!-- /style -->',src,re.S)
         src=re.sub(r'<!-- title: .*? -->\n?','',src); src=re.sub(r'<!-- style -->.*?<!-- /style -->\n?','',src,flags=re.S)
-        page_css=f'<style>{style.group(1)}</style>\n' if style else ''
-        head=(f'<title>{title}</title>\n<meta name="description" content="{DESCRIPTION}">\n<link rel="icon" href="img/logo-icon.png">\n'
-              f'<meta property="og:title" content="{title}">\n<meta property="og:description" content="{DESCRIPTION}">\n'
-              f'<meta property="og:image" content="https://xplorevietnam.org/img/hero-home.jpg">\n{FONTS}\n<link rel="stylesheet" href="site.css">\n{page_css}')
-        body=expand(part('sprite')+part('header')+src+part('footer'))+'<script src="site.js"></script>\n'
-        # mark current page in nav
-        body=body.replace(f'href="{name}"',f'href="{name}" aria-current="page"',1) if name!='index.html' else body
-        out=f'<!doctype html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n{head}</head>\n<body>\n{body}</body>\n</html>\n'
-        open(f'{DIST}/{name}','w').write(out)
+        write(name, title, f'<style>{style.group(1)}</style>\n' if style else '', src)
+    for bp in blog.posts():
+        write(bp['href'], f"{bp['title']} | XploreVietnam", blog.POST_STYLE, blog.page(bp), bp['excerpt'])
+    pages=pages+[bp['href'] for bp in blog.posts()]
+    left=[]
+    for f in sorted(glob.glob(f'{DIST}/*.html')):
+        t=re.sub(r'<(script|style)[^>]*>.*?</\1>','',open(f).read(),flags=re.S)
+        for m in re.findall(r'\[[^\]<>{}]{2,80}\]',re.sub(r'<[^>]+>',' ',t)): left.append(f'{os.path.basename(f)}: {m}')
+        if 'href="#"' in t: left.append(f'{os.path.basename(f)}: dead link href="#"')
+    if left: print('PRE-LAUNCH: still to finish\n  '+'\n  '.join(sorted(set(left))))
     if os.environ.get('VERCEL'):
         print('built',len(pages),'pages'); return
     # local preview copies: full documents with local fonts (Google Fonts is unreachable from the sandbox)

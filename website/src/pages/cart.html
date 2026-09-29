@@ -31,6 +31,26 @@
 .s-due span{padding:4px 8px;border-radius:999px;background:#FEDFE1;color:var(--accent)}
 .summary .btn-orange{height:46px;padding:8px 14.4px;border:0;border-radius:32px;font:600 20px/30px var(--body)}
 .demo-note{font:400 14px/20px var(--body);color:var(--steel);text-align:center;margin-top:-20px}
+.c-item .ph{background-size:cover}
+.c-group{font:600 14px/18px var(--body);color:var(--accent);text-transform:uppercase;letter-spacing:.06em}
+.c-opt,.c-fees{font:400 16px/22px var(--body);color:#555}
+.c-dep small{color:#777;font-size:15px}
+.c-dep .qty{margin-left:8px}
+.c-add{display:flex;align-items:center;gap:10px;font:400 17px/22px var(--body);color:var(--navy);cursor:pointer}
+.c-add input{width:18px;height:18px;accent-color:var(--accent)}
+.c-add b{margin-left:auto;font-weight:600}
+.c-rm{border:0;background:none;padding:0;font:600 15px/20px var(--body);color:#888;text-decoration:underline;cursor:pointer}
+.c-rm:hover{color:var(--accent)}
+.c-item+.c-item{border-top:1px solid var(--line)}
+.c-empty{padding:36px 0;display:flex;flex-direction:column;gap:24px;font:400 20px/28px var(--body);color:var(--navy)}
+.c-empty>div{display:flex;gap:12px;flex-wrap:wrap}
+.c-empty .btn-line{margin:0;width:auto;padding:8px 24px}
+.c-loading{padding:36px 0;color:#888}
+.s-note{font:400 16px/23px var(--body);color:#555}
+.summary button.btn-orange{width:100%;display:flex;align-items:center;justify-content:center;gap:10px;cursor:pointer}
+.summary button.btn-orange:disabled{opacity:.6}
+.q-form{padding:0;border:0;margin-top:-12px}
+.q-form input{height:48px;margin-bottom:18px}.q-form textarea{height:90px;margin-bottom:18px}
 @media (max-width:1024px){ .c-head{padding-top:120px;flex-direction:column;align-items:flex-start;gap:32px} .c-head h1{font-size:60px;line-height:70px} .c-body{flex-direction:column;padding:48px var(--pad-x) 64px} .summary{flex:none;width:100%} }
 @media (max-width:767px){ .c-head{padding-top:110px} .c-head h1{font-size:40px;line-height:46px} .steps{gap:12px} .c-item{flex-direction:column} .c-item .ph{flex:none;width:128px} }
 <!-- /style -->
@@ -39,30 +59,103 @@
     <h1>Shopping Cart</h1>
     <div class="steps">
       <div class="step on"><span>{{i:cartstep}}</span><p>Cart</p></div>
-      <div class="step"><span>{{i:addr}}</span><p>Address</p></div>
-      <div class="step"><span>{{i:checkout}}</span><p>Checkout</p></div>
+      <div class="step"><span>{{i:addr}}</span><p>Details</p></div>
+      <div class="step"><span>{{i:checkout}}</span><p>Payment</p></div>
     </div>
   </section>
   <section class="c-body">
-    <div class="c-items">
-      <h2>Products</h2>
-      <div class="c-item">
-        <div class="ph"></div>
-        <div class="c-info">
-          <h3>Vietnam Visa + Stay Package – No additional dependents</h3>
-          <div class="c-dep">{{i:dep}}Additional dependents: none</div>
-          <div class="c-row"><b>$[price]</b><div class="qty"><button type="button" aria-label="Decrease">{{i:minus}}</button><span>1</span><button type="button" aria-label="Increase">{{i:plus}}</button></div></div>
-        </div>
-      </div>
-    </div>
-    <aside class="summary">
-      <h2>Order Summary</h2>
-      <h4>1 item</h4>
-      <div class="s-line"><span>1 × Vietnam Visa + Stay Package – No additional dependents</span><b>$[price]</b></div>
-      <div class="s-rule"></div>
-      <div class="s-due">Due Today <span>$[price]</span></div>
-      <a class="btn-orange" href="#">Proceed to Checkout <svg class="arr"><use href="#i-arr"/></svg></a>
-      <p class="demo-note">Example cart. Checkout is not connected yet.</p>
-    </aside>
+    <div class="c-items"><h2>Your order</h2><div id="cart-list"><p class="c-loading">Loading your cart...</p></div></div>
+    <aside class="summary" id="cart-sum" hidden></aside>
   </section>
+  <script id="catalog" type="application/json">{{@catalog_json}}</script>
+  <script>
+  // runs after site.js (loaded at the end of the page) so XV is available
+  document.addEventListener('DOMContentLoaded', function(){
+    var C=JSON.parse(document.getElementById('catalog').textContent);
+    var list=document.getElementById('cart-list'), sum=document.getElementById('cart-sum');
+    var IMG={'Relocation packages':'img/relocation-packages.jpg','Stay in Vietnam':'img/stay-in-vietnam.jpg','Teachers':'img/aud/teachers.jpg',
+      'Visas & Extensions':'img/cta.jpg','Residence Card (TRC)':'img/dest/hcmc.jpg','Business Setup':'img/aud/entrepreneurs.jpg','Relocation':'img/a-la-carte.jpg','Overstay':'img/guide-hcmc.jpg'};
+    function usd(n){ return '$'+n.toLocaleString('en-US'); }
+    function esc(t){ var d=document.createElement('div'); d.textContent=t; return d.innerHTML; }
+    function cart(){ return XV.read().filter(function(i){ return C.items[i.sku]; }); }
+    // price of the package itself (with dependents); null = needs a quote
+    function base(i){ var it=C.items[i.sku], d=i.dependents||0; if(it.price==null||(d&&it.dependent==null)) return null; return it.price+d*(it.dependent||0); }
+    function addons(i){ return (i.addons||[]).reduce(function(s,a){ return s+(C.addons[a]?C.addons[a].price:0); },0); }
+    function totals(items){
+      var t={quote:false,today:0,later:0,total:0};
+      items.forEach(function(i){ var b=base(i), a=addons(i), dep=C.items[i.sku].deposit||1;
+        if(b==null){ t.quote=true; return; } var now=Math.round(b*dep); t.today+=now+a; t.later+=b-now; t.total+=b+a; });
+      return t;
+    }
+    function render(){
+      var items=cart();
+      if(!items.length){
+        list.innerHTML='<div class="c-empty"><p>Your cart is empty.</p><div><a class="btn-line" href="relocate.html">Relocation packages</a><a class="btn-line" href="services.html">All services</a></div></div>';
+        sum.hidden=true; return;
+      }
+      list.innerHTML=items.map(function(i,k){
+        var it=C.items[i.sku], b=base(i), a=addons(i), d=i.dependents||0;
+        var dep=it.maxDependents?'<div class="c-dep">{{i:dep}}Dependents<div class="qty"><button type="button" data-act="dec" data-k="'+k+'" aria-label="Fewer dependents">{{i:minus}}</button><span>'+d+'</span><button type="button" data-act="inc" data-k="'+k+'" aria-label="More dependents">{{i:plus}}</button></div>'+
+          (it.dependent?'<small>'+usd(it.dependent)+' each</small>':(d?'<small>Price on request</small>':''))+'</div>':'';
+        var opt=i.options&&i.options.visa_type?'<p class="c-opt">Visa type: '+esc(i.options.visa_type)+'</p>':'';
+        var ads=(it.addons||[]).map(function(x){ var on=(i.addons||[]).indexOf(x)>-1;
+          return '<label class="c-add"><input type="checkbox" data-act="addon" data-k="'+k+'" data-a="'+x+'"'+(on?' checked':'')+'> '+C.addons[x].name+' <b>'+usd(C.addons[x].price)+'</b></label>'; }).join('');
+        return '<div class="c-item"><div class="ph" style="background:#DDE3EA url('+IMG[it.group]+') center/cover no-repeat"></div><div class="c-info">'+
+          '<p class="c-group">'+it.group+'</p><h3>'+it.name+'</h3>'+opt+dep+ads+(it.fees?'<p class="c-fees">'+it.fees+'</p>':'')+
+          '<div class="c-row"><b>'+(b==null?'Price on request':usd(b+a))+'</b><button type="button" class="c-rm" data-act="rm" data-k="'+k+'">Remove</button></div></div></div>';
+      }).join('');
+      var t=totals(items);
+      sum.hidden=false;
+      sum.innerHTML='<h2>Order Summary</h2><h4>'+items.length+' item'+(items.length>1?'s':'')+'</h4>'+
+        items.map(function(i){ var b=base(i); return '<div class="s-line"><span>'+C.items[i.sku].name+'</span><b>'+(b==null?'On request':usd(b+addons(i)))+'</b></div>'; }).join('')+
+        '<div class="s-rule"></div>'+
+        (t.quote?'<p class="s-note">One or more items need a quote. Send us your order and we will reply by email with the final price.</p>':
+          (t.later?'<div class="s-line"><span>Order total</span><b>'+usd(t.total)+'</b></div><div class="s-line"><span>Due after your application is submitted</span><b>'+usd(t.later)+'</b></div>':'')+
+          '<div class="s-due">Due Today <span>'+usd(t.today)+'</span></div>')+
+        '<button type="button" class="btn-orange" id="go">'+(t.quote?'Request a Quote':'Proceed to Checkout')+' <svg class="arr"><use href="#i-arr"/></svg></button>'+
+        '<p class="demo-note" id="go-note">'+(t.quote?'No payment is taken now.':'Secure payment by Stripe. Government fees are not included unless stated.')+'</p>'+
+        '<form class="msg-form q-form" id="q-form" hidden novalidate><label for="q-name">Full Name</label><input id="q-name" name="name" type="text" autocomplete="name" maxlength="200">'+
+        '<label for="q-email">Email Address <span class="req">*</span></label><input id="q-email" name="email" type="email" autocomplete="email" required maxlength="320">'+
+        '<label for="q-phone">WhatsApp or phone</label><input id="q-phone" name="phone" type="tel" autocomplete="tel" maxlength="60">'+
+        '<label for="q-msg">Message</label><textarea id="q-msg" name="message" maxlength="5000"></textarea>'+
+        '<button type="submit">Send my order <svg class="arr"><use href="#i-arr"/></svg></button><p class="note" aria-live="polite"></p></form>';
+      document.getElementById('go').onclick=function(){ go(items,t); };
+      document.getElementById('q-form').onsubmit=function(e){ e.preventDefault(); sendRequest(this,items,t); };
+    }
+    function showForm(msg){ var f=document.getElementById('q-form'); f.hidden=false; document.getElementById('go').hidden=true;
+      document.getElementById('go-note').textContent=msg; f.querySelector('input[name=email]').focus(); }
+    function go(items,t){
+      if(t.quote) return showForm('Tell us where to send your quote.');
+      var b=document.getElementById('go'); b.disabled=true; b.firstChild.textContent='Opening secure checkout... ';
+      XV.post('/api/shop/checkout',{items:items}).then(function(r){
+        if(r.url){ location.href=r.url; return; }
+        showForm('Online payment is not switched on yet. Send us your order and we will email you a payment link.');
+      }).catch(function(){ showForm('We could not open the payment page. Send us your order and we will email you a payment link.'); })
+      .then(function(){ b.disabled=false; b.firstChild.textContent='Proceed to Checkout '; });
+    }
+    function sendRequest(f,items,t){
+      var note=f.querySelector('.note'), email=f.email.value.trim();
+      if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){ note.textContent='Enter a valid email address, like name@example.com.'; return; }
+      note.textContent='Sending...';
+      XV.lead({kind:'order_request', name:f.name.value.trim(), email:email, phone:f.phone.value.trim(), message:f.message.value.trim(),
+        data:{items:items.map(function(i){ return {sku:i.sku, name:C.items[i.sku].name, dependents:i.dependents||0, addons:i.addons||[], options:i.options||{}, price:base(i)}; }), estimate_usd:t.quote?null:t.total}})
+        .then(function(){ XV.write([]); list.innerHTML='<div class="c-empty"><p><b>Thank you, your order request is in.</b> We will email you with the next steps.</p><div><a class="btn-line" href="index.html">Back to home</a></div></div>'; sum.hidden=true; })
+        .catch(function(){ note.textContent='Sorry, that did not go through. Please email us at info@xplorevietnam.org.'; });
+    }
+    list.addEventListener('click',function(e){
+      var b=e.target.closest('[data-act]'); if(!b||b.dataset.act==='addon') return;
+      var items=cart(), i=items[+b.dataset.k], it=C.items[i.sku];
+      if(b.dataset.act==='rm') items.splice(+b.dataset.k,1);
+      if(b.dataset.act==='inc') i.dependents=Math.min(it.maxDependents||0,(i.dependents||0)+1);
+      if(b.dataset.act==='dec') i.dependents=Math.max(0,(i.dependents||0)-1);
+      XV.write(items); render();
+    });
+    list.addEventListener('change',function(e){
+      var x=e.target; if(x.dataset.act!=='addon') return;
+      var items=cart(), i=items[+x.dataset.k]; i.addons=(i.addons||[]).filter(function(a){ return a!==x.dataset.a; }); if(x.checked) i.addons.push(x.dataset.a);
+      XV.write(items); render();
+    });
+    render();
+  });
+  </script>
 </main>

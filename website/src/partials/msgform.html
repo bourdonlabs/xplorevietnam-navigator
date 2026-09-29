@@ -1,10 +1,11 @@
-        <form class="msg-form" data-demo novalidate>
+        <form class="msg-form" data-lead="{{kind|contact}}" novalidate>
           <label for="f-name-{{id}}">Full Name</label>
-          <input id="f-name-{{id}}" type="text" placeholder="Enter your first and last name" autocomplete="name">
+          <input id="f-name-{{id}}" name="name" type="text" placeholder="Enter your first and last name" autocomplete="name" maxlength="200">
           <label for="f-email-{{id}}">Email Address <span class="req">*</span></label>
-          <input id="f-email-{{id}}" type="email" placeholder="Enter your email address" autocomplete="email" required>
+          <input id="f-email-{{id}}" name="email" type="email" placeholder="Enter your email address" autocomplete="email" required maxlength="320">
           <label for="f-msg-{{id}}">Message</label>
-          <textarea id="f-msg-{{id}}" placeholder="Message"></textarea>
+          <textarea id="f-msg-{{id}}" name="message" placeholder="Message" maxlength="5000"></textarea>
+          <input class="hp" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true">
           <button type="submit">Submit <svg class="arr"><use href="#i-arr"/></svg></button>
           <p class="note" aria-live="polite"></p>
         </form>

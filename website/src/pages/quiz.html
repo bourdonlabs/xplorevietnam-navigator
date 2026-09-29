@@ -161,11 +161,15 @@
       '<p class="qz-sub">How each city matched your answers</p><div class="qz-match">'+
       order.map(function(c){ var p=Math.round(s[c]/max*100); return '<div><span>'+C[c].name+'</span><b><i style="width:'+p+'%"></i></b><em>'+p+'%</em></div>'; }).join('')+'</div>'+
       '<div class="qz-ctas"><a class="btn-orange" href="relocate.html">Plan my move to '+r.name+' '+ARR+'</a><a class="btn-line" href="'+r.guide+'">Read the city guide '+ARR+'</a></div>'+
-      '<div class="qz-mail"><p>Want a copy of your result by email?</p><form id="qz-form" novalidate><input type="text" placeholder="Name" aria-label="Name"><input type="email" placeholder="Email address" aria-label="Email address"><button type="submit">Send it to me</button><p class="note" aria-live="polite"></p></form></div>'+
+      '<div class="qz-mail"><p>Want help planning your move to '+r.name+'? Leave your email and we will be in touch.</p><form id="qz-form" novalidate><input type="text" name="name" placeholder="Name" aria-label="Name"><input type="email" name="email" placeholder="Email address" aria-label="Email address"><button type="submit">Send</button><p class="note" aria-live="polite"></p></form></div>'+
       '<button class="qz-retake" type="button" id="qz-again">Retake the quiz</button></div>';
     document.getElementById('qz-again').onclick=function(){ ans=[]; step=-1; intro(); };
-    document.getElementById('qz-form').onsubmit=function(e){ e.preventDefault(); var em=this.querySelector('input[type=email]').value.trim();
-      this.querySelector('.note').textContent=/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)?'Demo form: not connected yet.':'Enter a valid email address, like name@example.com.'; };
+    document.getElementById('qz-form').onsubmit=function(e){ e.preventDefault(); var f=this, note=f.querySelector('.note'), em=f.querySelector('input[type=email]').value.trim();
+      if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)){ note.textContent='Enter a valid email address, like name@example.com.'; return; }
+      note.textContent='Sending...';
+      XV.lead({kind:'quiz', name:f.querySelector('input[name=name]').value.trim(), email:em, data:{result:r.name, scores:s}})
+        .then(function(){ f.reset(); note.textContent='Thank you. We will be in touch soon.'; })
+        .catch(function(){ note.textContent='Sorry, that did not go through. Please email us at info@xplorevietnam.org.'; }); };
   }
   intro();
 })();

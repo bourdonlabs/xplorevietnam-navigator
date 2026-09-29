@@ -77,13 +77,21 @@
     var open = mnav.hidden; mnav.hidden = !open; burger.setAttribute('aria-expanded', open);
   });
 
-  // Forms are demos until they are connected to the email platform / CRM.
-  document.querySelectorAll('form[data-demo]').forEach(function(f){
+  // Website forms → Navigator /api/leads → Supabase (admin: navigator.xplorevietnam.org/admin/leads).
+  // <form data-lead="contact|consultation|newsletter|quiz"> ; fields are read by name attribute.
+  document.querySelectorAll('form[data-lead]').forEach(function(f){
     f.addEventListener('submit', function(e){
       e.preventDefault();
-      var note = f.querySelector('.note'), email = f.querySelector('input[type=email]');
-      var ok = !email || /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email.value.trim());
-      if(note) note.textContent = ok ? 'Demo form: not connected yet.' : 'Enter a valid email address, like name@example.com.';
+      var note = f.querySelector('.note'), btn = f.querySelector('button[type=submit]');
+      var val = function(n){ var el = f.querySelector('[name="'+n+'"]'); return el ? el.value.trim() : ''; };
+      var email = val('email');
+      if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){ if(note) note.textContent = 'Enter a valid email address, like name@example.com.'; return; }
+      var data = {}; f.querySelectorAll('[data-field]').forEach(function(el){ if(el.value) data[el.dataset.field] = el.value.trim(); });
+      if(btn) btn.disabled = true; if(note) note.textContent = 'Sending...';
+      XV.lead({ kind: f.dataset.lead, name: val('name'), email: email, phone: val('phone'), message: val('message'), data: data, website: val('website') })
+        .then(function(){ f.reset(); if(note) note.textContent = f.dataset.thanks || 'Thank you. We will be in touch soon.'; })
+        .catch(function(){ if(note) note.textContent = 'Sorry, that did not go through. Please email us at info@xplorevietnam.org.'; })
+        .then(function(){ if(btn) btn.disabled = false; });
     });
   });
 
@@ -116,4 +124,41 @@
     bmLinks.forEach(function(a,k){ a.addEventListener('click', function(e){ var h=bmHeads[k]; if(!h) return; e.preventDefault();
       window.scrollTo({top: h.getBoundingClientRect().top + window.pageYOffset - bmOff(), behavior:'smooth'}); history.replaceState(null,'',a.getAttribute('href')); }); });
   }
+})();
+
+/* ───────── XploreVietnam: leads API + shopping cart ───────── */
+var XV = (function(){
+  // Local preview talks to a local Navigator (npm start on :3100); everywhere else to the live one.
+  var API = /^(localhost|127\.0\.0\.1)$/.test(location.hostname) ? 'http://localhost:3100' : 'https://navigator.xplorevietnam.org';
+  var KEY = 'xv-cart';
+  function post(path, body){
+    return fetch(API + path, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) })
+      .then(function(r){ return r.json().catch(function(){ return {}; }).then(function(j){ if(!r.ok) throw j; return j; }); });
+  }
+  function read(){ try { return JSON.parse(localStorage.getItem(KEY) || '[]'); } catch(e){ return []; } }
+  function write(c){ try { localStorage.setItem(KEY, JSON.stringify(c)); } catch(e){} badge(); }
+  function badge(){
+    var n = read().length;
+    document.querySelectorAll('.cart-n').forEach(function(b){ b.textContent = n; b.hidden = !n; });
+  }
+  function lead(o){ o.page = location.pathname.replace(/^\//,'') || 'index.html'; return post('/api/leads', o); }
+  return { API: API, post: post, read: read, write: write, badge: badge, lead: lead };
+})();
+
+(function(){
+  XV.badge();
+  // "Add to Cart" / "Request a Quote" buttons: <a data-add="sku">, options read from the same card.
+  document.querySelectorAll('[data-add]').forEach(function(a){
+    a.addEventListener('click', function(e){
+      e.preventDefault();
+      var card = a.closest('.pk-card, .s-card, .one-l, .tp-card, .nv-card, section') || document;
+      var dep = card.querySelector('[data-opt="dependents"]'), vt = card.querySelector('[data-opt="visa_type"]');
+      var item = { sku: a.dataset.add, dependents: dep ? (parseInt(dep.value, 10) || 0) : 0, addons: [], options: {} };
+      card.querySelectorAll('[data-addon]').forEach(function(x){ if(x.checked) item.addons.push(x.dataset.addon); });
+      if(vt) item.options.visa_type = vt.value;
+      var cart = XV.read().filter(function(i){ return i.sku !== item.sku; });
+      cart.push(item); XV.write(cart.slice(-10));
+      location.href = 'cart.html';
+    });
+  });
 })();

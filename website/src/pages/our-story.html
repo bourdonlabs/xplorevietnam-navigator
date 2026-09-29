@@ -27,6 +27,9 @@
 .t-grid{padding:0 var(--pad-x);display:grid;grid-template-columns:repeat(4,1fr);gap:32px}
 .t-grid.five{grid-template-columns:repeat(5,1fr);gap:16px}
 .member .m-photo{aspect-ratio:1/1;border-radius:16px;margin-bottom:16px}
+.member .m-icon{aspect-ratio:1/1;border-radius:16px;margin-bottom:16px;display:flex;align-items:center;justify-content:center;background:#EEF3FD;color:var(--royal)}
+.member .m-icon svg{width:34%;height:34%}
+.t-grid.five .member .m-icon{margin-bottom:24px}
 .t-grid.five .member .m-photo{margin-bottom:32px}
 .member h3{font:400 26px/31.2px var(--inter);color:var(--navy)}
 .member p{margin-top:16px;font:400 18px/25px var(--body);color:var(--ink)}
@@ -74,7 +77,7 @@
   <section class="founders">
     <div class="f-row">
       <div class="f-copy">
-        <h2>Meet the founders</h2>
+        <h2>Meet the founder</h2>
         <h2 class="st">The people behind XploreVietnam</h2>
         <div class="body">
           <p>More people than ever want to live in Vietnam: remote workers, families, retirees and founders who have seen what life here can be. The paperwork has never been simple, and the rules change often.</p>
@@ -83,26 +86,17 @@
           <p>Our goal is to be the team you trust with your move, so living in Vietnam starts as smoothly as possible for you and your family.</p>
         </div>
       </div>
-      <div class="f-img ph" data-ph="Photo · 1:1 · founders together in Vietnam"></div>
+      <div class="f-img ph" data-ph="Photo · 1:1 · John in Vietnam"></div>
     </div>
     <div class="bios">
       <article class="bio">
-        <div class="b-photo ph" data-ph="Founder photo · 1:1"></div>
+        <div class="b-photo ph" data-ph="Photo · 1:1 · John Bourdon"></div>
         <div class="bio-t">
-          <h4>More about [Founder name]</h4>
-          <p>Placeholder bio. Two short paragraphs work best: your background and the experience that makes you good at this work, then what you have done since arriving in Vietnam.<br><br>Mention concrete numbers only if they are true and you are comfortable publishing them, such as years in Vietnam or cases handled.</p>
-          <div class="bio-links"><a href="#" aria-label="LinkedIn">{{i:bio1}}</a><a href="contact.html" aria-label="Email">{{i:bio2}}</a></div>
+          <h4>More about John Bourdon, Founder</h4>
+          <p>John Bourdon is the founder of XploreVietnam and is based in Ho Chi Minh City. He spent 11 years at BAT working across business intelligence, trade marketing and regional deployment, and holds a Business Analytics certificate from HEC Montréal and a BBA in Marketing from UQAM.<br><br>He is a member of CanCham Vietnam, runs several businesses in Vietnam and works with clients in English and French.</p>
+          <div class="bio-links"><a href="https://www.linkedin.com/in/john-bourdon-3754b2304/" target="_blank" rel="noopener" aria-label="LinkedIn">{{i:bio1}}</a><a href="contact.html" aria-label="Email">{{i:bio2}}</a></div>
         </div>
       </article>
-      <article class="bio">
-        <div class="b-photo ph" data-ph="Founder photo · 1:1"></div>
-        <div class="bio-t">
-          <h4>More about [Co-founder name]</h4>
-          <p>Placeholder bio for the second founder. Keep it the same length as the first so the two cards line up.<br><br>Add a line about the part of the process this person leads, such as immigration cases, company setup or client care.</p>
-          <div class="bio-links"><a href="#" aria-label="LinkedIn">{{i:bio1}}</a><a href="contact.html" aria-label="Email">{{i:bio2}}</a></div>
-        </div>
-      </article>
-    </div>
   </section>
 
   <section class="team">
