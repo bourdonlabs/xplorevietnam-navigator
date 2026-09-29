@@ -4,6 +4,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { Menu } from "lucide-react";
 import { toast } from "sonner";
 import { backend, type Profile } from "@/lib/backend";
+import { admin } from "@/lib/admin";
 import { useAuth } from "@/components/auth-provider";
 import { Logo } from "@/components/brand";
 import { OnboardingModal } from "@/components/onboarding-modal";
@@ -23,6 +24,7 @@ export default function PortalLayout({
   const [ready, setReady] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [onboarding, setOnboarding] = useState(false);
+  const [isStaff, setIsStaff] = useState(false);
 
   useEffect(() => {
     if (loading) return;
@@ -30,6 +32,7 @@ export default function PortalLayout({
       router.replace("/auth");
       return;
     }
+    admin.isStaff(user.id).then(setIsStaff); // shows the Admin link in the avatar menu for team members
     backend.getProfile(user.id).then((p) => {
       setProfile(p);
       setReady(true);
@@ -103,6 +106,7 @@ export default function PortalLayout({
                 profile={profile}
                 email={user.email}
                 onLogout={logout}
+                isStaff={isStaff}
               />
             </header>
             <main className="flex-1 overflow-y-auto p-6">

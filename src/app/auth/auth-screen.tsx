@@ -21,10 +21,13 @@ export default function AuthScreen() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [busy, setBusy] = useState(false);
+  // Where to go after login: ?next=/admin etc. Only same-site paths are accepted.
+  const nextParam = params.get("next");
+  const dest = nextParam && nextParam.startsWith("/") && !nextParam.startsWith("//") ? nextParam : "/vietnam";
 
   useEffect(() => {
-    if (!loading && user) router.replace("/vietnam");
-  }, [user, loading, router]);
+    if (!loading && user) router.replace(dest);
+  }, [user, loading, router, dest]);
 
   useEffect(() => {
     if (params.get("error") === "link") toast.error("That link has expired or was already used. Log in or request a new one.");
@@ -37,7 +40,7 @@ export default function AuthScreen() {
     setBusy(false);
     if (res.error) return toast.error(res.error);
     if (tab === "signup") setView("check-email");
-    else router.replace("/vietnam");
+    else router.replace(dest);
   };
 
   const sendReset = async (e: React.FormEvent) => {

@@ -54,3 +54,18 @@ To make a team member staff (sees and updates every client's cases), insert a ro
 - `src/lib/journey.ts` — journey steps, date rules, visa options (copy from the website)
 - `src/lib/backend.ts` — Supabase calls, with the demo-mode fallback
 - `supabase/migrations` — tables and row-level security (profiles, journey, cases, documents, updates, storage)
+
+## Admin area (/admin)
+
+Staff-only dashboard: overview (sign-ups, onboarding, requests, revenue, breakdowns), clients list (search, filters, CSV
+export), client page (move profile, visa documents, service requests, progress, cost-of-living budget, pipeline stage,
+owner, internal notes), requests queue, and team.
+
+1. Run `supabase/migrations/0005_admin.sql` once (SQL Editor). `setup.sql` already includes it for fresh projects.
+2. Make someone staff (they must have signed up first):
+   ```sql
+   insert into public.staff (user_id, full_name, title, email)
+   select id, 'Full Name', 'Job title', email from auth.users where email = 'their-email@example.com';
+   ```
+3. They open `/admin`, or Admin in the avatar menu. Non-staff accounts see a "Staff only" page, and the database
+   refuses their queries anyway (row level security), so hiding the page is not what protects the data.
