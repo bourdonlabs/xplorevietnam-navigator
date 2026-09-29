@@ -16,18 +16,18 @@ npm run dev                  # http://localhost:3000
 ## Connect Supabase (once)
 
 1. Create a project at supabase.com (region: Singapore).
-2. SQL Editor → paste `supabase/migrations/0001_init.sql` → Run.
+2. SQL Editor → New query → paste all of `supabase/setup.sql` → Run (one paste creates every table, rule and the file bucket).
 3. Authentication → URL Configuration
-   - Site URL: `https://navigator.xplorevietnam.com`
-   - Redirect URLs: `https://navigator.xplorevietnam.com/auth/callback`, `http://localhost:3000/auth/callback`
+   - Site URL: `https://navigator.xplorevietnam.org`
+   - Redirect URLs: `https://navigator.xplorevietnam.org/auth/callback`, `http://localhost:3000/auth/callback`
 4. Authentication → Emails → "Confirm signup": subject `Confirm your email - your Vietnam planning portal is ready`,
    body = `supabase/email/confirm-signup.html`.
-5. Authentication → Emails → SMTP: use your own sender (e.g. hello@xplorevietnam.com). Supabase's built-in sender
+5. Authentication → Emails → SMTP: use your own sender (e.g. hello@xplorevietnam.org). Supabase's built-in sender
    is rate-limited and only for testing.
 6. Project Settings → API: copy the Project URL and publishable (or anon) key into Vercel env vars
    `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`.
 
-7. SQL Editor → then run `0002_visa_documents.sql` (visa uploads, dependents, service requests) and `0003_tools.sql` (cost calculator, pre-arrival checklist), in that order.
+Later schema changes arrive as new files in `supabase/migrations/`; run only the new file.
 
 ## Turn on payments (Stripe)
 
@@ -36,7 +36,7 @@ Without these keys, "Get Started" records a request and the team follows up by e
 1. Stripe Dashboard → (optional, recommended) create a separate account named XploreVietnam under your login, so
    checkout says "Pay XploreVietnam" and payouts stay separate from BourdonLabs.
 2. Developers → API keys → copy the **Secret key** (`sk_live_…`) into Vercel as `STRIPE_SECRET_KEY`.
-3. Developers → Webhooks → Add endpoint `https://navigator.xplorevietnam.com/api/stripe/webhook`,
+3. Developers → Webhooks → Add endpoint `https://navigator.xplorevietnam.org/api/stripe/webhook`,
    events `checkout.session.completed` and `checkout.session.async_payment_succeeded`.
    Copy its **Signing secret** (`whsec_…`) into `STRIPE_WEBHOOK_SECRET`.
 4. Supabase → Project Settings → API → copy the **service_role** key into `SUPABASE_SERVICE_ROLE_KEY` (server only).

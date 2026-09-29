@@ -6,7 +6,7 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 /** Public marketing site. Sidebar links that live there (packages, consultation…). */
-export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://xplorevietnam.com";
+export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://xplorevietnam.org";
 export const siteLink = (path: string) => `${SITE_URL.replace(/\/$/, "")}/${path.replace(/^\//, "")}`;
 
-export const SUPPORT_EMAIL = "hello@xplorevietnam.com";
+export const SUPPORT_EMAIL = "hello@xplorevietnam.org";

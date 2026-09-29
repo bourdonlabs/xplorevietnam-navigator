@@ -1,4 +1,4 @@
-// Expert Guides. Each card is one of the guides published on xplorevietnam.com; the intro and the
+// Expert Guides. Each card is one of the guides published on xplorevietnam.org; the intro and the
 // section list are copied from the website page so the preview always matches the real guide.
 // Read times are word counts / 230, rounded. Re-run if a guide is rewritten.
 
