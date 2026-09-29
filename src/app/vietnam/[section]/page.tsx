@@ -5,15 +5,9 @@ import { buttonClass } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { siteLink } from "@/lib/utils";
 
-// Sections not built yet. Visa, Tax Code, Bank Account, Relocation Packages, Rental Search, Free Consultation, Cost of Living, Pre-Arrival Checklist and Profile have their own pages.
+// Sections not built yet. Visa, Tax Code, Bank Account, Relocation Packages, Rental Search, Free Consultation, Cost of Living, Pre-Arrival Checklist, Schools and Profile have their own pages.
 type Page = { title: string; intro: string; soon: string; site?: { label: string; path: string } };
 const PAGES: Record<string, Page> = {
-  schools: {
-    title: "Schools",
-    intro: "International and bilingual schools for your family.",
-    soon: "The school finder is coming to Navigator.",
-    site: { label: "Read our schools and childcare guide", path: "schools.html" },
-  },
   partners: { title: "Partners", intro: "Our vetted network of local experts.", soon: "The partner list is coming to Navigator." },
   guides: {
     title: "Expert Guides",
