@@ -22,7 +22,7 @@ npm run dev                  # http://localhost:3000
    - Redirect URLs: `https://navigator.xplorevietnam.org/auth/callback`, `http://localhost:3000/auth/callback`
 4. Authentication → Emails → "Confirm signup": subject `Confirm your email - your Vietnam planning portal is ready`,
    body = `supabase/email/confirm-signup.html`.
-5. Authentication → Emails → SMTP: use your own sender (e.g. hello@xplorevietnam.org). Supabase's built-in sender
+5. Authentication → Emails → SMTP: use your own sender (e.g. info@xplorevietnam.org). Supabase's built-in sender
    is rate-limited and only for testing.
 6. Project Settings → API: copy the Project URL and publishable (or anon) key into Vercel env vars
    `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`.

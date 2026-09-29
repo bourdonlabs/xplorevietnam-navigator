@@ -9,4 +9,4 @@ export function cn(...inputs: ClassValue[]) {
 export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://xplorevietnam.org";
 export const siteLink = (path: string) => `${SITE_URL.replace(/\/$/, "")}/${path.replace(/^\//, "")}`;
 
-export const SUPPORT_EMAIL = "hello@xplorevietnam.org";
+export const SUPPORT_EMAIL = "info@xplorevietnam.org";
