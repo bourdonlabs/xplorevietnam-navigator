@@ -1,10 +1,13 @@
 "use client";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ArrowLeft, Check } from "lucide-react";
+import { ArrowLeft, Camera, Check } from "lucide-react";
 import { toast } from "sonner";
 import { usePortal } from "@/components/portal-context";
+import { Avatar } from "@/components/avatar";
+import { backend } from "@/lib/backend";
+import { squareJpeg } from "@/lib/avatar";
 import { Input, Select } from "@/components/ui/input";
 import { COUNTRIES, MOVE_STAGES, SPONSOR_TYPES, VISA_TYPES } from "@/lib/journey";
 import { CITIES } from "@/lib/visa-docs";
@@ -17,7 +20,7 @@ const box = "h-9 text-sm";
 
 export default function ProfilePage() {
   const router = useRouter();
-  const { profile, saveProfile } = usePortal();
+  const { user, profile, saveProfile } = usePortal();
   const [f, setF] = useState({
     first_name: profile?.first_name || "",
     last_name: profile?.last_name || "",
@@ -31,6 +34,41 @@ export default function ProfilePage() {
     sponsor_type: profile?.sponsor_type || "",
   });
   const [busy, setBusy] = useState(false);
+  const [photoBusy, setPhotoBusy] = useState(false);
+  const fileRef = useRef<HTMLInputElement>(null);
+
+  // The photo saves straight away (it doesn't wait for Save Changes), like most apps.
+  const pickPhoto = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    e.target.value = "";
+    if (!file) return;
+    if (!file.type.startsWith("image/")) return void toast.error("Please choose a JPG or PNG image.");
+    if (file.size > 15 * 1024 * 1024) return void toast.error("That image is over 15 MB. Please choose a smaller one.");
+    setPhotoBusy(true);
+    try {
+      const up = await backend.uploadAvatar(user.id, await squareJpeg(file));
+      if (up.error || !up.path) throw new Error(up.error || "Upload failed");
+      const old = profile?.avatar_path;
+      if (await saveProfile({ avatar_path: up.path })) {
+        if (old) backend.removeAvatar(user.id, old);
+        toast.success("Photo updated");
+      }
+    } catch (err) {
+      toast.error("Couldn't upload the photo: " + (err as Error).message);
+    }
+    setPhotoBusy(false);
+  };
+
+  const removePhoto = async () => {
+    const old = profile?.avatar_path;
+    if (!old) return;
+    setPhotoBusy(true);
+    if (await saveProfile({ avatar_path: null })) {
+      await backend.removeAvatar(user.id, old);
+      toast.success("Photo removed");
+    }
+    setPhotoBusy(false);
+  };
   const set = (k: keyof typeof f) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) =>
     setF((cur) => ({ ...cur, [k]: e.target.value }));
 
@@ -59,6 +97,43 @@ export default function ProfilePage() {
           <p className="mt-2 text-sm text-brand-navy">Update your onboarding information and personal details</p>
 
           <div className="mt-8 space-y-5">
+            <div>
+              <span className={label}>Profile Photo</span>
+              <div className="flex items-center gap-4">
+                <button
+                  type="button"
+                  onClick={() => fileRef.current?.click()}
+                  disabled={photoBusy}
+                  className="group relative rounded-full"
+                  aria-label="Change profile photo"
+                >
+                  <Avatar profile={profile} email={user.email} className={cn("h-20 w-20 text-2xl", photoBusy && "opacity-50")} />
+                  <span className="absolute inset-0 flex items-center justify-center rounded-full bg-black/40 opacity-0 transition-opacity group-hover:opacity-100">
+                    <Camera className="h-6 w-6 text-white" />
+                  </span>
+                </button>
+                <div>
+                  <div className="flex items-center gap-3">
+                    <button
+                      type="button"
+                      onClick={() => fileRef.current?.click()}
+                      disabled={photoBusy}
+                      className="h-9 rounded-md border border-gray-200 bg-white px-4 text-sm text-brand-navy transition-colors hover:bg-gray-50 disabled:opacity-60"
+                    >
+                      {photoBusy ? "Uploading..." : profile?.avatar_path ? "Change photo" : "Upload photo"}
+                    </button>
+                    {profile?.avatar_path && !photoBusy && (
+                      <button type="button" onClick={removePhoto} className="text-sm text-gray-500 hover:text-red-600">
+                        Remove
+                      </button>
+                    )}
+                  </div>
+                  <p className="mt-1.5 text-xs text-gray-500">JPG or PNG. We crop it to a square.</p>
+                </div>
+                <input ref={fileRef} type="file" accept="image/jpeg,image/png,image/webp,image/heic" onChange={pickPhoto} className="hidden" />
+              </div>
+            </div>
+
             <div>
               <span className={label}>Destination Country</span>
               <div className="flex h-11 items-center justify-between rounded-md border border-gray-200 bg-gray-50 px-3">

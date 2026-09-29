@@ -21,6 +21,7 @@ export type Profile = {
   sponsor_type: string | null;
   onboarded_at: string | null;
   destination_city?: string | null;
+  avatar_path?: string | null; // storage path in client-docs ({uid}/avatar/...), or a data: URL in demo mode
 };
 
 export type Dependent = { id: string; full_name: string; created_at: string };
@@ -161,6 +162,18 @@ const demo = {
   async docUrl(doc: UploadedDoc): Promise<string | null> {
     return demoFiles.get(doc.id) || null;
   },
+  async uploadAvatar(uid: string, blob: Blob): Promise<{ path?: string; error?: string }> {
+    const path = await new Promise<string>((res) => {
+      const r = new FileReader();
+      r.onload = () => res(String(r.result));
+      r.readAsDataURL(blob);
+    });
+    return { path };
+  },
+  async removeAvatar() {},
+  async avatarUrl(path: string): Promise<string | null> {
+    return path.startsWith("data:") ? path : null;
+  },
   async listRequests(uid: string): Promise<ServiceRequest[]> {
     return store.get<ServiceRequest[]>("xv-demo-req-" + uid, []);
   },
@@ -292,6 +305,20 @@ const live = {
   },
   async docUrl(doc: UploadedDoc): Promise<string | null> {
     const { data } = await supabaseBrowser().storage.from("client-docs").createSignedUrl(doc.file_path, 120);
+    return data?.signedUrl || null;
+  },
+  // Profile photo: a 256px JPEG in the client's own private folder, so staff can see it and nobody else can.
+  async uploadAvatar(uid: string, blob: Blob): Promise<{ path?: string; error?: string }> {
+    const path = `${uid}/avatar/${Date.now()}.jpg`;
+    const { error } = await supabaseBrowser().storage.from("client-docs").upload(path, blob, { contentType: "image/jpeg", upsert: false });
+    return error ? { error: error.message } : { path };
+  },
+  async removeAvatar(_uid: string, path: string) {
+    if (path && !path.startsWith("data:")) await supabaseBrowser().storage.from("client-docs").remove([path]);
+  },
+  async avatarUrl(path: string): Promise<string | null> {
+    if (path.startsWith("data:")) return path;
+    const { data } = await supabaseBrowser().storage.from("client-docs").createSignedUrl(path, 60 * 60 * 12);
     return data?.signedUrl || null;
   },
   async listRequests(uid: string): Promise<ServiceRequest[]> {

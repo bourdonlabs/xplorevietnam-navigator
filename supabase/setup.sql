@@ -329,3 +329,9 @@ create policy cost_own        on public.cost_calculations for all to authenticat
 create policy cost_staff_read on public.cost_calculations for select to authenticated using (public.is_staff());
 create policy checklist_own        on public.checklist_items for all to authenticated using (user_id = auth.uid()) with check (user_id = auth.uid());
 create policy checklist_staff_read on public.checklist_items for select to authenticated using (public.is_staff());
+
+-- ===== migrations/0004_avatar.sql =====
+-- Profile photo. The image lives in the private client-docs bucket at {user_id}/avatar/{timestamp}.jpg,
+-- covered by the existing own-folder and staff policies; the profile row stores its path.
+alter table public.profiles add column if not exists avatar_path text;
+grant insert (avatar_path), update (avatar_path) on public.profiles to authenticated;

@@ -27,7 +27,7 @@ npm run dev                  # http://localhost:3000
 6. Project Settings → API: copy the Project URL and publishable (or anon) key into Vercel env vars
    `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`.
 
-Later schema changes arrive as new files in `supabase/migrations/`; run only the new file.
+Later schema changes arrive as new files in `supabase/migrations/`; run only the new file (setup.sql already includes them all, for a fresh project).
 
 ## Turn on payments (Stripe)
 

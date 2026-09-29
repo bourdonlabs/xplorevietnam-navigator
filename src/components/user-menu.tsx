@@ -3,15 +3,13 @@ import * as M from "@radix-ui/react-dropdown-menu";
 import { ChevronDown, LogOut, User as UserIcon } from "lucide-react";
 import Link from "next/link";
 import type { Profile } from "@/lib/backend";
+import { Avatar } from "@/components/avatar";
 
 export function UserMenu({ profile, email, onLogout }: { profile: Profile | null; email: string; onLogout: () => void }) {
-  const initials = `${profile?.first_name?.[0] || ""}${profile?.last_name?.[0] || ""}`.toUpperCase() || email[0]?.toUpperCase();
   return (
     <M.Root>
       <M.Trigger className="flex h-10 items-center gap-2 rounded-md px-4 py-2 hover:bg-gray-100 focus:outline-none">
-        <span className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-sky text-sm font-medium text-brand-navy">
-          {initials}
-        </span>
+        <Avatar profile={profile} email={email} className="h-8 w-8 text-sm" />
         <ChevronDown className="h-4 w-4 text-gray-600" />
       </M.Trigger>
       <M.Portal>
