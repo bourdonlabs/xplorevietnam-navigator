@@ -169,6 +169,13 @@ const demo = {
     store.set("xv-demo-req-" + uid, [...store.get<ServiceRequest[]>("xv-demo-req-" + uid, []), r]);
     return {};
   },
+
+  async getCost(uid: string): Promise<Record<string, string> | null> {
+    return store.get<Record<string, string> | null>("xv-demo-cost-" + uid, null);
+  },
+  async saveCost(uid: string, inputs: Record<string, string>) {
+    store.set("xv-demo-cost-" + uid, inputs);
+  },
 };
 
 const live = {
@@ -288,6 +295,14 @@ const live = {
   async createRequest(uid: string, service: string, dependents: number, amount_usd: number, quantity = 1): Promise<Result> {
     const { error } = await supabaseBrowser().from("service_requests").insert({ user_id: uid, service, quantity, dependents, amount_usd });
     return error ? { error: error.message } : {};
+  },
+
+  async getCost(uid: string): Promise<Record<string, string> | null> {
+    const { data } = await supabaseBrowser().from("cost_calculations").select("inputs").eq("user_id", uid).maybeSingle();
+    return (data?.inputs as Record<string, string>) || null;
+  },
+  async saveCost(uid: string, inputs: Record<string, string>) {
+    await supabaseBrowser().from("cost_calculations").upsert({ user_id: uid, inputs }, { onConflict: "user_id" });
   },
 };
 
