@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // The static website has its own build (website/build.py).
+    "website/**",
   ]),
 ]);
 
