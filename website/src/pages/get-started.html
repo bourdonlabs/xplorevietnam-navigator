@@ -1,0 +1,37 @@
+<!-- title: XploreVietnam Get Started -->
+<!-- style -->
+.gs .pill{padding:10px 22px 10px 22px;min-height:58px;display:flex;align-items:center;gap:10px;font-weight:600}
+.gs .pill svg{width:22px;height:22px}
+.gs-wrap{position:relative;padding:0 var(--pad-x) 64px;margin-top:-256px}
+.gs-call{text-align:center}
+.gs-call h2,.gs-msg h2{font:400 48px/57.6px var(--head);color:var(--navy);text-align:center}
+.gs-call>p{margin-top:20px;font:400 18px/25px var(--body);color:var(--ink);text-align:center}
+.cal{margin:32px auto 0;max-width:880px;height:1100px;border:1px dashed #B9C2CE;border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:repeating-linear-gradient(0deg,#FBFCFD 0 54px,#F3F5F8 54px 55px);color:var(--steel);font:500 16px/22px var(--body);text-align:center;padding:24px}
+.cal b{font:600 20px/26px var(--head);color:var(--navy)}
+.gs-msg{background:#fff;border-radius:20px}
+.gs-msg>p{margin-top:19px;font:400 18px/25px var(--body);color:var(--ink);text-align:center}
+.gs-msg .msg-form{margin-top:80px}
+@media (max-width:1024px){ .gs-wrap{margin-top:0;padding:64px var(--pad-x)} }
+@media (max-width:767px){ .gs .pill{min-height:0;padding:10px 16px} .gs .pill svg{width:16px;height:16px} .gs-wrap{margin-top:0;padding:60px var(--pad-x)} .gs-call h2,.gs-msg h2{font-size:28.8px;line-height:34.56px} .gs-call>p br{display:none} .gs-msg{margin-top:80px} }
+<!-- /style -->
+<main id="top" class="gs">
+  <section class="p-hero">
+    <div class="p-hero-in soft">
+      <div class="pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Free 15-minute call, no obligation</div>
+      <h1>Get Started</h1>
+      <p class="tag">Ready to move? Don’t do it alone.</p>
+    </div>
+  </section>
+  <section class="gs-wrap">
+    <div class="o-card gs-call">
+      <h2>Start with a free call.</h2>
+      <p>When you are ready to move to Vietnam, we are here to help. Book a free, no-pressure 15-minute call<br>and we will show you the simplest route for your visa and your move.</p>
+      <div class="cal"><b>Booking calendar</b>Your GoHighLevel calendar embed goes here.<br>This box is the same size as the booking widget on the reference page.</div>
+    </div>
+    <div class="gs-msg">
+      <h2>Not ready to book a call?</h2>
+      <p>That’s fine. Send us a message instead.</p>
+{{> msgform id="g"}}
+    </div>
+  </section>
+</main>

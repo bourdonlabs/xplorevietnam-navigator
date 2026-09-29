@@ -1,0 +1,241 @@
+<!-- title: XploreVietnam Vietnam Guide -->
+<!-- style -->
+.hero-sub{margin-top:32px;font:400 30px/36px var(--body);color:var(--navy);text-align:center;text-wrap:balance}
+.hero-sub + .hero-img{margin-top:76px;aspect-ratio:1463/486}
+.g-intro{padding:120px var(--pad-x);display:flex;flex-direction:column;gap:77px}
+.g-row{display:flex;gap:75px}
+.g-copy{flex:0 0 445px;min-width:0}
+.g-copy .body{margin-top:48px;display:flex;flex-direction:column;gap:25px}
+.g-copy .body p{font:400 18px/25px var(--body);color:var(--ink)}
+.g-copy .body b{font-weight:700}
+.g-img{flex:1 1 0;min-width:0;aspect-ratio:520/516;border-radius:15px;align-self:flex-start}
+/* Climate card */
+.wx{flex:0 0 483px;padding:30px 25px;border:1px solid var(--line);border-radius:10px;align-self:flex-start}
+.wx-top{display:flex;justify-content:space-between;align-items:center}
+.wx-now{display:flex;align-items:center;gap:16px}
+.wx-ico{width:53px;height:53px;padding:13px;border-radius:999px;background:#FEDFE1;color:var(--accent);flex-shrink:0}
+.wx-now b{font:400 40px/48px var(--head);color:var(--navy)}
+.wx-where{text-align:right;font:600 16px/20px var(--body);color:var(--navy)}
+.wx-where small{display:block;font:400 14px/20px var(--body);color:var(--steel)}
+.wx-chart{margin-top:40px;width:100%;height:106px}
+.wx-labels{display:flex;justify-content:space-between;margin-top:8px;font:400 12px/14px var(--body);color:var(--steel)}
+.wx-tiles{margin-top:40px;display:flex;gap:10px}
+.wx-tile{flex:1;padding:20px 10px;border:1px solid var(--line);border-radius:10px;display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center}
+.wx-tile .wx-ico{width:43px;height:43px;padding:11px}
+.wx-tile b{font:500 18px/22px var(--body);color:var(--navy)}
+.wx-tile span{font:600 13px/16px var(--body);color:var(--navy)}
+.nums{flex:1 1 0;min-width:0;padding-top:11px}
+.nums ul{list-style:none;margin:40px 0 0;padding:0;display:flex;flex-direction:column;gap:14px}
+.nums li{font:400 18px/25px var(--body);color:var(--ink)}
+.nums li b{font-weight:700;color:var(--navy)}
+/* Advantages */
+.adv{background:var(--light-grey);padding:120px var(--pad-x);display:flex;flex-direction:column;gap:80px}
+.adv>h2{font:400 48px/57.6px var(--head);color:var(--navy)}
+.adv-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:1fr;gap:32px}
+.adv-card{padding:24px;border:1px solid var(--navy);border-radius:16px;background:#fff;display:flex;flex-direction:column;gap:16px}
+.adv-card svg{width:65px;height:65px;color:var(--navy)}
+.adv-card h4{font:500 24px/28.8px -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";color:var(--navy)}
+.adv-card p{font:400 16px/24px -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";color:var(--quote)}
+/* Right for you */
+.fit{padding:120px var(--pad-x);display:flex;gap:77px}
+.fit-copy{flex:1 1 0;min-width:0}
+.fit-copy .body{margin-top:48px;display:flex;flex-direction:column;gap:25px}
+.fit-copy p{font:400 18px/25px var(--body);color:var(--ink)}
+.fit .g-img{flex:0 0 520px;margin-top:71px}
+/* Deeper dive */
+.dive{padding:120px var(--pad-x)}
+.dive-head{max-width:640px;margin-bottom:60px;display:flex;flex-direction:column;gap:16px}
+.dive-head .lead{text-align:start}
+.dive-list{display:flex;flex-direction:column;gap:16px}
+.dive-list a{padding:16px 32px;border:1px solid var(--navy);border-radius:10px;display:flex;align-items:center;gap:16px;background:#fff}
+.dive-list a:hover{background:var(--light-grey)}
+.dive-list .inner{flex:1;min-height:85px;padding:10px;display:flex;align-items:center;gap:16px}
+.dive-list .di{width:32px;height:32px;flex-shrink:0}
+.dive-list h3{flex:1;font:400 32px/38.4px var(--inter);color:var(--navy)}
+.dive-list .go{width:46px;height:46px;flex-shrink:0}
+/* Videos */
+.v-card{flex:0 0 calc((100% - 231px) / 3);display:flex;flex-direction:column}
+.v-thumb{aspect-ratio:16/9;border-radius:16px;display:grid;place-items:center}
+.v-thumb::before{display:none}
+.play{width:100px;height:54px;position:relative;z-index:1}
+.v-card h3{margin-top:32px;font:400 26px/31.2px var(--inter);color:var(--navy)}
+.v-card p{margin-top:16px;font:400 18px/25px var(--body);color:var(--ink)}
+/* FAQ */
+.g-faq{background:var(--light-grey);padding:120px var(--pad-x)}
+.g-faq .split{margin-bottom:60px;align-items:flex-start}
+.g-faq .sub.dk{font-size:48px}
+.g-faq .faq{gap:20.11px}
+.g-faq .faq details{border-color:transparent}
+.g-faq .faq details[open]{border-color:#000}
+.g-faq .faq details[open] summary{color:var(--royal)}
+@media (max-width:1300px){ .adv-grid{grid-template-columns:repeat(2,1fr)} }
+@media (max-width:1400px){ .fit .g-img{flex-basis:420px} }
+@media (max-width:1024px){
+  .hero-sub + .hero-img{aspect-ratio:1463/570}
+  .g-intro,.fit,.dive,.g-faq,.adv{padding:64px var(--pad-x)}
+  .dive-head{gap:32px}
+  .dive,.g-faq{padding-bottom:0}
+  .dive-list h3{font-size:25.6px;line-height:30.72px}
+  .g-faq .split>.l{max-width:100%;width:100%}
+  .g-faq .split>.r{align-items:flex-end}
+  .g-faq .split .lead{text-align:right}
+  .adv>h2{font-size:40px;line-height:48px}
+  .g-row,.fit{flex-direction:column}
+  .g-copy,.wx,.fit .g-img{flex:none;width:100%;margin-top:0}
+  .g-img{flex:none;width:100%}
+  .v-card{flex-basis:calc((100% - 231px) / 3)}
+}
+@media (max-width:767px){
+  .hero-sub{margin-top:32px;font-size:24px;line-height:30px}
+  .hero-sub + .hero-img{margin-top:36px}
+  .g-intro,.fit,.dive,.g-faq,.adv{padding:60px var(--pad-x)}
+  .dive,.g-faq{padding-bottom:0}
+  .g-faq .split>.r{align-items:flex-start}
+  .g-faq .split .lead{text-align:left}
+  .g-intro{gap:60px}
+  .g-row{gap:48px}
+  .adv>h2{font-size:28.8px;line-height:34.56px}
+  .adv{gap:32px}
+  .adv-grid{grid-template-columns:1fr}
+  .adv-card{padding:16px}
+  .wx{padding:24px 16px}
+  .wx-now b{font-size:32px}
+  .wx-tiles{gap:6px}
+  .wx-tile{padding:14px 4px}
+  .dive-list a{padding:16px}
+  .dive-list .go{display:none}
+  .dive-list h3{font-size:19.2px;line-height:23.04px}
+  .v-card{flex-basis:calc(100% - 13px)}
+  .g-faq .sub.dk{font-size:30px}
+  .g-faq .faq summary{font-size:20px;line-height:28px}
+}
+<!-- /style -->
+<main id="top">
+  <section class="hero">
+    <div class="hero-in">
+      <div class="pill">Vietnam Guide</div>
+      <h1>Vietnam</h1>
+      <h2 class="hero-sub">Everything you need to know about moving to Vietnam.</h2>
+      <div class="hero-img ph" data-ph="Photo · 1463×486 crop · Vietnam landscape"></div>
+    </div>
+  </section>
+
+  <section class="g-intro" id="cities">
+    <div class="g-row">
+      <div class="g-copy">
+        <h2 class="sub dk">Imagine waking up in Vietnam</h2>
+        <div class="body">
+          <p><b>Why Vietnam keeps attracting expats</b></p>
+          <p>Vietnam has become one of the most popular places in Southeast Asia for foreigners to live and work. People come for the growing economy, the low cost of living and a food culture that is hard to leave behind, and many stay far longer than they planned.</p>
+          <p>The appeal comes down to everyday things that make life easier and more enjoyable.</p>
+          <p id="health">Healthcare is affordable. International hospitals and clinics in Ho Chi Minh City, Hanoi and Da Nang have English-speaking doctors and cost a fraction of what private care costs in the US, UK or Australia. Most expats combine local private care with international health insurance.</p>
+          <p>The climate depends on where you live. The south is warm all year, with a rainy season roughly from May to November. The north has four seasons, including a cool winter. The central coast has its wettest months in autumn.</p>
+          <p id="cost">Day-to-day costs are low compared with Western countries. Rent, local food, transport and domestic help cost far less, although international school fees and imported goods can be expensive.</p>
+          <p>Vietnam is also well placed for travel, with short flights to Bangkok, Singapore, Kuala Lumpur, Hong Kong and Seoul.</p>
+        </div>
+      </div>
+      <div class="g-img ph" data-ph="Photo · 520×516 · rice terraces or coastline"></div>
+    </div>
+    <div class="g-row">
+      <div class="wx" aria-label="Climate at a glance">
+        <div class="wx-top">
+          <div class="wx-now">{{i:wx-now wx-ico}}<b>33°C</b></div>
+          <div class="wx-where">Average daily high<small>Ho Chi Minh City, approx.</small></div>
+        </div>
+        <svg class="wx-chart" viewBox="0 0 430 106" preserveAspectRatio="none" aria-hidden="true">
+          <defs><linearGradient id="wxg" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#F82935" stop-opacity=".22"/><stop offset="1" stop-color="#F82935" stop-opacity="0"/></linearGradient></defs>
+          <path d="M8 58 L44 46 L80 34 L116 22 L152 34 L188 46 L224 58 L260 58 L296 58 L332 70 L368 70 L404 70 L404 106 L8 106Z" fill="url(#wxg)"/>
+          <polyline points="8,58 44,46 80,34 116,22 152,34 188,46 224,58 260,58 296,58 332,70 368,70 404,70" fill="none" stroke="#F82935" stroke-width="2"/>
+          <g font-family="Figtree,sans-serif" font-size="11" font-weight="700" fill="#090825" text-anchor="middle"><text x="8" y="50">32</text><text x="44" y="38">33</text><text x="80" y="26">34</text><text x="116" y="14">35</text><text x="152" y="26">34</text><text x="188" y="38">33</text><text x="224" y="50">32</text><text x="260" y="50">32</text><text x="296" y="50">32</text><text x="332" y="62">31</text><text x="368" y="62">31</text><text x="404" y="62">31</text></g>
+        </svg>
+        <div class="wx-labels"><span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span><span>Jul</span><span>Aug</span><span>Sep</span><span>Oct</span><span>Nov</span><span>Dec</span></div>
+        <div class="wx-tiles">
+          <div class="wx-tile">{{i:wx-t1 wx-ico}}<b>33°C</b><span>HCMC</span></div>
+          <div class="wx-tile">{{i:wx-t2 wx-ico}}<b>28°C</b><span>Hanoi</span></div>
+          <div class="wx-tile">{{i:wx-t1 wx-ico}}<b>30°C</b><span>Da Nang</span></div>
+          <div class="wx-tile">{{i:wx-t1 wx-ico}}<b>31°C</b><span>Nha Trang</span></div>
+          <div class="wx-tile">{{i:wx-t2 wx-ico}}<b>30°C</b><span>Hoi An</span></div>
+        </div>
+      </div>
+      <div class="nums">
+        <h2 class="sub dk">By the Numbers</h2>
+        <ul>
+          <li><b>Over 100 million people</b>, the 15th largest population in the world</li>
+          <li><b>UTC+7</b> all year, with no daylight saving time</li>
+          <li><b>Currency:</b> Vietnamese đồng (VND)</li>
+          <li><b>E-visa:</b> up to 90 days, single or multiple entry</li>
+          <li><b>Temporary Residence Card:</b> valid for 1 to 10 years depending on category</li>
+          <li><b>About 3,260 km</b> of coastline</li>
+          <li><b>Under 2.5 hours</b> by air from Ho Chi Minh City to Bangkok or Singapore</li>
+          <li><b>Official language:</b> Vietnamese, with English common in business and tourist areas</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="adv">
+    <h2>Major Advantages</h2>
+    <div class="adv-grid">
+      <div class="adv-card">{{i:adv1}}<h4>Low cost of living</h4><p>Rent, local food, transport and household help cost far less than in North America, Europe or Australia. A comfortable life is possible on a budget that would be tight at home, although international schools and imported goods are exceptions.</p></div>
+      <div class="adv-card">{{i:adv2}}<h4>World-famous food</h4><p>Street food, markets and a fast-growing restaurant scene mean eating well is cheap and easy. Fresh produce is available everywhere, and every region has its own specialities to discover.</p></div>
+      <div class="adv-card">{{i:adv3}}<h4>Welcoming and generally safe</h4><p>Vietnam is generally considered safe for foreigners, and violent crime against visitors is rare. Petty theft such as bag snatching happens in big cities, so the usual care applies.</p></div>
+      <div class="adv-card">{{i:adv4}}<h4>A growing economy</h4><p>Vietnam has been one of the fastest-growing economies in Asia for years, which creates opportunities for professionals, founders and investors across manufacturing, tech and services.</p></div>
+      <div class="adv-card">{{i:adv5}}<h4>Affordable private healthcare</h4><p>International hospitals in the major cities offer English-speaking doctors and modern equipment at prices well below private care in the West. Many expats pair this with international insurance.</p></div>
+      <div class="adv-card">{{i:adv6}}<h4>Easy travel across Asia</h4><p>Short, inexpensive flights connect Vietnam with Thailand, Singapore, Malaysia, Japan and Korea, and domestic flights link the main cities in one to two hours.</p></div>
+      <div class="adv-card">{{i:adv7}}<h4>Warm weather and beaches</h4><p>The south is warm all year and the long coastline has beach towns from Da Nang to Phu Quoc. If you prefer seasons, Hanoi and the north have a cool winter.</p></div>
+    </div>
+  </section>
+
+  <section class="fit">
+    <div class="fit-copy">
+      <h2 class="sub dk">Is Vietnam<br>right for you?</h2>
+      <div class="body">
+        <p>Vietnam suits people who value a low cost of living, great food, warm weather and an energetic pace of life, and who are comfortable with paperwork that can feel slow and unpredictable.</p>
+        <p>It works especially well for remote workers, entrepreneurs, families looking for a lower-cost international lifestyle and retirees who want warm weather and affordable care.</p>
+        <p>The trade-offs are worth knowing. Visa rules change often, there is no dedicated retirement visa, traffic and air quality in the big cities can be hard to get used to, and English is less common outside business and tourist areas.</p>
+        <p>If you are considering the move, we can help you work out whether Vietnam is the right fit and, if it is, how to do it properly.</p>
+      </div>
+    </div>
+    <div class="g-img ph" data-ph="Photo · 520×516 · Hoi An old town"></div>
+  </section>
+
+  <section class="dive" id="visas">
+    <div class="dive-head">
+      <h2 class="sub dk">Take a Deeper Dive</h2>
+      <h3 class="lead">Learn more about Vietnam in our guides, from visas and housing to healthcare and schools.</h3>
+    </div>
+    <div class="dive-list">
+{{@dive_rows}}
+    </div>
+  </section>
+
+  <section class="rail">
+    <div class="split w40">
+      <div class="l"><h2 class="sub dk">Our Featured Vietnam Videos</h2></div>
+      <div class="r"><div class="arrows"><button type="button" data-car="vid" data-dir="-1" aria-label="Previous"><svg><use href="#i-prev"/></svg></button><button type="button" data-car="vid" data-dir="1" aria-label="Next"><svg><use href="#i-next"/></svg></button></div></div>
+    </div>
+    <div class="b-view"><div class="b-track" data-track="vid">
+{{@video_cards}}
+    </div></div>
+  </section>
+
+  <section class="g-faq" id="quiz">
+    <div class="split">
+      <div class="l"><h2 class="sub dk">Frequently Asked Questions: Moving to Vietnam</h2></div>
+      <div class="r"><h3 class="lead">Your questions about<br>Vietnam, answered.</h3></div>
+    </div>
+    <div class="faq">
+      <details open><summary>Is Vietnam a good place to live for expats?</summary><div class="faq-b">For many people, yes. Vietnam offers a low cost of living, great food, a warm climate and a growing economy. The trade-offs are paperwork that changes often, busy traffic and less English outside the main cities, so it helps to go in with a realistic picture.</div></details>
+      <details><summary>What visas are available for moving to Vietnam?</summary><div class="faq-b">Most people start with an e-visa, then move to a work, investor or family-based visa and a Temporary Residence Card if they plan to stay long term.</div></details>
+      <details><summary>How long can I stay on an e-visa?</summary><div class="faq-b">The e-visa allows stays of up to 90 days, with single or multiple entry. For longer stays you need a different visa or a residence card.</div></details>
+      <details><summary>Can foreigners buy property in Vietnam?</summary><div class="faq-b">Foreigners can buy apartments in approved projects, with limits and a time-limited ownership term. Most expats rent. Get legal advice before you buy.</div></details>
+      <details><summary>What is the cost of living in Vietnam?</summary><div class="faq-b">It depends on the city and your lifestyle. Rent and local food are low by Western standards; international schools, imported goods and western-style apartments cost more.</div></details>
+      <details><summary>Where are the best places to live for expats?</summary><div class="faq-b">Ho Chi Minh City for work and choice, Hanoi for culture and seasons, and Da Nang, Hoi An or Nha Trang for a beach lifestyle.</div></details>
+      <details><summary>How safe is Vietnam?</summary><div class="faq-b">Vietnam is generally safe for foreigners. Petty theft is the most common issue in big cities, and traffic is the biggest day-to-day risk.</div></details>
+      <details><summary>Do I need to speak Vietnamese to live in Vietnam?</summary><div class="faq-b">Not to get by in the big cities, but learning the basics makes daily life much easier and is appreciated.</div></details>
+      <details><summary>Is there a retirement visa in Vietnam?</summary><div class="faq-b">No. Retirees usually rely on e-visas or other routes, depending on their situation. We can explain the options that fit you.</div></details>
+    </div>
+  </section>
+
+  {{> cta heading="Ready to move to Vietnam?" text="Learn about our relocation services." button="Relocate to Vietnam" href="relocate.html"}}
+</main>

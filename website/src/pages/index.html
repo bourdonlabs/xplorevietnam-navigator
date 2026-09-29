@@ -1,0 +1,177 @@
+<!-- title: XploreVietnam | Live · Work · Do Business · Belong -->
+<!-- style -->
+/* ===== Home hero ===== */
+.h-hero{padding:96px 24px 24px}
+.h-hero-in{position:relative;border-radius:20px;padding:44.8px;display:flex;flex-direction:column;align-items:center;gap:32px;
+  background:linear-gradient(rgba(255,255,255,0) 80%,#1B1A2F 100%),linear-gradient(#fff 40%,rgba(255,255,255,0) 70%),url(img/hero-home.jpg) 10% 50%/cover no-repeat}
+.h-hero-in .ph-note{position:absolute;left:18px;bottom:14px;font:600 11px/1.3 var(--body);letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.7)}
+.proof{display:flex;align-items:center;gap:4.8px;padding:4.8px 15.04px 4.8px 4.8px;border:1px solid var(--navy);border-radius:50px}
+.faces{display:flex;height:39px}
+.faces span{width:39px;height:39px;border-radius:50%;border:2px solid #fff;margin-left:-11px;background:linear-gradient(140deg,#C9D2DC,#97A4B6)}
+.faces span:first-child{margin-left:0}
+.proof p{font:600 20px/30px var(--body);color:var(--quote);white-space:nowrap}
+.h-hero h1{font:600 73.6px/86.4px var(--head);color:var(--navy);text-align:center;text-wrap:balance}
+.h-hero .tag{font:400 29.92px/44.88px system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--quote);text-align:center}
+.h-hero .btn-orange{height:46px;padding:8px 14.4px;border:0;border-radius:32px;font:600 20px/30px var(--body)}
+.logos{max-width:80%;padding:112px 10px 10px;display:flex;justify-content:center;align-items:center;gap:100px}
+.logos img{display:block;width:auto;max-width:100%;flex:0 1 auto;min-width:0}
+.lg-bi{height:36px}.lg-il{height:40px}.lg-ex{height:46px}.lg-in{height:27px}.lg-vn{height:27px}
+.logos span{flex:0 1 112px;min-width:0;border:1px dashed rgba(255,255,255,.55);border-radius:6px;display:grid;place-items:center;font:600 10px/1.2 var(--body);letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.75);text-align:center}
+.h-social{position:absolute;right:24px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:15px}
+.h-social a{display:block;width:30px;height:30px;border-radius:50%;color:var(--navy);transition:color .25s ease,filter .25s ease,transform .25s ease}
+.h-social svg{display:block;width:100%;height:100%}
+.h-social a:hover{color:#E0A800;filter:drop-shadow(0 0 6px rgba(245,197,66,.6));transform:translateY(-2px)}
+
+/* ===== Rail cards: square photo, title row with arrow, short text ===== */
+.grey{background:var(--light-grey)}
+.r-card{flex:0 0 calc((100% - 231px) / 3);display:flex;flex-direction:column;color:var(--ink)}
+.r-card .r-img{aspect-ratio:1/1;border-radius:16px;width:100%;height:auto;display:block;object-fit:cover}
+.r-card .r-row{margin-top:32px;display:flex;justify-content:space-between;align-items:center}
+.r-card h3{font:400 26px/31.2px var(--inter);color:var(--navy)}
+.r-card .r-row svg{width:38px;height:38px;color:var(--navy);flex-shrink:0;transition:transform .2s}
+.r-card:hover .r-row svg{transform:translate(2px,-2px)}
+.r-card p{margin-top:25px;font:400 18px/25px var(--body)}
+
+/* ===== Why us ===== */
+.why{padding:120px var(--pad-x);display:flex;gap:80px}
+.why-l{flex:1 1 0;min-width:0;display:flex;flex-direction:column;align-items:flex-start}
+.why-img{flex:0 0 336px;border-radius:14.4px;background:#C9D2DC url(img/why-client.jpg) 55% 50%/cover no-repeat}
+
+/* ===== Guides panel ===== */
+.guides{padding:10px}
+.guides-in{background:var(--light-grey);padding:80px var(--pad-x)}
+.guides .c-grid{margin-top:60px}
+.guides .quiz{padding:58px 60px;gap:24px}
+.guides .quiz p{max-width:none}
+
+@media (max-width:1400px){
+  .why-img{display:none}
+}
+@media (max-width:1024px){
+  .h-hero-in{gap:32px}
+  .proof .faces{height:30px}.faces span{width:30px;height:30px;margin-left:-8px}
+  .proof p{font-size:16px;line-height:24px}
+  .h-hero h1{font-size:44.8px;line-height:53.76px;max-width:886px}
+  .h-hero .tag{font-size:22.4px;line-height:33.6px}
+  .logos{max-width:none;width:100%;display:grid;grid-template-columns:repeat(3,150px);justify-content:center;justify-items:center;align-items:center;column-gap:120px;row-gap:50px}
+  .h-social{display:none}
+  .r-card{flex-basis:calc((100% - 231px) / 3)}
+  .why{flex-direction:column;padding:64px var(--pad-x)}
+}
+@media (max-width:767px){
+  .h-hero-in{background-position:0 0,0 0,25% 50%}
+  .h-hero{padding:96px var(--pad-x) 24px}
+  .h-hero-in{padding:28.8px 25.6px 44.8px}
+  .proof{margin-top:16px}
+  .proof .faces{height:20px}.faces span{width:20px;height:20px;margin-left:-5px;border-width:1px}
+  .proof p{font-size:14.4px;line-height:21.6px}
+  .h-hero h1{font-size:28.8px;line-height:34.56px}
+  .h-hero .tag{font-size:20px;line-height:30px}
+  .logos{max-width:none;grid-template-columns:repeat(2,120px);column-gap:40px;row-gap:40px}
+  .lg-bi{height:29px}.lg-il{height:32px}.lg-ex{height:37px}.lg-in{height:22px}.lg-vn{height:22px}
+  .r-card{flex-basis:calc(100% - 13px)}
+  .why{padding:60px var(--pad-x);gap:80px}
+  .guides-in{padding:60px 12px}
+  .guides .c-grid{margin-top:92px}
+  .guides .quiz{gap:24px}
+  .guides .quiz{padding:40px 25.6px}
+  .guides .quiz p{font-size:22px;line-height:28px}
+}
+<!-- /style -->
+<main id="top">
+  <!-- Hero -->
+  <section class="h-hero">
+    <div class="h-hero-in">
+      <div class="proof"><div class="faces" aria-hidden="true"><span style="background:#C9D2DC url(img/proof/client-1.jpg) 50% 50%/cover no-repeat"></span><span style="background:#C9D2DC url(img/proof/client-2.jpg) 50% 50%/cover no-repeat"></span><span style="background:#C9D2DC url(img/proof/client-3.jpg) 50% 50%/cover no-repeat"></span><span style="background:#C9D2DC url(img/proof/client-4.jpg) 50% 50%/cover no-repeat"></span></div><p>150+ Clients Relocated</p></div>
+      <h1>Moving to Vietnam comes with a lot of paperwork.</h1>
+      <p class="tag">XploreVietnam handles it with you, step by step.</p>
+      <a class="btn-orange" href="get-started.html">Connect With An Expert <svg class="arr"><use href="#i-arr"/></svg></a>
+      <div class="logos" aria-label="As featured in">
+        <img class="lg-bi" src="img/press/business-insider.png" alt="Business Insider">
+        <img class="lg-il" src="img/press/international-living.png" alt="International Living">
+        <img class="lg-ex" src="img/press/expat-com.png" alt="expat.com">
+        <img class="lg-in" src="img/press/internations.png" alt="InterNations">
+        <img class="lg-vn" src="img/press/vnexpress.png" alt="VnExpress International">
+      </div>
+      <div class="h-social">
+        <a href="https://www.youtube.com/@John_Bourdon" target="_blank" rel="noopener" aria-label="YouTube">{{i:hs-yt}}</a>
+        <a href="https://www.instagram.com/xplore.vn/" target="_blank" rel="noopener" aria-label="Instagram">{{i:hs-ig}}</a>
+        <a href="https://www.facebook.com/XploreVietnamOfficial" target="_blank" rel="noopener" aria-label="Facebook">{{i:hs-fb}}</a>
+        <a href="https://www.linkedin.com/company/xplorevietnam/" target="_blank" rel="noopener" aria-label="LinkedIn">{{i:hs-li}}</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Destinations -->
+  <section class="rail">
+    <div class="split w40">
+      <div class="l"><h2 class="sub dk">Start your relocation today. Which city do you want to move to?</h2></div>
+      <div class="r">
+        <h3 class="lead">Focus on your new life in Vietnam and avoid endless hours of research, worry and hassle.</h3>
+        <div class="arrows"><button type="button" data-car="dest" data-dir="-1" aria-label="Previous"><svg><use href="#i-prev"/></svg></button><button type="button" data-car="dest" data-dir="1" aria-label="Next"><svg><use href="#i-next"/></svg></button></div>
+      </div>
+    </div>
+    <div class="b-view"><div class="b-track" data-track="dest">
+      <a class="r-card" href="relocate.html"><img class="r-img" src="img/dest/hcmc.jpg" alt="Ho Chi Minh City skyline and Saigon River" loading="lazy"><div class="r-row"><h3>Ho Chi Minh City</h3><svg><use href="#i-go"/></svg></div><p>Vietnam’s business capital, with the widest choice of housing, international schools and jobs.</p></a>
+      <a class="r-card" href="relocate.html"><img class="r-img" src="img/dest/hanoi.jpg" alt="Hanoi lakes and city skyline" loading="lazy"><div class="r-row"><h3>Hanoi</h3><svg><use href="#i-go"/></svg></div><p>The capital suits people who want history, four seasons and a slower pace than Saigon.</p></a>
+      <a class="r-card" href="relocate.html"><img class="r-img" src="img/dest/danang.jpg" alt="Da Nang beach and city from above" loading="lazy"><div class="r-row"><h3>Da Nang</h3><svg><use href="#i-go"/></svg></div><p>A beach city with modern apartments, easy traffic and a fast-growing expat community.</p></a>
+      <a class="r-card" href="relocate.html"><img class="r-img" src="img/dest/hoian.jpg" alt="Hoi An old town river at dusk" loading="lazy"><div class="r-row"><h3>Hoi An</h3><svg><use href="#i-go"/></svg></div><p>A small old town near the sea, popular with retirees, remote workers and families.</p></a>
+      <a class="r-card" href="relocate.html"><img class="r-img" src="img/dest/nhatrang.jpg" alt="Nha Trang beach and bay" loading="lazy"><div class="r-row"><h3>Nha Trang</h3><svg><use href="#i-go"/></svg></div><p>Long beaches, sunny weather most of the year and a lower cost of living.</p></a>
+    </div></div>
+  </section>
+
+  <!-- Audiences -->
+  <div class="grey"><section class="rail">
+    <div class="split w40">
+      <div class="l"><h2 class="sub dk">People we help. Relocation support built around you.</h2></div>
+      <div class="r">
+        <h3 class="lead">Every move is different. With us you get hands-on support that fits your life.</h3>
+        <div class="arrows"><button type="button" data-car="aud" data-dir="-1" aria-label="Previous"><svg><use href="#i-prev"/></svg></button><button type="button" data-car="aud" data-dir="1" aria-label="Next"><svg><use href="#i-next"/></svg></button></div>
+      </div>
+    </div>
+    <div class="b-view"><div class="b-track" data-track="aud">
+      <a class="r-card" href="teachers.html"><img class="r-img" src="img/aud/teachers.jpg" alt="Teacher with a group of Vietnamese students" loading="lazy"><div class="r-row"><h3>Teachers</h3><svg><use href="#i-go"/></svg></div><p>Thousands start with teaching — few do it right. We’ll get you in the door and set you up to thrive. We guarantee you a teaching offer once you complete your TESOL, get your degree legalised, and file your visa, work permit and TRC in the right order and on time.</p></a>
+      <a class="r-card" href="digital-nomads.html"><img class="r-img" src="img/aud/digital-nomads.jpg" alt="Digital nomad working on a laptop on the beach" loading="lazy"><div class="r-row"><h3>Digital Nomads</h3><svg><use href="#i-go"/></svg></div><p>You want to live here long term without putting your income at risk. We help you stay legal while you keep working remotely.</p></a>
+      <a class="r-card" href="families.html"><img class="r-img" src="img/aud/families.jpg" alt="Family walking through Ho Chi Minh City with their daughter on dad's shoulders" loading="lazy"><div class="r-row"><h3>Families</h3><svg><use href="#i-go"/></svg></div><p>You are thinking about schools, healthcare and safety. We help you make choices that protect your children’s routine.</p></a>
+      <a class="r-card" href="entrepreneurs.html"><img class="r-img" src="img/aud/entrepreneurs.jpg" alt="Founder with his team at a café" loading="lazy"><div class="r-row"><h3>Entrepreneurs</h3><svg><use href="#i-go"/></svg></div><p>You want to open a company or invest here. We set up the entity, the licences and your own residence as one clear plan.</p></a>
+      <a class="r-card" href="retirees.html"><img class="r-img" src="img/aud/retirees.jpg" alt="Retired couple on a scooter with their dogs" loading="lazy"><div class="r-row"><h3>Retirees</h3><svg><use href="#i-go"/></svg></div><p>You want things explained clearly and handled carefully, without extra stress. We help you move at a pace that makes sense.</p></a>
+    </div></div>
+  </section></div>
+
+  <!-- Why us -->
+  <section class="why">
+    <div class="why-l w40">
+      <h2 class="sub dk">Why XploreVietnam? See what makes us different.</h2>
+      <div class="acc" data-accordion>
+        <details open><summary>{{i:acc1 ic}}<span>One dedicated case manager</span><svg class="chev"><use href="#i-chev"/></svg></summary><div class="acc-b"><p>One person knows your file and stays with you from start to finish. No hand-offs, and no repeating your story to someone new each time.</p></div></details>
+        <details><summary>{{i:acc2 ic}}<span>A local team on the ground</span><svg class="chev"><use href="#i-chev"/></svg></summary><div class="acc-b"><p>We are based in Ho Chi Minh City and deal with the offices, landlords and schools in person, in Vietnamese.</p></div></details>
+        <details><summary>{{i:acc3 ic}}<span>Clear, upfront pricing</span><svg class="chev"><use href="#i-chev"/></svg></summary><div class="acc-b"><p>You see the full price before you start, including government fees, so there are no surprises halfway through.</p></div></details>
+        <details><summary>{{i:acc4 ic}}<span>Updates at every step</span><svg class="chev"><use href="#i-chev"/></svg></summary><div class="acc-b"><p>You always know what has been submitted, what is pending and what we need from you next.</p></div></details>
+        <details><summary>{{i:acc5 ic}}<span>Paperwork checked twice</span><svg class="chev"><use href="#i-chev"/></svg></summary><div class="acc-b"><p>Every application is reviewed before it is filed, because one missing stamp can cost weeks.</p></div></details>
+      </div>
+    </div>
+    <div class="why-img" role="img" aria-label="Client working on a laptop at a café in Vietnam"></div>
+  </section>
+
+  <!-- City guides -->
+  <div class="guides"><div class="guides-in">
+    <div class="c-grid">
+      <div class="c-pair">
+        <a class="c-card ph" href="relocate.html" style="background:#1B1A2F url(img/guide-hcmc.jpg) 50% 35%/cover no-repeat"><svg class="go"><use href="#i-go-w"/></svg><h3>Ho Chi Minh City Guide</h3></a>
+        <a class="c-card ph" href="relocate.html" style="background:#1B1A2F url(img/guide-hanoi.jpg) 50% 50%/cover no-repeat"><svg class="go"><use href="#i-go-w"/></svg><h3>Hanoi Guide</h3></a>
+      </div>
+      <div class="c-pair">
+        <a class="c-card ph" href="relocate.html" style="background:#1B1A2F url(img/guide-danang.jpg) 50% 50%/cover no-repeat"><svg class="go"><use href="#i-go-w"/></svg><h3>Da Nang Guide</h3></a>
+        <a class="c-card ph" href="relocate.html" style="background:#1B1A2F url(img/guide-hoian.jpg) 50% 65%/cover no-repeat"><svg class="go"><use href="#i-go-w"/></svg><h3>Hoi An Guide</h3></a>
+      </div>
+    </div>
+    <a class="quiz ph" href="quiz.html" data-ph="" style="background:#1B1A2F url(img/quiz.jpg) 50% 55%/cover no-repeat;text-decoration:none">
+      <p>Which city is right for me?</p>
+      <span class="btn-glass">Take the Quiz <svg class="arr"><use href="#i-arr"/></svg></span>
+    </a>
+  </div></div>
+
+  {{> reviews heading="Hear from the people who have made the move." lead="Read reviews from clients now living their new life in Vietnam."}}
+
+  {{> cta}}
+</main>

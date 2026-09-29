@@ -1,0 +1,99 @@
+<!-- title: XploreVietnam Blog -->
+<!-- style -->
+.b-head{padding:140px var(--pad-x) 0}
+.b-head .split{align-items:flex-start}
+.b-head .l{gap:32px}
+.b-head h1{font:600 75px/86px var(--head);color:var(--navy)}
+.b-head .r{align-items:flex-end;text-align:end}
+.b-learn{margin-bottom:32px;display:flex;flex-direction:column;gap:12px}
+.b-learn h2{font:700 30px/36px var(--body);color:var(--navy)}
+.b-learn p{font:400 18px/27px var(--body);color:var(--quote)}
+.b-support{display:flex;flex-direction:column;align-items:flex-end;gap:12px}
+.b-support h3{font:600 18px/22px var(--body);color:var(--navy)}
+.b-support .btn-line{margin:0;width:auto;padding:8px 24px}
+.b-feat{margin-top:82px;padding:0 25.6px;position:relative}
+.bf-view{overflow:hidden;border-radius:20px}
+.bf-track{display:flex;gap:10px;transition:transform .45s cubic-bezier(.2,.7,.2,1)}
+.bf-slide{flex:0 0 100%;height:460px;border-radius:20px;padding:50px 172px;display:flex;justify-content:space-between;align-items:flex-end;color:#fff;isolation:isolate}
+.bf-slide::after{content:"";position:absolute;inset:0;z-index:-1;border-radius:inherit;background:linear-gradient(rgba(9,8,37,.15),rgba(9,8,37,.6))}
+.bf-slide::before{z-index:1;color:rgba(255,255,255,.8)}
+.bf-l{max-width:523px;display:flex;flex-direction:column;gap:32px;align-items:flex-start}
+.bf-pill{padding:13.6px 22px;border:1px solid #fff;border-radius:999px;font:600 18px/18px var(--body)}
+.bf-l h3{font:400 48px/56px var(--head);text-wrap:balance}
+.bf-r{display:flex;flex-direction:column;align-items:flex-end;gap:10px}
+.bf-who{display:flex;align-items:center;gap:12px;font:700 18px/18px var(--body)}
+.bf-who span{width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.5)}
+.bf-meta{display:flex;gap:12px;font:400 18px/18px var(--body)}
+.bf-arrows{position:absolute;inset:0 50px;display:flex;justify-content:space-between;align-items:center;pointer-events:none}
+.bf-arrows button{pointer-events:auto;width:38px;height:38px;padding:0;border:0;background:none;color:#fff}
+.bf-arrows button:disabled{opacity:.35}
+.bf-arrows svg{width:38px;height:38px}
+.b-filter{padding:120px var(--pad-x) 0;display:flex;justify-content:space-between;align-items:center;gap:30px;border-bottom:0}
+.b-tabs{display:flex;gap:10px;border-bottom:1px solid var(--line)}
+.b-tabs button{background:none;border:0;border-bottom:2px solid transparent;margin-bottom:-1px;padding:22px 10px;font:400 18px/27px var(--body);color:var(--navy)}
+.b-tabs button.is-active{font-weight:700;border-bottom-color:var(--accent)}
+.b-tabs sup{display:inline-block;min-width:20px;padding:0 5px;border-radius:999px;background:#FEDFE1;color:var(--accent);font:700 12px/18px var(--body);vertical-align:top;margin-left:4px}
+.b-tools{display:flex;gap:30px;align-items:center}
+.b-tools select{border:0;background:none;font:600 16px/22px var(--body);color:var(--navy)}
+.b-tools .search{width:240px}
+.b-tools .search input{font-size:18px}
+.b-grid{padding:65px var(--pad-x) 120px;display:grid;grid-template-columns:repeat(3,1fr);gap:65px 26px}
+.post{display:flex;flex-direction:column}
+.post .p-img{aspect-ratio:329/230;border-radius:15px}
+.post .meta{padding:30px 0 25px;display:flex;justify-content:space-between;font:400 18px/18px var(--body);color:#AAA}
+.post h3{font:400 26px/34px var(--head);color:var(--ink)}
+.post p{margin-top:16px;font:400 18px/26px var(--body);color:#3C3C46}
+.post .by{margin-top:auto;padding-top:35px;display:flex;align-items:center;justify-content:space-between}
+.post .by span{display:flex;align-items:center;gap:12px;font:700 18px/18px var(--body);color:var(--navy)}
+.post .by i{width:38px;height:38px;border-radius:50%;background:linear-gradient(140deg,#C9D2DC,#97A4B6)}
+.post .by svg{width:20px;height:14px;color:var(--navy)}
+@media (max-width:1024px){
+  .b-head{padding-top:120px}
+  .b-head h1{font-size:60px;line-height:70px}
+  .bf-slide{padding:40px 60px;flex-direction:column;align-items:flex-start;justify-content:flex-end;gap:24px}
+  .bf-r{align-items:flex-start}
+  .b-filter{flex-direction:column;align-items:flex-start;padding-top:64px}
+  .b-grid{grid-template-columns:repeat(2,1fr);padding:48px var(--pad-x) 64px}
+}
+@media (max-width:767px){
+  .b-head{padding-top:110px}
+  .b-head h1{font-size:40px;line-height:46px}
+  .b-head .r{align-items:flex-start;text-align:start}
+  .b-support{align-items:flex-start}
+  .b-feat{margin-top:40px;padding:0 var(--pad-x)}
+  .bf-slide{height:579px;padding:32px 24px}
+  .bf-l h3{font-size:28.8px;line-height:34px}
+  .bf-arrows{inset:0 8px}
+  .b-tabs{overflow-x:auto;max-width:100%}
+  .b-tools{flex-direction:column;align-items:flex-start;gap:16px}
+  .b-grid{grid-template-columns:1fr;gap:48px}
+}
+<!-- /style -->
+<main id="top">
+  <section class="b-head">
+    <div class="split">
+      <div class="l"><div class="pill">Our Blog</div><h1>Vietnam is Within Reach</h1></div>
+      <div class="r">
+        <div class="b-learn"><h2>Learn about relocation.</h2><p>Moving to Vietnam comes with lots of moving parts. With the right information, it’s simpler than you might think. Get answers to your questions on our blog.</p></div>
+        <div class="b-support"><h3>Want personalized support?</h3><a class="btn-line" href="get-started.html">Book a Consultation <svg class="arr"><use href="#i-arr"/></svg></a></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="b-feat">
+    <div class="bf-view"><div class="bf-track" data-track="bfeat">
+{{@blog_feat}}
+    </div></div>
+    <div class="bf-arrows"><button type="button" data-car="bfeat" data-dir="-1" aria-label="Previous"><svg><use href="#i-prev"/></svg></button><button type="button" data-car="bfeat" data-dir="1" aria-label="Next"><svg><use href="#i-next"/></svg></button></div>
+  </section>
+
+  <section class="b-filter">
+    <div class="b-tabs" role="tablist"><button type="button">All Cities</button><button type="button">Ho Chi Minh City</button><button type="button">Hanoi</button><button type="button" class="is-active">Da Nang<sup>9</sup></button><button type="button">Hoi An</button></div>
+    <div class="b-tools"><label for="topic" hidden>Topic</label><select id="topic"><option>Topic</option><option>Visas</option><option>Housing</option><option>Healthcare</option><option>Schools</option><option>Business</option></select>
+      <label class="search"><svg viewBox="0 0 21 21" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="8.5" cy="8.5" r="6.5"/><path d="M13.5 13.5l6 6"/></svg><input id="bq" type="search" placeholder="Search Blog"></label></div>
+  </section>
+
+  <section class="b-grid">
+{{@blog_posts}}
+  </section>
+</main>

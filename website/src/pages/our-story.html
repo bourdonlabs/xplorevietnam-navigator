@@ -1,0 +1,134 @@
+<!-- title: XploreVietnam Our Story -->
+<!-- style -->
+.hero-sub{margin-top:32px;font:400 30px/36px var(--body);color:var(--navy);text-align:center;text-wrap:balance}
+.hero-sub + .hero-img{margin-top:76px;aspect-ratio:1463/486}
+/* Founders */
+.founders{padding:120px var(--pad-x);display:flex;flex-direction:column;gap:78.08px}
+.f-row{display:flex;gap:78.08px}
+.f-copy{flex:1 1 0;min-width:0}
+.f-copy h2{font:400 48px/57.6px var(--head);color:var(--navy)}
+.f-copy h2.st{color:var(--steel)}
+.f-copy .body{margin-top:61px;display:flex;flex-direction:column;gap:25px}
+.f-copy p{font:400 18px/25px var(--body);color:var(--ink)}
+.f-img{flex:1 1 0;min-width:0;aspect-ratio:1/1;border-radius:16px;align-self:flex-start}
+.bios{display:flex;flex-direction:column;gap:20px}
+.bio{padding:25.28px;border:1px solid var(--steel);border-radius:25.6px;display:flex;gap:30.08px}
+.bio .b-photo{flex:0 0 320px;max-width:320px;aspect-ratio:1/1;border-radius:16px}
+.bio-t{flex:1;min-width:0;display:flex;flex-direction:column;gap:16px}
+.bio-t h4{font:700 20px/24px var(--head);color:var(--navy)}
+.bio-t p{font:400 18px/25px var(--body);color:var(--ink)}
+.bio-links{display:flex;gap:16px;margin-top:auto}
+.bio-links a{width:38px;height:38px;display:block}
+.bio-links svg{width:38px;height:38px}
+/* Team */
+.team{background:var(--light-grey);padding:120px 0;display:flex;flex-direction:column;gap:64px}
+.team.cont{padding-top:0}
+.team>h2{padding:0 var(--pad-x)}
+.t-grid{padding:0 var(--pad-x);display:grid;grid-template-columns:repeat(4,1fr);gap:32px}
+.t-grid.five{grid-template-columns:repeat(5,1fr);gap:16px}
+.member .m-photo{aspect-ratio:1/1;border-radius:16px;margin-bottom:16px}
+.t-grid.five .member .m-photo{margin-bottom:32px}
+.member h3{font:400 26px/31.2px var(--inter);color:var(--navy)}
+.member p{margin-top:16px;font:400 18px/25px var(--body);color:var(--ink)}
+/* Difference */
+.diff{padding:120px var(--pad-x);display:flex;gap:80px}
+.diff-l{flex:1 1 0;min-width:0}
+.acc summary span{font:400 32px/48px var(--head);color:var(--navy)}
+.diff-imgs{flex:0 0 336px;display:flex;flex-direction:column;gap:30.08px}
+.diff-imgs .ph{height:531px;border-radius:10.08px}
+@media (max-width:1400px){ .diff-imgs{display:none} }
+@media (max-width:1024px){
+  .hero-sub + .hero-img{aspect-ratio:1463/570}
+  .founders{padding:64px var(--pad-x)}
+  .f-row{flex-direction:column}
+  .f-img{flex:none;width:100%}
+  .t-grid,.t-grid.five{grid-template-columns:repeat(3,1fr);gap:32px 15.4px}
+  .diff{padding:64px var(--pad-x)}
+}
+@media (max-width:767px){
+  .hero-sub{margin-top:32px;font-size:24px;line-height:30px}
+  .hero-sub + .hero-img{margin-top:36px}
+  .founders{padding:60px var(--pad-x)}
+  .f-copy h2{font-size:28.8px;line-height:34.56px}
+  .f-copy .body{margin-top:59px}
+  .bio{flex-direction:column;padding:15px;gap:30px}
+  .bio .b-photo{flex:none;width:100%;max-width:none;aspect-ratio:335/256}
+  .team{padding:60px 0}
+  .t-grid,.t-grid.five{grid-template-columns:repeat(2,1fr);gap:32px 16px;padding:0 26px}
+  .member h3{font-size:19.2px;line-height:23.04px}
+  .member p{font-size:16px;line-height:16px}
+  .diff{padding:60px var(--pad-x)}
+  .acc summary span{font-size:24px;line-height:28px}
+}
+<!-- /style -->
+<main id="top">
+  <section class="hero">
+    <div class="hero-in">
+      <div class="pill">About Us</div>
+      <h1>Our Story</h1>
+      <h2 class="hero-sub">Making a move to Vietnam exciting, not stressful.</h2>
+      <div class="hero-img ph" data-ph="Photo · 1463×486 crop · the team or a Vietnam landscape"></div>
+    </div>
+  </section>
+
+  <section class="founders">
+    <div class="f-row">
+      <div class="f-copy">
+        <h2>Meet the founders</h2>
+        <h2 class="st">The people behind XploreVietnam</h2>
+        <div class="body">
+          <p>More people than ever want to live in Vietnam: remote workers, families, retirees and founders who have seen what life here can be. The paperwork has never been simple, and the rules change often.</p>
+          <p>Doing it alone usually means weeks of reading forums and official notices, then finding out at the immigration office that one document was wrong. Some people spend months on a process that should take a few weeks.</p>
+          <p>We started XploreVietnam because we have been through it ourselves and have helped friends and clients through it many times. We know which steps trip people up and how to avoid them.</p>
+          <p>Our goal is to be the team you trust with your move, so living in Vietnam starts as smoothly as possible for you and your family.</p>
+        </div>
+      </div>
+      <div class="f-img ph" data-ph="Photo · 1:1 · founders together in Vietnam"></div>
+    </div>
+    <div class="bios">
+      <article class="bio">
+        <div class="b-photo ph" data-ph="Founder photo · 1:1"></div>
+        <div class="bio-t">
+          <h4>More about [Founder name]</h4>
+          <p>Placeholder bio. Two short paragraphs work best: your background and the experience that makes you good at this work, then what you have done since arriving in Vietnam.<br><br>Mention concrete numbers only if they are true and you are comfortable publishing them, such as years in Vietnam or cases handled.</p>
+          <div class="bio-links"><a href="#" aria-label="LinkedIn">{{i:bio1}}</a><a href="contact.html" aria-label="Email">{{i:bio2}}</a></div>
+        </div>
+      </article>
+      <article class="bio">
+        <div class="b-photo ph" data-ph="Founder photo · 1:1"></div>
+        <div class="bio-t">
+          <h4>More about [Co-founder name]</h4>
+          <p>Placeholder bio for the second founder. Keep it the same length as the first so the two cards line up.<br><br>Add a line about the part of the process this person leads, such as immigration cases, company setup or client care.</p>
+          <div class="bio-links"><a href="#" aria-label="LinkedIn">{{i:bio1}}</a><a href="contact.html" aria-label="Email">{{i:bio2}}</a></div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="team">
+    <h2 class="sub dk">The XploreVietnam Team</h2>
+    <div class="t-grid">
+{{@team_members}}
+    </div>
+  </section>
+  <section class="team cont">
+    <h2 class="sub dk">Local Partners</h2>
+    <div class="t-grid five">
+{{@partner_members}}
+    </div>
+  </section>
+
+  <section class="diff">
+    <div class="diff-l">
+      <h2 class="sub dk">What makes<br>XploreVietnam different?</h2>
+      <div class="acc" data-accordion>
+        <details open><summary>{{i:dif1 ic}}<span>One team, one plan,<br>one point of contact</span><svg class="chev"><use href="#i-chev"/></svg></summary><div class="acc-b"><p>You are not left juggling agents, landlords and government offices. We organise every part of your move (visa, residence card, housing, banking, schools) under one plan run by one team.</p></div></details>
+        <details><summary>{{i:dif2 ic}}<span>A case manager who<br>knows your file</span><svg class="chev"><use href="#i-chev"/></svg></summary><div class="acc-b"><p>The same person handles your case from the first call to your residence card, so you never have to explain your situation twice.</p></div></details>
+        <details><summary>{{i:dif3 ic}}<span>A clear process that<br>keeps things moving</span><svg class="chev"><use href="#i-chev"/></svg></summary><div class="acc-b"><p>Every case follows the same checklist, with deadlines and reminders, so nothing waits on a missing document.</p></div></details>
+        <details><summary>{{i:dif4 ic}}<span>Honest advice before<br>you pay anything</span><svg class="chev"><use href="#i-chev"/></svg></summary><div class="acc-b"><p>If a visa route will not work for you, we say so at the start and suggest the one that will.</p></div></details>
+        <details><summary>{{i:dif5 ic}}<span>Real experience living<br>and working in Vietnam</span><svg class="chev"><use href="#i-chev"/></svg></summary><div class="acc-b"><p>We live here, so our advice comes from what actually happens at the offices, not from what the website says.</p></div></details>
+      </div>
+    </div>
+    <div class="diff-imgs"><div class="ph" data-ph="Photo · 336×531"></div><div class="ph" data-ph="Photo · 336×531"></div></div>
+  </section>
+</main>

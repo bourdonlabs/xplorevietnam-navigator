@@ -1,0 +1,172 @@
+<!-- title: Which Vietnamese City Is Right for You? | XploreVietnam -->
+<!-- style -->
+/* City quiz: built in-house (replaces an involve.me-style hosted quiz). No subscription, no third-party script. */
+.qz{padding:96px 24px 24px}
+.qz-in{position:relative;min-height:calc(100vh - 120px);border-radius:20px;padding:64px 24px 80px;display:flex;flex-direction:column;align-items:center;
+  background:linear-gradient(rgba(9,8,37,.55),rgba(9,8,37,.78)),#1B1A2F url(img/quiz.jpg) 50% 50%/cover no-repeat}
+.qz-card{width:100%;max-width:760px;background:#fff;border-radius:20px;padding:48px;box-shadow:0 30px 80px rgba(9,8,37,.35)}
+.qz-top{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:28px}
+.qz-back{background:none;border:0;padding:0;display:flex;align-items:center;gap:8px;font:600 16px/20px var(--body);color:var(--navy);cursor:pointer}
+.qz-back[hidden]{display:none}
+.qz-back svg{width:16px;height:16px;transform:rotate(180deg)}
+.qz-count{font:600 14px/16px var(--body);color:var(--steel);letter-spacing:.04em;text-transform:uppercase}
+.qz-bar{height:6px;border-radius:6px;background:var(--light-grey);overflow:hidden;margin-bottom:36px}
+.qz-bar i{display:block;height:100%;width:0;background:var(--accent);border-radius:inherit;transition:width .4s cubic-bezier(.2,.7,.2,1)}
+.qz-kicker{font:600 14px/16px var(--body);letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
+.qz-card h1,.qz-card h2{font:500 40px/48px var(--head);color:var(--navy);text-wrap:balance}
+.qz-card h1{margin-top:14px}
+.qz-lead{margin-top:16px;font:400 18px/27px var(--body);color:var(--ink)}
+.qz-meta{margin-top:24px;display:flex;flex-wrap:wrap;gap:10px 22px;font:500 16px/20px var(--body);color:var(--navy)}
+.qz-meta span{display:flex;align-items:center;gap:8px}
+.qz-meta span::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--accent)}
+.qz-start{margin-top:36px;height:52px;padding:8px 22px;border:0;border-radius:32px;font:600 20px/30px var(--body);cursor:pointer}
+.qz-opts{margin-top:28px;display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.qz-opt{position:relative;text-align:left;padding:20px 20px 20px 58px;border:1.5px solid var(--line);border-radius:14px;background:#fff;cursor:pointer;
+  font:500 18px/24px var(--body);color:var(--navy);transition:border-color .2s,background-color .2s,transform .2s}
+.qz-opt small{display:block;margin-top:4px;font:400 15px/20px var(--body);color:var(--steel)}
+.qz-opt::before{content:attr(data-k);position:absolute;left:18px;top:19px;width:26px;height:26px;border-radius:8px;border:1.5px solid var(--line);display:grid;place-items:center;font:600 13px/1 var(--body);color:var(--steel);transition:all .2s}
+.qz-opt:hover{border-color:var(--navy);transform:translateY(-2px)}
+.qz-opt.on{border-color:var(--accent);background:#FEDFE1}
+.qz-opt.on::before{background:var(--accent);border-color:var(--accent);color:#fff}
+.qz-opt:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
+.qz-step{animation:qzIn .35s ease both}
+@keyframes qzIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+/* Result */
+.qz-res-img{margin:-48px -48px 32px;height:260px;border-radius:20px 20px 0 0;background:#1B1A2F center/cover no-repeat;position:relative}
+.qz-res-img::after{content:"";position:absolute;inset:0;border-radius:inherit;background:linear-gradient(rgba(9,8,37,0) 45%,rgba(9,8,37,.75))}
+.qz-res-img span{position:absolute;left:28px;bottom:22px;z-index:1;padding:8px 14px;border-radius:999px;background:var(--accent);color:#fff;font:600 14px/16px var(--body)}
+.qz-match{margin-top:18px;display:flex;flex-direction:column;gap:12px}
+.qz-match div{display:grid;grid-template-columns:150px 1fr 48px;align-items:center;gap:14px;font:500 16px/20px var(--body);color:var(--navy)}
+.qz-match b{height:8px;border-radius:8px;background:var(--light-grey);overflow:hidden}
+.qz-match b i{display:block;height:100%;border-radius:inherit;background:var(--navy)}
+.qz-match div:first-child b i{background:var(--accent)}
+.qz-match em{font-style:normal;text-align:right;color:var(--steel)}
+.qz-sub{margin-top:32px;font:600 18px/25px var(--body);color:var(--navy)}
+.qz-ctas{margin-top:32px;display:flex;flex-wrap:wrap;gap:14px}
+.qz-ctas .btn-orange{height:46px;padding:8px 16px;border:0;border-radius:32px;font:600 18px/30px var(--body)}
+.qz-ctas .btn-line{margin:0;width:auto;height:46px;padding:8px 18px;font-size:18px}
+.qz-retake{margin-top:22px;background:none;border:0;padding:0;font:500 16px/20px var(--body);color:var(--steel);text-decoration:underline;cursor:pointer}
+.qz-mail{margin-top:32px;padding-top:28px;border-top:1px solid var(--line)}
+.qz-mail p{font:400 16px/22px var(--body);color:var(--ink)}
+.qz-mail form{margin-top:14px;display:flex;gap:10px;flex-wrap:wrap}
+.qz-mail input{flex:1 1 220px;height:46px;padding:0 18px;border:1px solid var(--line);border-radius:32px;font:400 16px/1 var(--body);color:var(--navy)}
+.qz-mail button{height:46px;padding:0 20px;border:1px solid var(--navy);border-radius:32px;background:var(--navy);color:#fff;font:600 16px/1 var(--body);cursor:pointer}
+.qz-mail .note{flex-basis:100%;font:400 14px/18px var(--body);color:var(--steel)}
+.qz-mail .note:empty{display:none}
+
+@media (max-width:767px){
+  .qz{padding:96px 12px 24px}
+  .qz-in{padding:24px 12px 40px;min-height:0}
+  .qz-card{padding:28px 20px}
+  .qz-card h1,.qz-card h2{font-size:28.8px;line-height:34.56px}
+  .qz-opts{grid-template-columns:1fr}
+  .qz-opt{font-size:17px}
+  .qz-res-img{margin:-28px -20px 24px;height:190px}
+  .qz-match div{grid-template-columns:110px 1fr 40px;font-size:15px}
+  .qz-ctas a,.qz-ctas .btn-line{width:100%;height:auto;min-height:46px;padding:11px 18px;line-height:22px;justify-content:center;text-align:center}
+}
+<!-- /style -->
+<main id="top">
+  <section class="qz">
+    <div class="qz-in">
+      <div class="qz-card" id="qz" aria-live="polite"></div>
+    </div>
+  </section>
+</main>
+<script>
+(function(){
+  var C={
+    hcmc:{name:'Ho Chi Minh City',img:'img/dest/hcmc.jpg',guide:'destinations.html#hcmc',
+      text:'Vietnam’s biggest city and its economic engine: fast, loud and ambitious, with a huge food scene, lively nightlife and the country’s largest expat community. It’s warm all year, and it has the widest choice of jobs, housing and international schools.'},
+    hanoi:{name:'Hanoi',img:'img/dest/hanoi.jpg',guide:'destinations.html#hanoi',
+      text:'The capital and Vietnam’s cultural heart, with a thousand years of history, lakes, tree-lined boulevards and famous street food. It’s a little slower and more traditional than Ho Chi Minh City, generally a little cheaper, and has four seasons with a cool winter.'},
+    danang:{name:'Da Nang',img:'img/dest/danang.jpg',guide:'destinations.html#central',
+      text:'Vietnam’s fastest-growing expat destination: a long city beach, modern apartments, an international airport and a much calmer pace than the big cities, at a noticeably lower cost.'},
+    hoian:{name:'Hoi An',img:'img/dest/hoian.jpg',guide:'destinations.html#central',
+      text:'A small, historic riverside town near the sea, with lantern-lit streets, rice fields and beaches a short bike ride away. It suits people who want a slow, affordable life, with Da Nang’s airport and hospitals about 45 minutes away.'}
+  };
+  // Each answer adds points to one or more cities.
+  var Q=[
+    {q:'What pace of life suits you best?',o:[
+      ['Big-city energy','Always something happening',{hcmc:3,hanoi:1}],
+      ['Busy, but steeped in history','Culture and tradition all around',{hanoi:3,hcmc:1}],
+      ['Relaxed city by the sea','Modern, but calmer',{danang:3,hoian:1}],
+      ['Slow and small-town','Quiet streets, bikes over scooters',{hoian:3,danang:1}]]},
+    {q:'What’s your ideal climate?',o:[
+      ['Hot all year','A dry season and a rainy season',{hcmc:3}],
+      ['Four seasons','Including a cool winter',{hanoi:3}],
+      ['Sunny beach weather','With a rainy autumn',{danang:2,hoian:2}],
+      ['I’m flexible','Weather isn’t a deal-breaker',{hcmc:1,hanoi:1,danang:1,hoian:1}]]},
+    {q:'What’s bringing you to Vietnam?',o:[
+      ['A job or my career','Corporate, startup or business',{hcmc:3,hanoi:2}],
+      ['Teaching English','In a school or language centre',{hcmc:2,hanoi:2,danang:1}],
+      ['Remote work','I bring my job with me',{danang:3,hoian:2,hcmc:1}],
+      ['Retirement','Time to enjoy life',{hoian:3,danang:2}]]},
+    {q:'Who’s moving with you?',o:[
+      ['Just me','Solo move',{hcmc:1,hanoi:1,danang:1,hoian:1}],
+      ['My partner','Moving as a couple',{danang:1,hoian:1,hanoi:1}],
+      ['My family, with kids','Schools matter',{hcmc:3,hanoi:2,danang:1}],
+      ['Friends or a group','Sharing the adventure',{hcmc:1,danang:1}]]},
+    {q:'How important is living near the beach?',o:[
+      ['Essential','I want sand on weekdays',{danang:3,hoian:2}],
+      ['Nice to have','A weekend trip is fine',{danang:1,hcmc:1,hanoi:1}],
+      ['Not important','City life is my thing',{hcmc:2,hanoi:2}],
+      ['I prefer mountains and lakes','Green over blue',{hanoi:2,danang:1}]]},
+    {q:'What’s your monthly budget for everyday life?',o:[
+      ['Under $1,500','Simple and affordable',{hoian:3,danang:2}],
+      ['$1,500 to $2,500','Comfortable',{danang:2,hanoi:2,hoian:1}],
+      ['$2,500 to $4,000','Room for extras',{hcmc:2,hanoi:2,danang:1}],
+      ['Over $4,000','International schools, premium living',{hcmc:3,hanoi:1}]]},
+    {q:'Pick your ideal weekend.',o:[
+      ['Rooftop bars and new restaurants','Out on the town',{hcmc:3}],
+      ['Old Quarter walks and street food','History at every corner',{hanoi:3}],
+      ['Beach mornings, mountain rides','Outdoors all day',{danang:3,hoian:1}],
+      ['Cycling past rice fields','Lanterns by the river at night',{hoian:3}]]},
+    {q:'How do you feel about crowds and traffic?',o:[
+      ['I love the buzz','The more going on, the better',{hcmc:2,hanoi:2}],
+      ['I can handle it','Part of the adventure',{hcmc:1,hanoi:1,danang:1}],
+      ['I’d rather keep it calm','Some space to breathe',{danang:2,hoian:1}],
+      ['Peace and quiet, please','The quieter, the better',{hoian:3}]]}
+  ];
+  var el=document.getElementById('qz'), step=-1, ans=[];
+  var ARR='<svg class="arr" viewBox="0 0 20 14" fill="currentColor" aria-hidden="true"><path d="M20 7L13 14L11.575 12.6L16.175 8L9 8L9 6L16.175 6L11.6 1.4L13 0L20 7ZM7 8L4 8L4 6L7 6L7 8ZM2 8L0 8L0 6L2 6L2 8Z"/></svg>';
+  function intro(){
+    el.innerHTML='<div class="qz-step"><p class="qz-kicker">3-minute quiz</p><h1>Which Vietnamese city is right for you?</h1>'+
+      '<p class="qz-lead">Answer 8 quick questions about your lifestyle, budget and plans, and we’ll match you with the city that fits you best: Ho Chi Minh City, Hanoi, Da Nang or Hoi An.</p>'+
+      '<div class="qz-meta"><span>8 questions</span><span>Instant result</span><span>Free, no sign-up</span></div>'+
+      '<button class="btn-orange qz-start" type="button" id="qz-go">Start the Quiz '+ARR+'</button></div>';
+    document.getElementById('qz-go').onclick=function(){ step=0; render(); };
+  }
+  function render(){
+    var q=Q[step], k='ABCD';
+    el.innerHTML='<div class="qz-top"><button class="qz-back" type="button" id="qz-back">'+ARR+' Back</button><span class="qz-count">Question '+(step+1)+' of '+Q.length+'</span></div>'+
+      '<div class="qz-bar"><i style="width:'+(step/Q.length*100)+'%"></i></div>'+
+      '<div class="qz-step"><h2>'+q.q+'</h2><div class="qz-opts" role="radiogroup" aria-label="'+q.q+'">'+
+      q.o.map(function(o,i){ return '<button type="button" role="radio" aria-checked="'+(ans[step]===i)+'" class="qz-opt'+(ans[step]===i?' on':'')+'" data-i="'+i+'" data-k="'+k[i]+'">'+o[0]+'<small>'+o[1]+'</small></button>'; }).join('')+
+      '</div></div>';
+    requestAnimationFrame(function(){ var b=el.querySelector('.qz-bar i'); if(b) b.style.width=((step+1)/Q.length*100)+'%'; });
+    el.querySelectorAll('.qz-opt').forEach(function(b){ b.onclick=function(){
+      ans[step]=+b.dataset.i; el.querySelectorAll('.qz-opt').forEach(function(x){ x.classList.toggle('on',x===b); x.setAttribute('aria-checked',x===b); });
+      setTimeout(function(){ step++; step<Q.length?render():result(); },260);
+    }; });
+    document.getElementById('qz-back').onclick=function(){ step--; step<0?intro():render(); };
+  }
+  function result(){
+    var s={hcmc:0,hanoi:0,danang:0,hoian:0};
+    ans.forEach(function(a,i){ var w=Q[i].o[a][2]; for(var c in w) s[c]+=w[c]; });
+    var order=Object.keys(s).sort(function(a,b){ return s[b]-s[a]; }), top=order[0], max=s[top]||1, r=C[top];
+    el.innerHTML='<div class="qz-step"><div class="qz-res-img" style="background-image:url('+r.img+')"><span>Your best match</span></div>'+
+      '<p class="qz-kicker">You should live in</p><h1>'+r.name+'</h1><p class="qz-lead">'+r.text+'</p>'+
+      '<p class="qz-sub">How each city matched your answers</p><div class="qz-match">'+
+      order.map(function(c){ var p=Math.round(s[c]/max*100); return '<div><span>'+C[c].name+'</span><b><i style="width:'+p+'%"></i></b><em>'+p+'%</em></div>'; }).join('')+'</div>'+
+      '<div class="qz-ctas"><a class="btn-orange" href="relocate.html">Plan my move to '+r.name+' '+ARR+'</a><a class="btn-line" href="'+r.guide+'">Read the city guide '+ARR+'</a></div>'+
+      '<div class="qz-mail"><p>Want a copy of your result by email?</p><form id="qz-form" novalidate><input type="text" placeholder="Name" aria-label="Name"><input type="email" placeholder="Email address" aria-label="Email address"><button type="submit">Send it to me</button><p class="note" aria-live="polite"></p></form></div>'+
+      '<button class="qz-retake" type="button" id="qz-again">Retake the quiz</button></div>';
+    document.getElementById('qz-again').onclick=function(){ ans=[]; step=-1; intro(); };
+    document.getElementById('qz-form').onsubmit=function(e){ e.preventDefault(); var em=this.querySelector('input[type=email]').value.trim();
+      this.querySelector('.note').textContent=/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)?'Demo form: not connected yet.':'Enter a valid email address, like name@example.com.'; };
+  }
+  intro();
+})();
+</script>

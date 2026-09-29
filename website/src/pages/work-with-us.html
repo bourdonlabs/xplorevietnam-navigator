@@ -1,0 +1,130 @@
+<!-- title: XploreVietnam Work With Us -->
+<!-- style -->
+.tabs-row{padding:48px 0 64px;display:flex;justify-content:center;align-items:center;gap:64px}
+.tabs-row a{font:600 22.4px/33.6px var(--body);color:var(--steel)}
+.tabs-row a:hover{color:var(--navy)}
+.tabs-row i{font:600 22.4px/33.6px system-ui,sans-serif;font-style:normal;color:var(--accent)}
+.band{height:448px;border-radius:20px}
+.prog{padding:120px var(--pad-x);display:flex;flex-direction:column;gap:80px}
+.prog.grey{padding-bottom:0;background:var(--light-grey)}
+.prog .split.w40>.l{flex:0 1 51.5%;max-width:none}
+.prog .split.w40>.r{flex:1 1 0;max-width:none;padding-left:0;margin-top:0}
+.prog-row{display:flex;gap:48px}
+.prog-row>*{flex:1 1 0;min-width:0}
+.prog-row .acc{margin-top:0}
+.prog-img{border-radius:16px;height:330px}
+.prog-img.tall{height:530px}
+.join{padding:86.08px;border:1px solid var(--line);border-radius:20px;background:#fff;display:flex;flex-direction:column;align-items:center;gap:32px;text-align:center}
+.join h2{margin-bottom:14px;font:400 48px/57.6px var(--head);color:var(--navy)}
+.join .btn-orange{height:46px;padding:8px 14.4px;border:0;border-radius:32px;font:600 20px/30px var(--body)}
+.join p{font:400 16px/24px system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--quote)}
+.join p a{color:var(--royal)}
+.join-grey{background:var(--light-grey);padding:20px 0 112px}
+.join-grey .cta-pad{padding:0 var(--pad-x)}
+.partners{padding:120px var(--pad-x);display:flex;gap:80px}
+.p-copy{flex:1 1 0;min-width:0;display:flex;flex-direction:column;gap:32px}
+.p-copy p{font:400 18px/25px var(--body);color:var(--ink)}
+.p-copy .btn-line{margin-top:0;width:100%;align-self:stretch}
+.p-img{flex:1 1 0;min-width:0;height:320px;border-radius:16px}
+@media (max-width:1024px){
+  .band{height:auto;aspect-ratio:1463/570}
+  .tabs-row{gap:32px}
+  .prog{padding:64px var(--pad-x)}
+  .prog.grey{padding-bottom:0}
+  .prog-row,.partners{flex-direction:column}
+  .prog-row>*,.p-copy{flex:none}
+  .prog-img,.prog-img.tall{flex:none;height:auto;aspect-ratio:3/2}
+  .prog-row.rev{flex-direction:column-reverse}
+  .partners{padding:64px var(--pad-x)}
+  .p-img{flex:none;height:auto;aspect-ratio:3/2}
+  .join{padding:48px 25.6px}
+}
+@media (max-width:767px){
+  .hero{padding-top:48px}
+  .tabs-row{gap:6px}
+  .tabs-row a,.tabs-row i{font-size:11.2px;line-height:16.8px}
+  .band{aspect-ratio:auto;height:320px}
+  .prog{padding:60px var(--pad-x)}
+  .prog-img{display:none}
+  .prog-img.tall{display:block;aspect-ratio:16/9}
+  .join h2{font-size:28.8px;line-height:34.56px}
+  .join{padding:48px}
+  .join h2{margin-bottom:14px}
+  .join-grey{padding:0}
+  .partners{padding:76px var(--pad-x) 60px}
+  .p-img{display:none}
+  .p-copy .btn-line{height:42px}
+}
+<!-- /style -->
+<main id="top">
+  <section class="hero">
+    <div class="hero-in">
+      <div class="pill">Collaborate</div>
+      <h1>Work With Us</h1>
+      <nav class="tabs-row" aria-label="Programs"><a href="#referral">Referral Program</a><i>|</i><a href="#affiliate">Affiliate Program</a><i>|</i><a href="#partners">Partnerships</a></nav>
+      <div class="band ph" data-ph="Photo · 1392×448 · people working together" style="width:100%"></div>
+    </div>
+  </section>
+
+  <section class="prog" id="referral">
+    <div class="split w40">
+      <div class="l"><h2 class="sub dk">Referral program.<br>Help a friend, earn rewards.</h2></div>
+      <div class="r"><h3 class="lead">Know someone thinking about moving to Vietnam? Tell them about XploreVietnam and earn a reward for every successful referral.</h3></div>
+    </div>
+    <div class="prog-row">
+      <div class="acc" data-accordion>
+        <details open><summary>{{i:who ic}}<span>Who is it for?</span><svg class="chev"><use href="#i-chev"/></svg></summary><div class="acc-b"><p>Past XploreVietnam clients, and anyone who has lived in Vietnam and knows people planning a move.</p></div></details>
+        <details><summary>{{i:how ic}}<span>How does it work?</span><svg class="chev"><use href="#i-chev"/></svg></summary><div class="acc-b"><p>Sign up, share your personal link and we track every enquiry that comes through it. When your referral becomes a client, you earn your reward.</p></div></details>
+        <details><summary>{{i:what ic}}<span>What do you get?</span><svg class="chev"><use href="#i-chev"/></svg></summary><div class="acc-b"><p>A cash reward or service credit for every referral who signs up. [Set your reward amount here.]</p></div></details>
+      </div>
+      <div class="prog-img ph" data-ph="Photo · 3:2 · friends looking at a map"></div>
+    </div>
+  </section>
+  <div class="cta-wrap" style="margin-top:28px">
+    <hr>
+    <div class="cta-pad"><div class="join">
+      <h2>Join the referral program.</h2>
+      <a class="btn-orange" href="contact.html">Get Started <svg class="arr"><use href="#i-arr"/></svg></a>
+      <p>Already a referral partner? <a href="#">Log in here</a></p>
+    </div></div>
+  </div>
+
+  <section class="prog grey" id="affiliate">
+      <div class="split w40">
+        <div class="l"><h2 class="sub dk">Affiliate program.<br>Help people relocate.</h2></div>
+        <div class="r"><h3 class="lead">Promote XploreVietnam to your audience with your own link or coupon code and earn a commission on every sale.</h3></div>
+      </div>
+      <div class="prog-row rev">
+        <div class="prog-img tall ph" data-ph="Photo · 496×530 · creators working on laptops"></div>
+        <div class="acc" data-accordion>
+          <details open><summary>{{i:who ic}}<span>Who is it for?</span><svg class="chev"><use href="#i-chev"/></svg></summary><div class="acc-b"><p>Content creators and trusted voices in travel and expat life in Vietnam: YouTubers, bloggers, newsletter writers, Facebook group admins and community leaders who help people plan a move here.</p></div></details>
+          <details><summary>{{i:how ic}}<span>How does it work?</span><svg class="chev"><use href="#i-chev"/></svg></summary><div class="acc-b"><p>You get a tracking link and a discount code for your audience. Every sale made through them is credited to you.</p></div></details>
+          <details><summary>{{i:what ic}}<span>What do you get?</span><svg class="chev"><use href="#i-chev"/></svg></summary><div class="acc-b"><p>A commission on every sale, paid monthly. [Set your commission rate here.]</p></div></details>
+        </div>
+      </div>
+  </section>
+  <div class="join-grey"><div class="cta-pad"><div class="join">
+      <h2>Join the affiliate program.</h2>
+      <a class="btn-orange" href="contact.html">Get Started <svg class="arr"><use href="#i-arr"/></svg></a>
+      <p>Already an affiliate partner? <a href="#">Log in here</a></p>
+    </div></div></div>
+
+  <section class="partners" id="partners">
+    <div class="p-copy">
+      <h2 class="sub dk">Partnerships.<br>Let’s build something together.</h2>
+      <p>XploreVietnam works with companies and platforms that care about their clients’ experience. If you run a business, community or service for expats, remote workers, retirees or families moving to Vietnam, let’s talk about a partnership that adds real value for the people you serve.<br><br><b>How it works:</b><br>Get in touch and tell us about your audience.</p>
+      <a class="btn-line" href="contact.html">Get in Touch</a>
+    </div>
+    <div class="p-img ph" data-ph="Photo · 3:2 · traveller at an airport"></div>
+  </section>
+
+  <section class="faq-card">
+    <h2>Partnership FAQs</h2>
+    <div class="faq">
+      <details><summary>How does the partner program work?</summary><div class="faq-b">You apply, we agree the terms that suit your audience, and you get your own link, code and dashboard.</div></details>
+      <details><summary>Where do I log in to my partner account?</summary><div class="faq-b">Use the “Log in here” link under the referral or affiliate program above. [Add your partner portal link.]</div></details>
+      <details><summary>When and how do I get paid?</summary><div class="faq-b">Payouts are made monthly by bank transfer once a referred client has paid. [Confirm your payout terms.]</div></details>
+      <details><summary>Still have questions?</summary><div class="faq-b">Send us a message on the <a href="contact.html" style="color:var(--royal)">contact page</a> and we will reply within one business day.</div></details>
+    </div>
+  </section>
+</main>

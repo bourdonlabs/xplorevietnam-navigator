@@ -1,0 +1,68 @@
+<!-- title: XploreVietnam Cart -->
+<!-- style -->
+.c-head{padding:140px var(--pad-x) 0;display:flex;justify-content:space-between;align-items:center;gap:80px}
+.c-head h1{font:600 75px/86px var(--head);color:var(--navy)}
+.steps{display:flex;gap:32px}
+.step{width:80px;display:flex;flex-direction:column;align-items:center;gap:12px}
+.step span{width:42px;height:42px;padding:10px;border:1px solid var(--line);border-radius:999px;background:#fff;color:#AAA}
+.step.on span{border-color:#FEDFE1;background:#FEDFE1;color:var(--accent)}
+.step p{font:700 18px/27px var(--body);color:#AAA}
+.step.on p{color:var(--navy)}
+.c-body{padding:80px var(--pad-x);display:flex;gap:80px;align-items:flex-start}
+.c-items{flex:1 1 0;min-width:0;padding:25px 0}
+.c-items>h2,.summary h2{font:400 26px/31.2px var(--head);color:var(--navy)}
+.c-item{padding:36px 0;display:flex;gap:30px}
+.c-item .ph{flex:0 0 128px;height:138px;border-radius:15px}
+.c-item .ph::before{display:none}
+.c-info{flex:1;min-width:0;display:flex;flex-direction:column;gap:18px}
+.c-info h3{font:400 26px/31.2px var(--head);color:var(--navy)}
+.c-dep{display:flex;gap:10px;align-items:center;font:400 18px/21.6px var(--body);color:var(--navy)}
+.c-dep svg{width:20px;height:20px;color:var(--accent)}
+.c-row{display:flex;justify-content:space-between;align-items:center}
+.c-row b{font:400 26px/31.2px var(--head);color:var(--navy)}
+.qty{display:flex;align-items:center;gap:20px;font:400 18px/21.6px var(--body);color:var(--navy)}
+.qty button{width:14px;height:14px;padding:0;border:0;background:none;color:#AAA}.qty svg{width:14px;height:14px}
+.summary{flex:0 0 348px;padding:25px;border:1px solid var(--line);border-radius:10px;display:flex;flex-direction:column;gap:36px}
+.summary h4{font:700 18px/21.6px var(--body);color:var(--navy)}
+.s-line{display:flex;justify-content:space-between;gap:16px;font:400 18px/21.6px var(--body);color:var(--navy)}
+.s-line b{font-weight:700}
+.s-rule{height:1px;background:var(--line)}
+.s-due{display:flex;justify-content:space-between;align-items:center;font:700 18px/21.6px var(--body);color:var(--navy)}
+.s-due span{padding:4px 8px;border-radius:999px;background:#FEDFE1;color:var(--accent)}
+.summary .btn-orange{height:46px;padding:8px 14.4px;border:0;border-radius:32px;font:600 20px/30px var(--body)}
+.demo-note{font:400 14px/20px var(--body);color:var(--steel);text-align:center;margin-top:-20px}
+@media (max-width:1024px){ .c-head{padding-top:120px;flex-direction:column;align-items:flex-start;gap:32px} .c-head h1{font-size:60px;line-height:70px} .c-body{flex-direction:column;padding:48px var(--pad-x) 64px} .summary{flex:none;width:100%} }
+@media (max-width:767px){ .c-head{padding-top:110px} .c-head h1{font-size:40px;line-height:46px} .steps{gap:12px} .c-item{flex-direction:column} .c-item .ph{flex:none;width:128px} }
+<!-- /style -->
+<main id="top">
+  <section class="c-head">
+    <h1>Shopping Cart</h1>
+    <div class="steps">
+      <div class="step on"><span>{{i:cartstep}}</span><p>Cart</p></div>
+      <div class="step"><span>{{i:addr}}</span><p>Address</p></div>
+      <div class="step"><span>{{i:checkout}}</span><p>Checkout</p></div>
+    </div>
+  </section>
+  <section class="c-body">
+    <div class="c-items">
+      <h2>Products</h2>
+      <div class="c-item">
+        <div class="ph"></div>
+        <div class="c-info">
+          <h3>Vietnam Visa + Stay Package – No additional dependents</h3>
+          <div class="c-dep">{{i:dep}}Additional dependents: none</div>
+          <div class="c-row"><b>$[price]</b><div class="qty"><button type="button" aria-label="Decrease">{{i:minus}}</button><span>1</span><button type="button" aria-label="Increase">{{i:plus}}</button></div></div>
+        </div>
+      </div>
+    </div>
+    <aside class="summary">
+      <h2>Order Summary</h2>
+      <h4>1 item</h4>
+      <div class="s-line"><span>1 × Vietnam Visa + Stay Package – No additional dependents</span><b>$[price]</b></div>
+      <div class="s-rule"></div>
+      <div class="s-due">Due Today <span>$[price]</span></div>
+      <a class="btn-orange" href="#">Proceed to Checkout <svg class="arr"><use href="#i-arr"/></svg></a>
+      <p class="demo-note">Example cart. Checkout is not connected yet.</p>
+    </aside>
+  </section>
+</main>

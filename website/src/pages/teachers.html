@@ -1,0 +1,179 @@
+<!-- title: XploreVietnam Teachers -->
+<!-- style -->
+/* Teach in Vietnam package (layout follows the "Stay" card on the StartAbroad services page) */
+.tp{padding:120px var(--pad-x);display:flex;flex-direction:column;gap:64px}
+.tp .split{align-items:flex-start}
+.tp-card{padding:30px 26px;border:1px solid var(--navy);border-radius:10px;background:#fff;display:flex;align-items:center;gap:68px}
+.tp-l{flex:1 1 0;min-width:0;display:flex;flex-direction:column;gap:34px}
+.tp-l h3{font:400 32px/38.4px var(--inter);color:var(--navy)}
+.tp-price{display:flex;align-items:flex-end;gap:4px}
+.tp-price b{font:700 48px/57.6px var(--head);color:var(--navy)}
+.tp-price small{padding-bottom:10px;font:400 12px/14.4px var(--body);color:var(--navy)}
+.tp-l>p{font:400 18px/25px var(--body);color:var(--ink)}
+.tp .s-pay{list-style:none;margin:-16px 0 0;padding:0}
+.tp .s-pay li{display:flex;gap:6px;font:400 17.8px/25px var(--body);color:var(--ink)}
+.tp .s-pay li svg{flex:0 0 18px;width:18px;height:18px;margin-top:4px}
+.tp-actions{display:flex;flex-direction:column;gap:18px}
+.tp-actions .btn-line{margin:0;width:100%;align-self:stretch}
+.tp-ask{font:400 18px/25px var(--body);color:var(--ink);text-align:center;text-decoration:underline}
+.tp-r{flex:1 1 0;min-width:0}
+.tp-r h4{margin-bottom:24px;font:700 18px/25px var(--body);color:var(--navy)}
+.tp-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:22px}
+.tp-list li{display:flex;align-items:flex-start;gap:16px;font:400 20px/28px var(--body);color:var(--navy)}
+.tp-list svg{flex:0 0 22px;width:22px;height:22px;margin-top:3px;color:var(--navy)}
+/* Program tabs (content from the partner TESOL + placement program) */
+.tv{padding:120px var(--pad-x);background:var(--light-grey);display:flex;flex-direction:column;gap:64px}
+.tv .split{align-items:flex-start}
+.tv-tabs{display:flex;gap:45px;border-bottom:1px solid var(--line);overflow-x:auto;scrollbar-width:none}
+.tv-tab{flex:0 0 auto;background:none;border:0;border-bottom:2px solid transparent;margin-bottom:-1px;padding:16px 0;font:700 18px/27px var(--body);color:var(--steel);cursor:pointer}
+.tv-tab.is-active{color:var(--navy);border-bottom-color:var(--accent)}
+.tv-panel{padding-top:48px;display:flex;gap:80px;align-items:flex-start}
+.tv-panel[hidden]{display:none}
+.tv-l{flex:0 0 36%;min-width:0}
+.tv-l h3{font:400 32px/38.4px var(--inter);color:var(--navy)}
+.tv-l p{margin-top:16px;font:400 18px/25px var(--body);color:var(--ink)}
+.tv-l .tv-note{margin-top:24px;font-size:14px;line-height:20px;color:var(--steel)}
+.tv-r{flex:1 1 0;min-width:0}
+.tv-item{padding:24px 0;border-top:1px solid var(--line)}
+.tv-item:first-child{padding-top:0;border-top:0}
+.tv-item b{display:block;font:600 20px/28px var(--body);color:var(--navy)}
+.tv-item p{margin-top:6px;font:400 18px/25px var(--body);color:var(--ink)}
+.tv-req{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:22px}
+.tv-req li{display:flex;align-items:flex-start;gap:12px;font:400 20px/28px var(--body);color:var(--navy)}
+.tv-req i{flex:0 0 17px;height:17px;margin-top:5px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Crect x='.5' y='.5' width='13' height='13' rx='2.5' fill='%23F82935' stroke='%23F82935'/%3E%3Cpath d='M10.98 4.71 5.8 9.98 3.02 7.16l.68-.7 2.09 2.13 4.51-4.57z' fill='white'/%3E%3C/svg%3E") 0 0/100% no-repeat}
+.tv-year{padding:24px 0;border-top:1px solid var(--line)}
+.tv-year:first-child{padding-top:0;border-top:0}
+.tv-year h4{font:700 18px/25px var(--body);color:var(--navy)}
+.tv-dates{margin-top:16px;display:flex;flex-wrap:wrap;gap:16px}
+.tv-date{width:calc((100% - 64px) / 5);padding:14px 12px;border:1px solid var(--line);border-radius:10px;background:#fff;display:flex;flex-direction:column;align-items:center;text-align:center}
+.tv-date strong{font:600 40px/44px var(--head);color:var(--navy)}
+.tv-date span{margin-top:4px;font:400 15px/19px var(--body);color:var(--ink)}
+.tv-date.alt{border-style:dashed;background:transparent}
+.tv-date.alt strong{color:var(--steel)}
+@media (max-width:1024px){
+  .tv{padding:64px var(--pad-x)}
+  .tv-panel{flex-direction:column;gap:32px}
+  .tv-l{flex:none;width:100%}
+}
+@media (max-width:767px){
+  .tv{padding:60px var(--pad-x);gap:40px}
+  .tv-tabs{gap:28px}
+  .tv-panel{padding-top:32px}
+  .tv-l h3{font-size:28.8px;line-height:34.56px}
+  .tv-req li{font-size:18px;line-height:25px}
+  .tv-req i{margin-top:4px}
+  .tv-dates{gap:10px}
+  .tv-date{width:calc((100% - 20px) / 3);padding:12px 6px}
+  .tv-date strong{font-size:32px;line-height:36px}
+  .tv-date span{font-size:14px;line-height:18px}
+}
+
+@media (max-width:1024px){
+  .tp{padding:64px var(--pad-x)}
+  .tp-price b{font-size:40px;line-height:48px}
+}
+@media (max-width:767px){
+  .tp{padding:60px var(--pad-x);gap:40px}
+  .tp-card{flex-direction:column;align-items:stretch;gap:48px}
+  .tp-price b{font-size:28.8px;line-height:34.56px}
+  .tp-price small{padding-bottom:4px}
+  .tp-list li{font-size:18px;line-height:25px}
+  .tp-list svg{margin-top:1px}
+}
+<!-- /style -->
+<main id="top" class="aud">
+  <!-- 1. Hero -->
+  <section class="hero">
+    <div class="hero-in">
+      <div class="pill">Our Clients</div>
+      <h1>Relocation Services for Teachers</h1>
+      <div class="hero-img ph" data-ph="Photo · 1463×285 crop · wide shot for this audience"></div>
+    </div>
+  </section>
+
+  <!-- 2. Intro -->
+  <section class="intro">
+    <div class="split">
+      <div class="l"><h2 class="sub">Take your teaching career to Vietnam</h2></div>
+      <div class="r"><h3 class="lead">Get certified, get placed and get set up, with your visa, work permit and residence card filed in the right order.</h3></div>
+    </div>
+    <a class="scroll-dot" href="#story" aria-label="Scroll to next section">{{i:scroll}}</a>
+  </section>
+
+  <!-- 3. Story -->
+  <section class="story" id="story">
+    <div class="story-copy">
+      <h2 class="sub">Make your move simple with XploreVietnam.</h2>
+      <p>Vietnam is one of Southeast Asia’s fastest-growing education markets, and one of the best places to teach English if you want to live well and still save. Salaries are competitive and the cost of living is low.<br><br>The paperwork is the hard part. Your degree and criminal record check need legalising, and your work permit, visa and residence card have to be filed in the right order. We handle it all, from your TESOL training and job placement to your first week in the classroom.</p>
+      <a class="btn-line" href="#program">Explore the Program <svg class="arr"><use href="#i-arr"/></svg></a>
+    </div>
+    <div class="story-img" role="img" aria-label="Teacher with a class of Vietnamese students" style="background:#C9D2DC url(img/aud/teachers.jpg) 50% 40%/cover no-repeat"></div>
+  </section>
+
+  <!-- Teach English in Vietnam: program details -->
+  <section class="tv" id="program">
+    <div class="split"><div class="l"><h2 class="sub">Teach English in Vietnam.</h2></div><div class="r"><h3 class="lead">Your training, job placement, visa and move, planned as one program.</h3></div></div>
+    <div class="tv-box">
+      <div class="tv-tabs" role="tablist">
+        <button type="button" class="tv-tab is-active" data-tab="tv:hl" aria-selected="true">Highlights</button>
+        <button type="button" class="tv-tab" data-tab="tv:tesol" aria-selected="false">TESOL Course</button>
+        <button type="button" class="tv-tab" data-tab="tv:req" aria-selected="false">Requirements</button>
+        <button type="button" class="tv-tab" data-tab="tv:dates" aria-selected="false">Intake Dates</button>
+      </div>
+      <div class="tv-panel" data-panel="tv:hl">
+        <div class="tv-l"><h3>Salary and savings potential</h3><p>Competitive wages and a low cost of living mean you can enjoy a high quality of life in Vietnam and still build real savings.</p></div>
+        <div class="tv-r"><div class="tv-item"><b>Monthly salary</b><p>Earn $1,400–$1,600 USD a month (approx. 32–42 million VND), depending on your location, school type and experience.</p></div><div class="tv-item"><b>Low cost of living</b><p>Good food, transport and entertainment cost a fraction of what they do at home.</p></div><div class="tv-item"><b>Housing flexibility</b><p>Most schools pay an all-in salary rather than providing an apartment. Modern, affordable housing lets you choose your own place for as little as $200–$500 a month.</p></div><div class="tv-item"><b>Savings potential</b><p>Because daily expenses are so low, teachers often save $300–$800 a month, enough to fund regional travel, pay down debt or build an investment fund.</p></div></div>
+      </div>
+      <div class="tv-panel" data-panel="tv:tesol" hidden>
+        <div class="tv-l"><h3>120-hour in-class TESOL</h3><p>You earn your certificate in person in Thailand, then move to Vietnam for your guaranteed placement. Your visa and document legalisation are handled while you study.</p></div>
+        <div class="tv-r"><div class="tv-item"><b>Accredited qualification</b><p>Earn the TQUK Level 5 Certificate in TESOL, an Ofqual-regulated qualification recognised by schools around the world.</p></div><div class="tv-item"><b>Hands-on teaching practicum</b><p>16 hours of real classroom teaching at a local school, so you are confident in front of a class from day one.</p></div><div class="tv-item"><b>Teaching resources</b><p>Graduate with a TESOL reference guide and a digital library of lesson plans and activities.</p></div><div class="tv-item"><b>Two-country experience</b><p>Train and live in Thailand, then start your career in Vietnam, with cultural orientation for both countries.</p></div><div class="tv-item"><b>Cultural excursions</b><p>Curated excursions during the course give you real context for life and teaching in Southeast Asia.</p></div></div>
+      </div>
+      <div class="tv-panel" data-panel="tv:req" hidden>
+        <div class="tv-l"><h3>Who can apply</h3><p>To join the program, you need:</p></div>
+        <div class="tv-r"><ul class="tv-req"><li><i></i>Bachelor’s degree or higher</li><li><i></i>Native English speaker</li><li><i></i>Passport from the USA, Canada, the UK, Ireland, Australia, New Zealand or South Africa</li><li><i></i>A local criminal background check</li><li><i></i>A 120-hour in-class TESOL certificate</li></ul></div>
+      </div>
+      <div class="tv-panel" data-panel="tv:dates" hidden>
+        <div class="tv-l"><h3>2026–2028 program dates</h3><p>We place certified teachers every month of the year. TESOL intakes run three times a year, timed for Vietnam’s busiest hiring seasons.</p><p class="tv-note">* Placement-only intake, for teachers who already hold a 120-hour TESOL or TEFL certificate.</p></div>
+        <div class="tv-r"><div class="tv-year"><h4>2026 intakes</h4><div class="tv-dates"><div class="tv-date"><strong>23</strong><span>November<br>2026</span></div></div></div><div class="tv-year"><h4>2027 intakes</h4><div class="tv-dates"><div class="tv-date alt"><strong>22</strong><span>February<br>2027*</span></div><div class="tv-date"><strong>26</strong><span>April<br>2027</span></div><div class="tv-date"><strong>19</strong><span>July<br>2027</span></div><div class="tv-date alt"><strong>16</strong><span>August<br>2027*</span></div><div class="tv-date"><strong>22</strong><span>November<br>2027</span></div></div></div><div class="tv-year"><h4>2028 intakes</h4><div class="tv-dates"><div class="tv-date alt"><strong>21</strong><span>February<br>2028*</span></div><div class="tv-date"><strong>24</strong><span>April<br>2028</span></div><div class="tv-date"><strong>17</strong><span>July<br>2028</span></div><div class="tv-date alt"><strong>14</strong><span>August<br>2028*</span></div><div class="tv-date"><strong>20</strong><span>November<br>2028</span></div></div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Teaching package -->
+  <section class="tp" id="package">
+    <div class="split"><div class="l"><h2 class="sub">The Teach in Vietnam Package.</h2></div><div class="r"><h3 class="lead">Everything you need to land a teaching job and start your new life in Vietnam.</h3></div></div>
+    <div class="tp-card">
+      <div class="tp-l">
+        <h3>Teach in Vietnam Package</h3>
+        <div class="tp-price"><b>$2,800</b><small>/total</small></div>
+        <p>Thousands start with teaching — few do it right. We’ll get you in the door and set you up to thrive. We guarantee you a teaching offer once you complete your TESOL, get your degree legalised, and file your visa, work permit and TRC in the right order and on time.</p>
+        <div class="tp-actions"><a class="btn-line" href="cart.html">Add to Cart <svg class="arr"><use href="#i-arr"/></svg></a><a class="tp-ask" href="get-started.html">Have questions? Talk to an expert.</a></div>
+      </div>
+      <div class="tp-r"><h4>What’s included</h4><ul class="tp-list"><li>{{i:tp0}}<span>120-hour in-class TESOL course (TQUK Level 5 Certificate) in Thailand</span></li><li>{{i:tp1}}<span>Guaranteed job placement assistance (Full refund if you receive no interviews)</span></li><li>{{i:tp2}}<span>Visa and document support</span></li><li>{{i:tp3}}<span>Housing search and setup assistance</span></li><li>{{i:tp4}}<span>Pre-departure guidance and checklist</span></li><li>{{i:tp5}}<span>Local orientation and settling-in advice</span></li><li>{{i:tp6}}<span>Community access for teachers in the region</span></li><li>{{i:tp7}}<span>Airport Limousine pick up</span></li></ul></div>
+    </div>
+  </section>
+
+  <!-- 4. Benefits (teacher version of the shared partial) -->
+  <section class="rail benefits" aria-label="Why teachers choose us">
+    <div class="split">
+      <div class="l"><h2 class="sub">Let us handle your move.</h2></div>
+      <div class="r">
+        <h3 class="lead">Teaching in Vietnam is easier<br>with a local team on your side.</h3>
+        <div class="arrows"><button type="button" data-car="benefits" data-dir="-1" aria-label="Previous"><svg><use href="#i-prev"/></svg></button><button type="button" data-car="benefits" data-dir="1" aria-label="Next"><svg><use href="#i-next"/></svg></button></div>
+      </div>
+    </div>
+    <div class="b-view"><div class="b-track" data-track="benefits" data-active>
+      <article class="b-card is-active"><div class="b-head">{{i:ben1}}<h3>Benefit #1</h3></div><h4>Guaranteed job placement</h4><p>Guaranteed interviews with leading schools such as Apollo English, VUS, ILA and public schools, through our established partnerships across Vietnam.</p></article>
+      <article class="b-card"><div class="b-head">{{i:ben2}}<h3>Benefit #2</h3></div><h4>Visa and legal coordination</h4><p>Your degree legalisation, work permit, visa and residence card, filed in the right order and on time by our specialist team.</p></article>
+      <article class="b-card"><div class="b-head">{{i:ben3}}<h3>Benefit #3</h3></div><h4>In-country orientation</h4><p>A dedicated orientation week covers local customs, basic Vietnamese and the logistics of setting up your new life.</p></article>
+      <article class="b-card"><div class="b-head">{{i:ben4}}<h3>Benefit #4</h3></div><h4>24/7 dedicated support</h4><p>From airport arrival and bank account setup to ongoing classroom advice, our local team is available around the clock.</p></article>
+      <article class="b-card"><div class="b-head">{{i:ben5}}<h3>Benefit #5</h3></div><h4>Lifetime community access</h4><p>Join a thriving network of teachers in the region, with a social safety net and professional connections throughout your journey.</p></article>
+    </div></div>
+  </section>
+
+  {{> cities}}
+
+  {{> reviews heading="Hear from the people who have made the move." lead="Read reviews from clients now living their new life in Vietnam."}}
+
+  {{> cta}}
+</main>
