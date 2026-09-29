@@ -27,7 +27,7 @@ npm run dev                  # http://localhost:3000
 6. Project Settings → API: copy the Project URL and publishable (or anon) key into Vercel env vars
    `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`.
 
-7. SQL Editor → also run `supabase/migrations/0002_visa_documents.sql` (visa uploads, dependents, service requests).
+7. SQL Editor → then run `0002_visa_documents.sql` (visa uploads, dependents, service requests) and `0003_tools.sql` (cost calculator, pre-arrival checklist), in that order.
 
 ## Turn on payments (Stripe)
 

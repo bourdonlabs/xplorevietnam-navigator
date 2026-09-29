@@ -176,6 +176,16 @@ const demo = {
   async saveCost(uid: string, inputs: Record<string, string>) {
     store.set("xv-demo-cost-" + uid, inputs);
   },
+
+  async getChecklist(uid: string): Promise<string[]> {
+    return store.get<string[]>("xv-demo-checklist-" + uid, []);
+  },
+  async setChecklistItem(uid: string, key: string, done: boolean) {
+    const cur = new Set(store.get<string[]>("xv-demo-checklist-" + uid, []));
+    if (done) cur.add(key);
+    else cur.delete(key);
+    store.set("xv-demo-checklist-" + uid, [...cur]);
+  },
 };
 
 const live = {
@@ -303,6 +313,16 @@ const live = {
   },
   async saveCost(uid: string, inputs: Record<string, string>) {
     await supabaseBrowser().from("cost_calculations").upsert({ user_id: uid, inputs }, { onConflict: "user_id" });
+  },
+
+  async getChecklist(uid: string): Promise<string[]> {
+    const { data } = await supabaseBrowser().from("checklist_items").select("item_key").eq("user_id", uid);
+    return (data || []).map((r: { item_key: string }) => r.item_key);
+  },
+  async setChecklistItem(uid: string, key: string, done: boolean) {
+    const db = supabaseBrowser().from("checklist_items");
+    if (done) await db.upsert({ user_id: uid, item_key: key }, { onConflict: "user_id,item_key" });
+    else await db.delete().eq("user_id", uid).eq("item_key", key);
   },
 };
 
