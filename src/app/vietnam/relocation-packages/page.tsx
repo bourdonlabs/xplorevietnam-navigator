@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import { ArrowRight, BarChart3, Check, ShieldCheck, Star } from "lucide-react";
+import { REVIEWS } from "@/lib/reviews";
 import { SERVICE_CATALOG } from "@/lib/services";
 import { cn, siteLink } from "@/lib/utils";
 
@@ -33,25 +34,6 @@ const PACKAGES = [
     terms: ["Pay 70% at booking", "Pay 30% after your visa application is submitted"],
     get: "Moving countries involves a thousand decisions, and the hardest ones are the ones you don’t know to ask about yet. As a Concierge client, you have a dedicated relocation specialist in your corner from day one: someone who knows what you’ll need before you need it, and is reachable on WhatsApp when anything comes up.",
     featured: "Full Service",
-  },
-];
-
-// Real client reviews, as published on the website.
-const REVIEWS = [
-  {
-    name: "Joyce Dunbar",
-    avatar: "/reviews/joyce-dunbar-avatar.jpg",
-    text: "I expected relocating to Vietnam for retirement to be complicated, but XploreVietnam made the whole process incredibly smooth. They guided me through the visa requirements, paperwork, and practical steps, and I always knew what needed to happen next. It took a huge amount of stress out of the move.",
-  },
-  {
-    name: "Thomas, Sarah and Linda",
-    avatar: "/reviews/thomas-sarah-linda-avatar.jpg",
-    text: "XploreVietnam made the whole family visa process much easier than we expected. They gave us clear guidance from the start, helped us understand what documents we needed, and saved us a huge amount of time and stress.",
-  },
-  {
-    name: "Gustav Helverskov",
-    avatar: "/reviews/gustav-helverskov-avatar.jpg",
-    text: "Vietnam has been an amazing place for me both personally and professionally. I’ve worked as an actor, model, and teacher here, and XploreVietnam helped make the transition much easier. Whenever I had questions about living and working in Vietnam, I had someone I could rely on for clear answers and practical support.",
   },
 ];
 
@@ -167,7 +149,7 @@ export default function RelocationPackagesPage() {
           <ShieldCheck className="h-5 w-5 text-primary" /> 150+ clients relocated
         </p>
         <div className="mt-8 grid grid-cols-1 gap-5 md:grid-cols-3">
-          {REVIEWS.map((r) => (
+          {REVIEWS.slice(0, 3).map((r) => (
             <div key={r.name} className="flex flex-col rounded-xl bg-white p-5 shadow-sm">
               <div className="flex gap-0.5">
                 {Array.from({ length: 5 }, (_, i) => (

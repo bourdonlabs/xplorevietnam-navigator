@@ -5,21 +5,9 @@ import { buttonClass } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { siteLink } from "@/lib/utils";
 
-// Sections not built yet. Visa, Tax Code, Bank Account, Relocation Packages and Profile have their own pages.
+// Sections not built yet. Visa, Tax Code, Bank Account, Relocation Packages, Rental Search, Free Consultation and Profile have their own pages.
 type Page = { title: string; intro: string; soon: string; site?: { label: string; path: string } };
 const PAGES: Record<string, Page> = {
-  "rental-search": {
-    title: "Rental Search",
-    intro: "Find a place to live before you land.",
-    soon: "Rental search is coming to Navigator.",
-    site: { label: "Read our real estate and rentals guide", path: "real-estate.html" },
-  },
-  consultation: {
-    title: "Book Your Free Consultation",
-    intro: "Schedule a free, no-obligation consultation with an XploreVietnam relocation specialist.",
-    soon: "The booking calendar is being connected.",
-    site: { label: "Book on our website", path: "get-started.html" },
-  },
   "cost-of-living": {
     title: "Cost of Living",
     intro: "Compare Vietnamese cities to your current home.",
