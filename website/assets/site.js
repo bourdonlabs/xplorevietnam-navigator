@@ -49,11 +49,18 @@
   });
   // Touch swipe support for all carousels
   Object.keys(tracks).forEach(function(k){
-    var tr = tracks[k], tx0=0, ty0=0, dragging=false;
-    tr.parentElement.addEventListener('touchstart', function(e){ tx0=e.touches[0].clientX; ty0=e.touches[0].clientY; dragging=false; },{passive:true});
-    tr.parentElement.addEventListener('touchmove', function(e){ if(Math.abs(e.touches[0].clientX-tx0)>Math.abs(e.touches[0].clientY-ty0)) dragging=true; },{passive:true});
-    tr.parentElement.addEventListener('touchend', function(e){
-      if(!dragging) return;
+    var tr = tracks[k], view = tr.parentElement, tx0=0, ty0=0, decided=false, isHoriz=false;
+    view.addEventListener('touchstart', function(e){ tx0=e.touches[0].clientX; ty0=e.touches[0].clientY; decided=false; isHoriz=false; },{passive:true});
+    view.addEventListener('touchmove', function(e){
+      if(!decided){
+        var dx=Math.abs(e.touches[0].clientX-tx0), dy=Math.abs(e.touches[0].clientY-ty0);
+        if(dx<5 && dy<5) return;
+        isHoriz=dx>dy; decided=true;
+      }
+      if(isHoriz) e.preventDefault();
+    },{passive:false});
+    view.addEventListener('touchend', function(e){
+      if(!isHoriz) return;
       var dx=e.changedTouches[0].clientX-tx0;
       if(Math.abs(dx)<30) return;
       state[k]+= dx<0?1:-1; render(k);
