@@ -479,15 +479,3 @@ button{font:inherit;cursor:pointer}
 /* item count on the header cart icon */
 .cart-link{position:relative}
 .cart-n{position:absolute;top:-6px;right:-8px;min-width:18px;height:18px;padding:0 5px;border-radius:999px;background:var(--accent);color:#fff;font:700 11px/18px var(--body);text-align:center}
-
-/* Guide pages: link to the matching free tool in Navigator */
-.nv-tool{margin:40px 0;padding:28px 32px;border-radius:20px;background:var(--navy);color:#fff;display:flex;flex-direction:column;align-items:flex-start;gap:20px}
-.nv-tool-t{display:flex;flex-direction:column;gap:8px}
-.nv-tool-k{font:600 13px/16px var(--body);letter-spacing:.08em;text-transform:uppercase;color:var(--sky)}
-.nv-tool strong{font:600 24px/30px var(--head);color:#fff}
-.nv-tool p{font:400 16px/24px var(--body);color:rgba(255,255,255,.8);margin:0}
-.nv-tool a.btn-orange,.nv-tool a.btn-orange:hover{flex-shrink:0;white-space:nowrap;text-decoration:none;color:#fff}
-@media (max-width:767px){.nv-tool{flex-direction:column;align-items:flex-start;padding:24px 20px}.nv-tool strong{font-size:21px;line-height:27px}}
-/* Mobile menu: Navigator links */
-.mnav-link{display:block;padding:16px 0;border-bottom:1px solid var(--line);font:500 18px/21.6px var(--body);color:var(--navy)}
-.mnav .mnav-join{display:flex;justify-content:center;margin:20px 0 12px;width:100%}
