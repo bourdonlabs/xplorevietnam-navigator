@@ -435,10 +435,10 @@ button{font:inherit;cursor:pointer}
 .nv-h2{font:400 48px/57.6px var(--head);color:var(--navy)}
 .nv-sub{margin-top:16px;font:400 26px/31.2px var(--inter);color:var(--navy)}
 .nv-h3{margin:36px 0 18px;font:400 32px/38.4px var(--inter);color:var(--navy)}
-.nv-h3.acc{color:var(--accent)}
+.nv-h3.acc{color:#15803D}
 .nv-grid{display:flex;gap:20px;align-items:stretch}
 .nv-grid+.nv-grid{margin-top:16px}
-.nv-free{flex:1 1 0;min-width:0;padding:30px 26px;border:1px solid var(--accent);border-radius:10px;background:rgba(248,41,53,.05);display:flex;flex-direction:column;gap:16px}
+.nv-free{flex:1 1 0;min-width:0;padding:30px 26px;border:1px solid #22A05A;border-radius:10px;background:rgba(34,160,90,.07);display:flex;flex-direction:column;gap:16px}
 .nv-free h3,.nv-card h3{font:400 32px/38.4px var(--inter);color:var(--navy)}
 .nv-free p,.nv-card p{font:400 18px/25px var(--body);color:var(--ink)}
 .nv-shot{display:block;width:100%;height:auto;margin:32px 0 68px;border-radius:16px;box-shadow:0 10px 40px rgba(9,8,37,.12)}

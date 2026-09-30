@@ -92,7 +92,7 @@
     },
     "svc-trc-1": {
       "name": "TRC Package",
-      "group": "Residence Card (TRC)",
+      "group": "Temporary Residence Card (TRC)",
       "price": 1020,
       "dependent": 395,
       "maxDependents": 5,
@@ -102,7 +102,7 @@
     },
     "svc-trc-2": {
       "name": "TRC + Permit Package",
-      "group": "Residence Card (TRC)",
+      "group": "Temporary Residence Card (TRC)",
       "price": 2845,
       "dependent": 495,
       "maxDependents": 5,
@@ -112,7 +112,7 @@
     },
     "svc-trc-3": {
       "name": "TRC Concierge Package",
-      "group": "Residence Card (TRC)",
+      "group": "Temporary Residence Card (TRC)",
       "price": 3950,
       "dependent": 1200,
       "maxDependents": 5,

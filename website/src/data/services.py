@@ -9,7 +9,7 @@ TABS = [
     "get":"Everything in the Visa Package, plus two coaching calls, temporary residence registration, SIM card and bank account setup, and 30 days of post-arrival support.","best":"People who want help beyond the visa itself during the first month."},
    {"name":"Concierge<br>Package","desc":"No two moves are the same. We stay with you, guiding you every step of the way.","price":"$5495","fees":["Includes government & admin fees","Add dependent: $2,350"],"badge":"Best Value",
     "get":"Everything in the Visa + Stay Package, plus unlimited calls, airport pickup, apartment search, in-person support at every office visit and a dedicated WhatsApp line.","best":"Families and professionals who want one team handling the whole move."}]},
- {"id":"trc","tab":"Residence Card (TRC)","title":"Vietnam Temporary Residence Card (TRC) Services",
+ {"id":"trc","tab":"Temporary Residence Card (TRC)","title":"Vietnam Temporary Residence Card (TRC) Services",
   "note":"Learn more about the Temporary Residence Card",
   "packages":[
    {"name":"TRC<br>Package","desc":"A residence card lets you stay up to two years without visa runs. We handle the paperwork.","price":"$1020","fees":["Government application fees","(~$335/applicant) billed separately","Add dependent: $395"],

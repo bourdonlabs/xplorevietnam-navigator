@@ -3,13 +3,15 @@
 /* Hero */
 .s-hero{padding:96px 24px 24px}
 .s-hero-in{position:relative;border-radius:20px;padding:44.8px;display:flex;flex-direction:column;align-items:center;
-  background:linear-gradient(rgba(255,255,255,0) 75%,#1B1A2F 100%),linear-gradient(#fff 45%,rgba(255,255,255,0) 72%),linear-gradient(140deg,#C9D2DC 0%,#AEB9C7 55%,#97A4B6 100%)}
-.s-hero .kicker{font:400 14px/16px var(--body);color:#3C3C46;text-align:center}
+  background:linear-gradient(rgba(0,11,56,.55) 0%,rgba(0,11,56,.25) 45%,rgba(27,26,47,.85) 100%),#1B1A2F url(img/svc/hero.jpg) 50% 45%/cover no-repeat}
+.s-hero .kicker{font:400 14px/16px var(--body);color:rgba(255,255,255,.9);text-align:center}
 .s-hero .pill{margin-top:6px;min-height:46px;display:flex;align-items:center;font-weight:600}
-.s-hero h1{margin-top:31px;font:600 75px/86px var(--head);color:var(--navy);text-align:center}
-.s-hero h2{margin-top:32px;font:400 30px/36px var(--body);color:var(--navy);text-align:center}
+.s-hero h1{margin-top:31px;font:600 75px/86px var(--head);color:#fff;text-align:center;text-shadow:0 2px 24px rgba(0,11,56,.35)}
+.s-hero h2{margin-top:32px;font:400 30px/36px var(--body);color:#fff;text-align:center;text-shadow:0 2px 18px rgba(0,11,56,.35)}
 .s-hero .logos{max-width:80%;padding:112px 10px 10px;display:flex;justify-content:center;align-items:center;gap:100px}
 .s-hero .logos span{flex:0 1 112px;min-width:0;border:1px dashed rgba(255,255,255,.55);border-radius:6px;display:grid;place-items:center;font:600 10px/1.2 var(--body);letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.75);text-align:center}
+.s-hero .logos img{display:block;width:auto;max-width:100%;flex:0 1 auto;min-width:0}
+.lg-bi{height:36px}.lg-il{height:40px}.lg-ex{height:46px}.lg-in{height:27px}.lg-vn{height:27px}
 .s-hero .logos span:nth-child(1){height:36px}.s-hero .logos span:nth-child(2){height:45px}.s-hero .logos span:nth-child(3){height:27px}.s-hero .logos span:nth-child(4){height:20px}.s-hero .logos span:nth-child(5){height:32px}
 
 /* Overview cards */
@@ -18,6 +20,7 @@
 .s-over .b-view{padding-right:var(--pad-x)}
 .svc-card{flex:1 1 0;min-width:0;display:flex;flex-direction:column;gap:22.4px}
 .svc-card .ph{aspect-ratio:1/1;border-radius:16px}
+.svc-card .svc-img{display:block;width:100%;height:auto;aspect-ratio:1/1;object-fit:cover;border-radius:16px}
 .svc-card h3{font:400 26px/31.2px var(--inter);color:var(--navy)}
 .svc-card p{font:400 18px/25px var(--body);color:var(--ink)}
 .svc-card .btn-orange{margin-top:auto;height:46px;padding:8px 14.4px;border:0;border-radius:32px;font:600 20px/30px var(--body)}
@@ -152,7 +155,13 @@
       <div class="pill">Free 15-minute consultation</div>
       <h1>Relocate to Vietnam</h1>
       <h2>Enjoy the move. We’ll handle the hard parts.</h2>
-      <div class="logos" aria-label="Partner logos (placeholders)"><span>Partner logo</span><span>Partner logo</span><span>Partner logo</span><span>Partner logo</span><span>Partner logo</span></div>
+      <div class="logos" aria-label="Partners and press">
+        <img class="lg-bi" src="img/press/business-insider.png" alt="Business Insider">
+        <img class="lg-il" src="img/press/international-living.png" alt="International Living">
+        <img class="lg-ex" src="img/press/expat-com.png" alt="expat.com">
+        <img class="lg-in" src="img/press/internations.png" alt="InterNations">
+        <img class="lg-vn" src="img/press/vnexpress.png" alt="VnExpress International">
+      </div>
     </div>
   </section>
 
@@ -165,10 +174,10 @@
       </div>
     </div>
     <div class="b-view"><div class="b-track" data-track="svc">
-      <div class="svc-card" id="visas"><div class="ph" data-ph="Photo · 1:1 · passport and visa"></div><h3>Visas &amp; Extensions</h3><p>Tourist, business, work and investor visas, plus in-country extensions.</p><a class="btn-orange" href="#packages" data-go="svc:visas">View Packages <svg class="arr"><use href="#i-arr"/></svg></a></div>
-      <div class="svc-card" id="trc"><div class="ph" data-ph="Photo · 1:1 · residence card"></div><h3>Residence Card</h3><p>Stay up to two years without visa runs, for you and your family.</p><a class="btn-orange" href="#packages" data-go="svc:trc">View Packages <svg class="arr"><use href="#i-arr"/></svg></a></div>
-      <div class="svc-card" id="business"><div class="ph" data-ph="Photo · 1:1 · office in Saigon"></div><h3>Business Setup</h3><p>Company registration, licences and your investor visa in one plan.</p><a class="btn-orange" href="#packages" data-go="svc:business">View Packages <svg class="arr"><use href="#i-arr"/></svg></a></div>
-      <div class="svc-card" id="relocation"><div class="ph" data-ph="Photo · 1:1 · apartment keys"></div><h3>Relocation Services</h3><p>Housing, banking, schools and settling in, handled by people who know the city.</p><a class="btn-orange" href="#packages" data-go="svc:relocation">View Packages <svg class="arr"><use href="#i-arr"/></svg></a></div>
+      <div class="svc-card" id="visas"><img class="svc-img" src="img/svc/visas.jpg" alt="Passport with a Vietnamese visa" loading="lazy" width="800" height="800"><h3>Visas &amp; Extensions</h3><p>Tourist, business, work and investor visas, plus in-country extensions.</p><a class="btn-orange" href="#packages" data-go="svc:visas">View Packages <svg class="arr"><use href="#i-arr"/></svg></a></div>
+      <div class="svc-card" id="trc"><img class="svc-img" src="img/svc/trc.jpg" alt="Vietnam Temporary Residence Card" loading="lazy" width="800" height="800"><h3>Temporary Residence Card (TRC)</h3><p>Stay up to two years without visa runs, for you and your family.</p><a class="btn-orange" href="#packages" data-go="svc:trc">View Packages <svg class="arr"><use href="#i-arr"/></svg></a></div>
+      <div class="svc-card" id="business"><img class="svc-img" src="img/svc/business.jpg" alt="Business meeting" loading="lazy" width="700" height="700"><h3>Business Setup</h3><p>Company registration, licences and your investor visa in one plan.</p><a class="btn-orange" href="#packages" data-go="svc:business">View Packages <svg class="arr"><use href="#i-arr"/></svg></a></div>
+      <div class="svc-card" id="relocation"><img class="svc-img" src="img/svc/relocation.jpg" alt="Sunrise over the Vietnamese highlands" loading="lazy" width="700" height="700"><h3>Relocation Services</h3><p>Housing, banking, schools and settling in, handled by people who know the city.</p><a class="btn-orange" href="#packages" data-go="svc:relocation">View Packages <svg class="arr"><use href="#i-arr"/></svg></a></div>
     </div></div>
   </section>
 
