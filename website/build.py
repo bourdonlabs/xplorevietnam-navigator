@@ -179,12 +179,26 @@ VIDEO_TITLES=['Moving to Vietnam in 2026: where to start','Vietnam e-visa explai
  'Cost of living in Ho Chi Minh City','Best neighbourhoods for expats in Saigon','Moving to Da Nang: what to expect',
  'Opening a bank account as a foreigner','International schools in Vietnam','Healthcare and insurance for expats',
  'Renting an apartment in Hanoi','Opening a company in Vietnam','Bringing your pet to Vietnam']
+# Thumbnails for videos that have them (img name without extension, relative to img/)
+VIDEO_THUMBS={
+ 'Moving to Vietnam in 2026: where to start':'vid-thumb-moving-2026',
+ 'Vietnam e-visa explained':'vid-thumb-evisa',
+ 'Temporary Residence Card, step by step':'vid-thumb-trc',
+ 'Cost of living in Ho Chi Minh City':'vid-thumb-cost-living',
+ 'Best neighbourhoods for expats in Saigon':'vid-thumb-neighbourhoods',
+}
+def _thumb_cls(title, base_cls):
+    """Return class string and inline style for a video thumbnail."""
+    key=VIDEO_THUMBS.get(title)
+    if key:
+        return f'{base_cls} vt-real" style="background:#0a0f1a url(img/{key}.jpg) 50% 50%/cover no-repeat'
+    return f'{base_cls} ph'
 def video_cards():
-    return '\n'.join(f'      <a class="v-card" href="videos.html"><div class="v-thumb ph">{{{{i:play play}}}}</div><h3>{t}</h3><p>{SOON} New videos are on the way. Follow our YouTube channel to see them first.</p></a>' for t in VIDEO_TITLES[:5])
+    return '\n'.join(f'      <a class="v-card" href="videos.html"><div class="{_thumb_cls(t,"v-thumb")}">{{{{i:play play}}}}</div><h3>{t}</h3><p>{SOON} New videos are on the way. Follow our YouTube channel to see them first.</p></a>' for t in VIDEO_TITLES[:5])
 def feat_slides():
-    return '\n'.join(f'      <a class="f-slide{" is-active" if i==0 else ""}" href="{YT}" target="_blank" rel="noopener"><div class="f-thumb ph">{{{{i:play play}}}}</div><h3>{t}</h3><p>{SOON}</p></a>' for i,t in enumerate(VIDEO_TITLES[:5]))
+    return '\n'.join(f'      <a class="f-slide{" is-active" if i==0 else ""}" href="{YT}" target="_blank" rel="noopener"><div class="{_thumb_cls(t,"f-thumb")}">{{{{i:play play}}}}</div><h3>{t}</h3><p>{SOON}</p></a>' for i,t in enumerate(VIDEO_TITLES[:5]))
 def video_grid():
-    return '\n'.join(f'    <div class="v-item"><div class="v-th ph">{{{{i:play play}}}}</div><div class="v-stats">{SOON}</div><h3>{t}</h3></div>' for t in VIDEO_TITLES)
+    return '\n'.join(f'    <div class="v-item"><div class="{_thumb_cls(t,"v-th")}">{{{{i:play play}}}}</div><div class="v-stats">{SOON}</div><h3>{t}</h3></div>' for t in VIDEO_TITLES)
 import blog
 MACROS={'catalog_json':lambda: json.dumps(CATALOG,ensure_ascii=False).replace('</','<\\/'),'ref_symbols':lambda: '\n'.join(symbol(n,i) for n,i in [('chev','i-chev'),('arr','i-arr'),('prev','i-prev'),('next','i-next'),('go','i-go'),('gow','i-go-w')]),'review_cols':review_cols,'blog_posts':blog.listing,'blog_feat':blog.featured,'blog_tabs':blog.city_tabs,'blog_topics':blog.topic_options,'feat_slides':feat_slides,'video_grid':video_grid,'dive_rows':dive_rows,'video_cards':video_cards,'svc_tabs':svc_tabs,'svc_faqs':faqs,'rl_rows':rl_rows,'rl_faqs':rl_faqs,
  'team_members':lambda: members(TEAM,'XploreVietnam team'),

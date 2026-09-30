@@ -14,6 +14,9 @@
 .f-slide.is-active{transform:none}
 .f-thumb{aspect-ratio:839/472;display:grid;place-items:center}
 .f-thumb::before{display:none}
+.vt-real{position:relative}
+.vt-real::after{content:"";position:absolute;inset:0;background:rgba(0,8,28,.52);border-radius:inherit;pointer-events:none}
+.vt-real svg,.vt-real .play{position:relative;z-index:1}
 .play{width:100px;height:54px}
 .f-slide h3{margin-top:34px;font:400 23.2px/31.32px var(--inter);color:var(--navy)}
 .f-slide p{margin-top:15px;font:400 16px/24px system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:#AAA}
