@@ -186,13 +186,20 @@ VIDEO_THUMBS={
  'Temporary Residence Card, step by step':'vid-thumb-trc',
  'Cost of living in Ho Chi Minh City':'vid-thumb-cost-living',
  'Best neighbourhoods for expats in Saigon':'vid-thumb-neighbourhoods',
+ 'Moving to Da Nang: what to expect':'vid-thumb-da-nang',
+ 'Opening a bank account as a foreigner':'vid-thumb-bank',
+ 'International schools in Vietnam':'vid-thumb-schools',
+ 'Healthcare and insurance for expats':'vid-thumb-healthcare',
+ 'Renting an apartment in Hanoi':'vid-thumb-hanoi-apt',
+ 'Opening a company in Vietnam':'vid-thumb-company',
+ 'Bringing your pet to Vietnam':'vid-thumb-pets',
 }
 def _thumb(title, base_cls, play_icon):
     """Return opening div tag and inner content for a video thumbnail."""
     key=VIDEO_THUMBS.get(title)
     if key:
-        # Real thumbnail: photo already has play button baked in — no SVG icon needed
-        return f'<div class="{base_cls} vt-real" style="background:#0a0f1a url(img/{key}.jpg) 50% 50%/cover no-repeat"></div>'
+        # Real thumbnail with SVG play button overlay
+        return f'<div class="{base_cls} vt-real" style="background:#0a0f1a url(img/{key}.jpg) 50% 50%/cover no-repeat">{play_icon}</div>'
     return f'<div class="{base_cls} ph">{play_icon}</div>'
 def video_cards():
     pi='{{i:play play}}'
