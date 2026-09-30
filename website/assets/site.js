@@ -47,6 +47,18 @@
   document.querySelectorAll('[data-car]').forEach(function(btn){
     btn.addEventListener('click', function(){ var k=btn.dataset.car; if(!tracks[k]) return; state[k]+= +btn.dataset.dir; render(k); });
   });
+  // Touch swipe support for all carousels
+  Object.keys(tracks).forEach(function(k){
+    var tr = tracks[k], tx0=0, ty0=0, dragging=false;
+    tr.parentElement.addEventListener('touchstart', function(e){ tx0=e.touches[0].clientX; ty0=e.touches[0].clientY; dragging=false; },{passive:true});
+    tr.parentElement.addEventListener('touchmove', function(e){ if(Math.abs(e.touches[0].clientX-tx0)>Math.abs(e.touches[0].clientY-ty0)) dragging=true; },{passive:true});
+    tr.parentElement.addEventListener('touchend', function(e){
+      if(!dragging) return;
+      var dx=e.changedTouches[0].clientX-tx0;
+      if(Math.abs(dx)<30) return;
+      state[k]+= dx<0?1:-1; render(k);
+    },{passive:true});
+  });
   function renderAll(){ Object.keys(tracks).forEach(render); }
   renderAll();
   var rt; window.addEventListener('resize', function(){ clearTimeout(rt); rt=setTimeout(renderAll,150); });
