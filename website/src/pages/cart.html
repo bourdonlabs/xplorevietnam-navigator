@@ -74,7 +74,7 @@
     var C=JSON.parse(document.getElementById('catalog').textContent);
     var list=document.getElementById('cart-list'), sum=document.getElementById('cart-sum');
     var IMG={'Relocation packages':'img/relocation-packages.jpg','Stay in Vietnam':'img/stay-in-vietnam.jpg','Teachers':'img/aud/teachers.jpg',
-      'Visas & Extensions':'img/svc/visas.jpg','Temporary Residence Card (TRC)':'img/svc/trc.jpg','Business Setup':'img/svc/business.jpg','Relocation':'img/svc/relocation.jpg','Overstay':'img/guide-hcmc.jpg'};
+      'Visas & Extensions':'img/svc/visas.jpg','Temporary Residence Card (TRC)':'img/svc/trc.jpg','Business Setup':'img/svc/business.jpg','Relocation':'img/svc/relocation-apartment.jpg','Overstay':'img/guide-hcmc.jpg'};
     function usd(n){ return '$'+n.toLocaleString('en-US'); }
     function esc(t){ var d=document.createElement('div'); d.textContent=t; return d.innerHTML; }
     function cart(){ return XV.read().filter(function(i){ return C.items[i.sku]; }); }
