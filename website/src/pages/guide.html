@@ -1,7 +1,11 @@
 <!-- title: XploreVietnam Vietnam Guide -->
 <!-- style -->
-.hero-sub{margin-top:32px;font:400 30px/36px var(--body);color:var(--navy);text-align:center;text-wrap:balance}
-.hero-sub + .hero-img{margin-top:76px;aspect-ratio:1463/486}
+.g-hero{position:relative;min-height:480px;display:flex;align-items:center;justify-content:center;background:#0B1A2F url(img/guide-hero.jpg) 50% 45%/cover no-repeat;text-align:center;padding:120px var(--pad-x) 100px}
+.g-hero::after{content:"";position:absolute;inset:0;background:linear-gradient(rgba(0,11,56,.45) 0%,rgba(0,11,56,.6) 100%)}
+.g-hero .hero-in{position:relative;z-index:1}
+.g-hero .pill{background:rgba(255,255,255,.18);color:#fff;border:1px solid rgba(255,255,255,.35)}
+.g-hero h1{color:#fff}
+.g-hero .hero-sub{margin-top:24px;font:400 26px/34px var(--body);color:rgba(255,255,255,.9);text-align:center;text-wrap:balance}
 .g-intro{padding:120px var(--pad-x);display:flex;flex-direction:column;gap:77px}
 .g-row{display:flex;gap:75px}
 .g-copy{flex:0 0 445px;min-width:0}
@@ -71,6 +75,7 @@
 @media (max-width:1300px){ .adv-grid{grid-template-columns:repeat(2,1fr)} }
 @media (max-width:1400px){ .fit .g-img{flex-basis:420px} }
 @media (max-width:1024px){
+  .g-hero{min-height:380px;padding:90px var(--pad-x) 72px}
   .hero-sub + .hero-img{aspect-ratio:1463/570}
   .g-intro,.fit,.dive,.g-faq,.adv{padding:64px var(--pad-x)}
   .dive-head{gap:32px}
@@ -86,6 +91,7 @@
   .v-card{flex-basis:calc((100% - 231px) / 3)}
 }
 @media (max-width:767px){
+  .g-hero{min-height:280px;padding:64px var(--pad-x) 52px}
   .hero-sub{margin-top:32px;font-size:24px;line-height:30px}
   .hero-sub + .hero-img{margin-top:36px}
   .g-intro,.fit,.dive,.g-faq,.adv{padding:60px var(--pad-x)}
@@ -111,12 +117,11 @@
 }
 <!-- /style -->
 <main id="top">
-  <section class="hero">
+  <section class="g-hero">
     <div class="hero-in">
       <div class="pill">Vietnam Guide</div>
       <h1>Vietnam</h1>
       <h2 class="hero-sub">Everything you need to know about moving to Vietnam.</h2>
-      <div class="hero-img" role="img" aria-label="Vietnam from space with the national flag overlaid" style="background:#1B1A2F url(img/guide-hero.jpg) 50% 40%/cover no-repeat"></div>
     </div>
   </section>
 
