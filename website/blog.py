@@ -9,8 +9,8 @@ ORDER = ['extend-visa-in-vietnam', 'temporary-residence-card-guide', 'cost-of-li
          'healthcare-insurance-vietnam', 'set-up-company-vietnam', 'moving-to-vietnam-with-pets']
 # (card image, wide cover image)
 IMAGES = {
-    'extend-visa-in-vietnam': ('img/stay-in-vietnam.jpg', 'img/cta.jpg'),
-    'temporary-residence-card-guide': ('img/dest/hcmc.jpg', 'img/hero-home.jpg'),
+    'extend-visa-in-vietnam': ('img/blog-extend-visa.jpg', 'img/cta.jpg'),
+    'temporary-residence-card-guide': ('img/blog-trc-guide.jpg', 'img/hero-home.jpg'),
     'cost-of-living-da-nang': ('img/dest/danang.jpg', 'img/dn-guide-1.jpg'),
     'international-schools-ho-chi-minh-city': ('img/aud/teachers.jpg', 'img/aud/teachers.jpg'),
     'open-bank-account-vietnam-foreigner': ('img/a-la-carte.jpg', 'img/a-la-carte.jpg'),
