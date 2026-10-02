@@ -15,7 +15,7 @@ IMAGES = {
     'international-schools-ho-chi-minh-city': ('img/blog-intl-schools.jpg', 'img/blog-intl-schools.jpg'),
     'open-bank-account-vietnam-foreigner': ('img/blog-bank-account.jpg', 'img/blog-bank-account.jpg'),
     'renting-apartment-hanoi': ('img/dest/hanoi.jpg', 'img/dest/hanoi.jpg'),
-    'healthcare-insurance-vietnam': ('img/relocation-packages.jpg', 'img/relocation-packages.jpg'),
+    'healthcare-insurance-vietnam': ('img/blog-healthcare.jpg', 'img/blog-healthcare.jpg'),
     'set-up-company-vietnam': ('img/aud/entrepreneurs.jpg', 'img/aud/entrepreneurs.jpg'),
     'moving-to-vietnam-with-pets': ('img/aud/retirees.jpg', 'img/aud/retirees.jpg'),
 }
