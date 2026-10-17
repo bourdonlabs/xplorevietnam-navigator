@@ -117,7 +117,7 @@ def svc_tabs():
         <div class="s-top">
           <h3>{p["name"]}</h3>
           <p class="s-desc">{p["desc"]}</p>
-          <div class="s-price"><b>{price_label(sku)}</b>{'<small>/total</small>' if priced else ''}</div>
+          <div class="s-price"><b>{price_label(sku)}</b>{'<small>/total</small>' if priced else ''}</div>{'<p class="s-pnote">'+p['price_note']+'</p>' if p.get('price_note') else ''}
           <div class="s-fees">{fees}</div>{dep}
           <div class="s-div"></div>
           <label class="s-lab" for="dep-{t["id"]}-{len(cards)}">Dependents</label>
@@ -132,15 +132,7 @@ def svc_tabs():
         rows=''.join(f'<div class="t-row"><div class="t-f">{f}</div>'+''.join(f'<div class="t-c">{CHECK if x else "{{i:dash dsh}}"}</div>' for x in inc)+'</div>' for f,inc in SV.FEATURES)
         names=[p['name'].replace('<br>',' ') for p in t['packages']]
         prices=''.join(f'<div class="t-c"><b>{price_label(svc_sku(t["id"],k))}</b></div>' for k in range(len(t['packages'])))
-        out.append(f'''  <div class="s-panel" data-panel="svc:{t["id"]}"{'' if i==0 else ' hidden'}>
-    <div class="s-head">
-      <div class="split s70"><div class="l"><h2 class="sub">{t["title"]}</h2></div><div class="r"><h3 class="lead">{t["note"]}</h3><a class="btn-orange sm" href="#compare-{t["id"]}">Compare Packages <svg class="arr"><use href="#i-arr"/></svg></a></div></div>
-      <div class="s-cards">
-{chr(10).join(cards)}
-      </div>
-      <p class="s-foot">*Please note that our fee does not include 1) costs of obtaining documents in your home country, and 2) government fees that change after booking. We confirm all government fees with you before we file.</p>
-    </div>
-    <div class="s-compare" id="compare-{t["id"]}">
+        compare_html=(f'''    <div class="s-compare" id="compare-{t["id"]}">
       <div class="split w40"><div class="l"><h2 class="sub dk">How our packages stack up.</h2></div><div class="r"><h3 class="lead">Compare all packages. A high-level view across all service tiers.</h3></div></div>
       <div class="table-wrap"><div class="c-table">
         <div class="t-head"><div class="t-f"></div><div class="t-c">{names[0]}</div><div class="t-c">{names[1]}</div><div class="t-c hl">{names[2]}</div></div>
@@ -149,6 +141,16 @@ def svc_tabs():
         <div class="t-hl" aria-hidden="true"><span>Full Service</span></div>
       </div></div>
     </div>
+''' if len(t['packages'])>1 else '')
+        out.append(f'''  <div class="s-panel" data-panel="svc:{t["id"]}"{'' if i==0 else ' hidden'}>
+    <div class="s-head">
+      <div class="split s70"><div class="l"><h2 class="sub">{t["title"]}</h2></div><div class="r"><h3 class="lead">{t["note"]}</h3>{'' if len(t['packages'])<2 else '<a class="btn-orange sm" href="#compare-'+t["id"]+'">Compare Packages <svg class="arr"><use href="#i-arr"/></svg></a>'}</div></div>
+      <div class="s-cards{' one' if len(cards)==1 else ''}">
+{chr(10).join(cards)}
+      </div>
+      <p class="s-foot">*Please note that our fee does not include 1) costs of obtaining documents in your home country, and 2) government fees that change after booking. We confirm all government fees with you before we file.</p>
+    </div>
+{compare_html}
   </div>''')
     out.append('  </section>')
     return '\n'.join(out)

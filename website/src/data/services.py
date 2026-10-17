@@ -18,15 +18,11 @@ TABS = [
     "get":"Everything in the TRC Package, plus the work permit or exemption, legalisation of your degree and criminal record, and employer paperwork.","best":"Professionals starting a new job in Vietnam."},
    {"name":"Concierge<br>Package","desc":"We manage every step for you and your family, from first document to final card.","price":"$3950","fees":["Government application fees","(~$335/applicant) billed separately","Add dependent: $1,200"],"badge":"Best Value",
     "get":"Everything in the TRC + Permit Package, plus family cards, school registration support, housing search and a dedicated case manager.","best":"Families relocating together."}]},
- {"id":"business","tab":"Business Setup","title":"Vietnam Company Setup and Investor Visa Services",
+ {"id":"business","tab":"Business Setup","title":"Vietnam Company Setup Services",
   "note":"Learn more about opening a company in Vietnam",
   "packages":[
-   {"name":"Company<br>Package","desc":"Register your company correctly the first time, with the right business lines.","price":"$[price]","fees":["Service fee $[amount]","Government fees $[amount]"],
-    "get":"Investment registration certificate, enterprise registration, company seal, tax registration and bank account opening support.","best":"Founders opening a single-member LLC."},
-   {"name":"Company + Visa<br>Package","desc":"Your company and your own right to live here, set up as one plan.","price":"$[price]","fees":["Includes government fees","Add dependent: $[amount]"],
-    "get":"Everything in the Company Package, plus your investor visa and residence card, and a local accounting partner introduction.","best":"Founders who will live in Vietnam and run the company."},
-   {"name":"Concierge<br>Package","desc":"We run setup, compliance and your relocation together.","price":"$[price]","fees":["Includes government fees","Add dependent: $[amount]"],"badge":"Best Value",
-    "get":"Everything in the Company + Visa Package, plus office or virtual office search, first-year compliance calendar and priority support.","best":"Investors who want a turnkey setup."}]},
+   {"name":"Company<br>Package","desc":"Register your company correctly the first time, with the right business lines.","price":"$[price]","price_note":"Price bracket range depends heavily on your corporate structure and what you are selling.","fees":["Service fee $[amount]","Government fees $[amount]"],
+    "get":"Investment registration certificate, enterprise registration, company seal, tax registration and bank account opening support.","best":"Founders opening a single-member LLC."}]},
  {"id":"relocation","tab":"Relocation","title":"Vietnam Relocation and Settling-in Services",
   "note":"Learn more about living in Vietnam",
   "packages":[
