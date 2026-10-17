@@ -55,11 +55,20 @@ ROLE_ICONS={  # lucide-style outline icons, 24x24
  'truck':'<path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/>',
  'bank':'<path d="M3 22h18"/><path d="M6 18v-7M10 18v-7M14 18v-7M18 18v-7"/><path d="m12 2 8 5H4z"/>',
 }
-TEAM=[('Case Manager','briefcase'),('Immigration Specialist','stamp'),('Relocation Manager','house'),('Client Operations','headset'),('Business Setup','building'),('Partnerships','users'),('Social Media','megaphone')]
-PARTNERS=[('Immigration Lawyer','scale'),('Notary Services','pen'),('Real Estate Advisor','key'),('Accounting Services','calculator'),('Translation Services','languages'),('School Placement','school'),('Healthcare Liaison','health'),('Moving &amp; Shipping','truck'),('Banking Support','bank')]
+TEAM=[('Case Manager','briefcase',{'name':'Anh Khoa','photo':'team-anh-khoa'}),('Immigration Specialist','stamp',{'name':'Thien Le (Tony)','photo':'team-thien-le'}),('Relocation Manager','house'),('Client Operations','headset'),('Business Setup','building'),('Partnerships','users',{'name':'Therun Nakkeeran','photo':'team-therun-nakkeeran'}),('Social Media','megaphone')]
+PARTNERS=[('Immigration Lawyer','scale'),('Notary Services','pen'),('Real Estate Advisor','key',{'name':'Trần Quang Mỹ','photo':'team-tran-quang-my','link':'https://www.instagram.com/qmytrannn/'}),('Accounting Services','calculator'),('Translation Services','languages'),('School Placement','school'),('Healthcare Liaison','health'),('Moving &amp; Shipping','truck'),('Banking Support','bank')]
 def members(roles,sub):
-    """Role cards with an icon instead of a photo (no names or photos until the team is announced)."""
-    return '\n'.join(f'      <div class="member"><div class="m-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{ROLE_ICONS[ic]}</svg></div><h3>{r}</h3><p>{sub}</p></div>' for r,ic in roles)
+    """Role cards. Filled in (photo + name, role underneath) when a person is set; otherwise an icon card with the role."""
+    out=[]
+    for row in roles:
+        r,ic=row[0],row[1]; who=row[2] if len(row)>2 else None
+        if who:
+            nm=who['name']
+            if who.get('link'): nm=f'<a href="{who["link"]}" target="_blank" rel="noopener">{nm}</a>'
+            out.append(f'      <div class="member"><div class="m-photo" role="img" aria-label="{who["name"]}" style="background:#C9D2DC url(img/{who["photo"]}.jpg) 50% 25%/cover no-repeat"></div><h3>{nm}</h3><p>{r}</p></div>')
+        else:
+            out.append(f'      <div class="member"><div class="m-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{ROLE_ICONS[ic]}</svg></div><h3>{r}</h3><p>{sub}</p></div>')
+    return '\n'.join(out)
 import sys; sys.path.insert(0, SRC+'/data')
 import services as SV
 import json
