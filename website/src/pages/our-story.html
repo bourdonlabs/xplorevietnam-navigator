@@ -35,6 +35,9 @@
 .member h3{font:400 26px/31.2px var(--inter);color:var(--navy)}
 .member p{margin-top:16px;font:400 18px/25px var(--body);color:var(--ink)}
 /* Difference */
+.grp-photo{padding:120px var(--pad-x) 0}
+.grp-photo img{display:block;width:100%;height:auto;max-width:1100px;margin:0 auto;aspect-ratio:3/2;object-fit:cover;border-radius:16px}
+.grp-photo + .diff{padding-top:80px}
 .diff{padding:120px var(--pad-x);display:flex;gap:80px}
 .diff-l{flex:1 1 0;min-width:0}
 .acc summary span{font:400 32px/48px var(--head);color:var(--navy)}
@@ -48,6 +51,8 @@
   .f-img{flex:none;width:100%}
   .t-grid,.t-grid.five{grid-template-columns:repeat(3,1fr);gap:32px 15.4px}
   .diff{padding:64px var(--pad-x)}
+  .grp-photo{padding-top:64px}
+  .grp-photo + .diff{padding-top:48px}
 }
 @media (max-width:767px){
   .hero-sub{margin-top:32px;font-size:24px;line-height:30px}
@@ -62,6 +67,9 @@
   .member h3{font-size:19.2px;line-height:23.04px}
   .member p{font-size:16px;line-height:16px}
   .diff{padding:60px var(--pad-x)}
+  .grp-photo{padding-top:48px}
+  .grp-photo img{border-radius:12px}
+  .grp-photo + .diff{padding-top:40px}
   .acc summary span{font-size:24px;line-height:28px}
 }
 <!-- /style -->
@@ -115,6 +123,8 @@
 {{@partner_members}}
     </div>
   </section>
+
+  <section class="grp-photo"><img src="img/our-story-group.jpg" alt="The XploreVietnam group on a walking tour of Ho Chi Minh City" width="1536" height="1024" loading="lazy"></section>
 
   <section class="diff">
     <div class="diff-l">
