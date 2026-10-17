@@ -8,7 +8,11 @@
 .gs-call>p{margin-top:20px;font:400 18px/25px var(--body);color:var(--ink);text-align:center}
 .cal{margin:32px auto 0;max-width:880px;height:1100px;border:1px dashed #B9C2CE;border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:repeating-linear-gradient(0deg,#FBFCFD 0 54px,#F3F5F8 54px 55px);color:var(--steel);font:500 16px/22px var(--body);text-align:center;padding:24px}
 .cal b{font:600 20px/26px var(--head);color:var(--navy)}
-.cal-form{margin:40px auto 0;max-width:880px;text-align:left}
+.cal-embed{margin:40px auto 0;max-width:880px}
+.cal-embed iframe{display:block;width:100%;height:720px;border:0;border-radius:16px;background:#fff}
+.cal-alt{margin-top:14px;font:400 15px/22px var(--body);color:var(--steel);text-align:center}
+.cal-alt a{color:var(--navy);text-decoration:underline}
+@media (max-width:767px){.cal-embed iframe{height:820px}}
 .cf-row{display:grid;grid-template-columns:1fr 1fr;gap:0 20px}
 .cf-row>div{display:flex;flex-direction:column}
 .call-form select{width:100%;height:56px;padding:0 18px;border:1px solid var(--line);border-radius:999px;font:400 18px/25.2px var(--body);color:var(--navy);background:#fff;margin:12px 0 27px}
@@ -31,9 +35,10 @@
   <section class="gs-wrap">
     <div class="o-card gs-call">
       <h2>Start with a free call.</h2>
-      <p>When you are ready to move to Vietnam, we are here to help. Request a free, no-pressure 15-minute call<br>and we will show you the simplest route for your visa and your move.</p>
-      <div class="cal-form">
-{{> callform}}
+      <p>When you are ready to move to Vietnam, we are here to help. Pick a time below for a free, no-pressure 15-minute call<br>and we will show you the simplest route for your visa and your move.</p>
+      <div class="cal-embed">
+        <iframe id="cal-frame" title="Book your free call" src="https://cal.com/xplorevietnam/consultation?embed=true&layout=month_view&theme=light" loading="lazy"></iframe>
+        <p class="cal-alt">Calendar not loading? <a href="https://cal.com/xplorevietnam/consultation" target="_blank" rel="noopener">Open it in a new tab</a> or send us a message below.</p>
       </div>
     </div>
     <div class="gs-msg">
