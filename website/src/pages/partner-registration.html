@@ -1,0 +1,62 @@
+<!-- title: Partner Registration | XploreVietnam -->
+<!-- style -->
+.pr-wrap{position:relative;padding:0 var(--pad-x) 96px;margin-top:-200px}
+.pr-form{margin:0 auto;max-width:640px;text-align:left;background:#fff;border-radius:20px;padding:40px;box-shadow:0 12px 40px rgba(16,24,64,.10)}
+.pr-form select{width:100%;height:56px;padding:0 18px;border:1px solid var(--line);border-radius:999px;font:400 18px/25.2px var(--body);color:var(--navy);background:#fff;margin:12px 0 27px}
+.pr-form label{display:block}
+.pr-hint{margin:-14px 0 24px;font:400 14px/20px var(--body);color:var(--steel)}
+@media (max-width:1024px){ .pr-wrap{margin-top:0;padding:64px var(--pad-x)} }
+@media (max-width:767px){ .pr-form{padding:24px 20px} .pr-form select{height:64px} }
+<!-- /style -->
+<main id="top" class="pr">
+  <section class="p-hero">
+    <div class="p-hero-in soft">
+      <h1>Partner Registration</h1>
+      <p class="tag">Register a new partner account</p>
+    </div>
+  </section>
+  <section class="pr-wrap">
+      <form class="msg-form pr-form" id="pr-form" data-lead="contact" data-thanks="Thank you. We have received your application and will be in touch by email." novalidate>
+        <label for="pr-name">Name</label>
+        <input id="pr-name" name="name" type="text" placeholder="First and last name" autocomplete="name" maxlength="200">
+        <label for="pr-email">Account Email <span class="req">*</span></label>
+        <input id="pr-email" name="email" type="email" placeholder="you@example.com" autocomplete="email" required maxlength="320">
+        <label for="pr-paypal">PayPal email</label>
+        <input id="pr-paypal" data-field="paypal_email" type="email" placeholder="Where we send your rewards if you prefer PayPal" maxlength="320">
+        <label for="pr-user">Your username <span class="req">*</span></label>
+        <input id="pr-user" data-field="username" type="text" placeholder="Choose a username" autocomplete="username" required maxlength="60">
+        <label for="pr-code">Coupon code <span class="req">*</span></label>
+        <input id="pr-code" data-field="coupon_code" type="text" placeholder="e.g. YOURNAME5" required maxlength="40">
+        <label for="pr-how">How will you promote us? <span class="req">*</span></label>
+        <select id="pr-how" data-field="promote_via" required>
+          <option value="">Choose one</option>
+          <option>Word of mouth (friends, family, colleagues)</option>
+          <option>Videos or social media content</option>
+          <option>Blog or SEO content (articles)</option>
+          <option>Online forums or groups</option>
+          <option>Listings or directories</option>
+          <option>Interviews or podcasts</option>
+        </select>
+        <label for="pr-url">Content URL</label>
+        <input id="pr-url" data-field="content_url" type="url" placeholder="Link to your channel, blog or group" maxlength="300">
+        <input type="hidden" name="message" id="pr-msg">
+        <input class="hp" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <button type="submit">Register <svg class="arr"><use href="#i-arr"/></svg></button>
+        <p class="note" aria-live="polite"></p>
+      </form>
+  </section>
+  <script>
+  (function(){
+    var f=document.getElementById('pr-form'); if(!f) return;
+    // Runs before the shared lead handler (capture phase): checks the required fields and builds the message the team reads in the admin.
+    f.addEventListener('submit',function(e){
+      var $=function(id){ return document.getElementById(id).value.trim(); }, note=f.querySelector('.note');
+      if(!$('pr-email')||!$('pr-user')||!$('pr-code')||!$('pr-how')){
+        e.preventDefault(); e.stopImmediatePropagation();
+        note.textContent='Please fill in your email, username, coupon code and how you will promote us.'; return;
+      }
+      document.getElementById('pr-msg').value='[PARTNER APPLICATION] Username: '+$('pr-user')+' | Coupon code: '+$('pr-code').toUpperCase()+' | Promotes via: '+$('pr-how')+' | PayPal: '+($('pr-paypal')||'-')+' | Content: '+($('pr-url')||'-');
+    },true);
+  })();
+  </script>
+</main>
