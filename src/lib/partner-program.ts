@@ -5,7 +5,7 @@ import { IS_DEMO } from "./supabase/env";
 import { supabaseBrowser } from "./supabase/client";
 
 export type Program = "referral" | "affiliate";
-export type PartnerStatus = "active" | "suspended";
+export type PartnerStatus = "pending" | "active" | "suspended" | "rejected";
 export type PayoutMethod = "paypal" | "bank";
 
 export const PROGRAMS: { value: Program; label: string }[] = [

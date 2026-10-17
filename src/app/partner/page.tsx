@@ -88,13 +88,13 @@ function JoinForm({ initial, initialError, onDone }: { initial: RegisterInput | 
     const r = await partnerProgram.register({ ...v, code: v.code.toUpperCase().replace(/[^A-Z0-9]/g, "") });
     setBusy(false);
     if (r.error || !r.partner) return setError(r.error || "Something went wrong.");
-    toast.success("Your partner account is ready");
+    toast.success("Application received. We will review it shortly.");
     onDone(r.partner);
   };
 
   return (
     <div className="mx-auto max-w-xl space-y-6">
-      <PageHeader title="Join the partner program" subtitle="Help a friend, earn rewards. Pick your coupon code and we will set up your account." />
+      <PageHeader title="Join the partner program" subtitle="Help a friend, earn rewards. Pick your coupon code and apply. We review every application before it goes live." />
       <Panel>
         <form className="space-y-4" onSubmit={submit}>
           <div className="space-y-2">
@@ -127,7 +127,7 @@ function JoinForm({ initial, initialError, onDone }: { initial: RegisterInput | 
             <Input id="pj-url" type="url" value={v.content_url || ""} onChange={set("content_url")} maxLength={300} placeholder="Link to your channel, blog or group" />
           </div>
           {error && <p role="alert" className="text-sm text-red-600">{error}</p>}
-          <Button type="submit" className="h-11 w-full" disabled={busy}>{busy ? "Creating..." : "Create my partner account"}</Button>
+          <Button type="submit" className="h-11 w-full" disabled={busy}>{busy ? "Sending..." : "Apply to become a partner"}</Button>
         </form>
       </Panel>
     </div>
@@ -183,6 +183,37 @@ function Dashboard({ partner, onChange }: { partner: Partner; onChange: (p: Part
   const clicks30 = useMemo(() => (clicks || []).reduce((s, d) => s + d.value, 0), [clicks]);
   const program = PROGRAMS.find((p) => p.value === partner.program)?.label || "Partner";
   const suspended = partner.status === "suspended";
+
+  if (partner.status === "pending" || partner.status === "rejected") {
+    const pending = partner.status === "pending";
+    return (
+      <>
+        <PageHeader
+          title="Partner dashboard"
+          subtitle={program}
+          action={pending ? <Pill tone="bg-amber-50 text-amber-800 ring-amber-200">Under review</Pill> : <Pill tone="bg-gray-100 text-gray-700 ring-gray-200">Not approved</Pill>}
+        />
+        <Panel title={pending ? "Your application is under review" : "Your application was not approved"}>
+          {pending ? (
+            <div className="space-y-3 text-sm leading-relaxed text-gray-700">
+              <p>Thanks for applying. We review every partner personally before activating their coupon code and link, so nothing is live yet.</p>
+              <p>
+                You asked for the code <code className="rounded bg-brand-tint px-1.5 py-0.5 font-bold text-primary">{partner.code}</code>. It is reserved for you,
+                and it starts working the moment you are approved. Log in again any time to check, or email info@xplorevietnam.org.
+              </p>
+              <p>In the meantime you can finish your payout details below, so you are ready to be paid.</p>
+            </div>
+          ) : (
+            <p className="text-sm leading-relaxed text-gray-700">
+              We are not able to approve this application right now. If you think this is a mistake, or you want to tell us more about how you would promote
+              XploreVietnam, email info@xplorevietnam.org.
+            </p>
+          )}
+        </Panel>
+        {pending && <PayoutForm partner={partner} onChange={onChange} />}
+      </>
+    );
+  }
 
   return (
     <>

@@ -15,14 +15,14 @@ const inputCls = "h-9 rounded-md border border-gray-200 bg-white px-2.5 text-sm 
 const btn = "inline-flex h-9 items-center gap-2 rounded-md border border-gray-200 bg-white px-3.5 text-sm font-medium text-brand-navy hover:bg-gray-50 disabled:opacity-50";
 const btnPrimary = "inline-flex h-9 items-center gap-2 rounded-md bg-primary px-3.5 text-sm font-medium text-white hover:bg-primary/90 disabled:opacity-50";
 
-type Tab = "payouts" | "commissions" | "partners";
+type Tab = "applications" | "payouts" | "commissions" | "partners";
 type Filter = "all" | CommissionState;
 
 export default function PartnersAdminPage() {
   const [partners, setPartners] = useState<AdminPartner[] | null>(null);
   const [commissions, setCommissions] = useState<AdminCommission[] | null>(null);
   const [error, setError] = useState("");
-  const [tab, setTab] = useState<Tab>("payouts");
+  const [tab, setTab] = useState<Tab | null>(null);
 
   const load = useCallback(
     () =>
@@ -42,9 +42,12 @@ export default function PartnersAdminPage() {
   if (error) return <p className="rounded-xl border border-rose-200 bg-rose-50 p-4 text-sm text-rose-800">{error} If this is the first time, run 0007_partner_program.sql in Supabase first.</p>;
   if (!partners || !commissions) return <Loading />;
 
+  const pendingApps = partners.filter((p) => p.status === "pending");
+  const current: Tab = tab ?? (pendingApps.length ? "applications" : "payouts");
   const payable = commissions.filter((c) => commissionState(c) === "payable");
   const owed = payable.reduce((s, c) => s + c.commission_usd, 0);
   const tabs: { key: Tab; label: string; n: number }[] = [
+    { key: "applications", label: "Applications", n: pendingApps.length },
     { key: "payouts", label: "Payouts", n: new Set(payable.map((c) => c.partner_id)).size },
     { key: "commissions", label: "Commissions", n: commissions.length },
     { key: "partners", label: "Partners", n: partners.length },
@@ -52,7 +55,7 @@ export default function PartnersAdminPage() {
 
   return (
     <>
-      <PageHeader title="Partners" subtitle={`${partners.length} partner${partners.length === 1 ? "" : "s"} · ${money(owed)} payable now`} />
+      <PageHeader title="Partners" subtitle={`${partners.length} partner${partners.length === 1 ? "" : "s"} · ${pendingApps.length} to review · ${money(owed)} payable now`} />
       <div className="rounded-xl border border-gray-200 bg-white shadow-sm">
         <div className="flex gap-1 overflow-x-auto border-b border-gray-100 px-3 pt-2">
           {tabs.map((t) => (
@@ -61,17 +64,18 @@ export default function PartnersAdminPage() {
               onClick={() => setTab(t.key)}
               className={cn(
                 "-mb-px flex items-center gap-1.5 whitespace-nowrap border-b-2 px-3 py-2.5 text-sm",
-                tab === t.key ? "border-primary font-medium text-primary" : "border-transparent text-gray-600 hover:text-brand-navy",
+                current === t.key ? "border-primary font-medium text-primary" : "border-transparent text-gray-600 hover:text-brand-navy",
               )}
             >
               {t.label}
-              <span className={cn("rounded-full px-1.5 text-xs", tab === t.key ? "bg-brand-tint" : "bg-gray-100")}>{t.n}</span>
+              <span className={cn("rounded-full px-1.5 text-xs", current === t.key ? "bg-brand-tint" : "bg-gray-100")}>{t.n}</span>
             </button>
           ))}
         </div>
-        {tab === "payouts" && <Payouts rows={payable} onChange={load} />}
-        {tab === "commissions" && <Commissions rows={commissions} onChange={load} />}
-        {tab === "partners" && <PartnerList rows={partners} onChange={load} />}
+        {current === "applications" && <Applications rows={pendingApps} onChange={load} />}
+        {current === "payouts" && <Payouts rows={payable} onChange={load} />}
+        {current === "commissions" && <Commissions rows={commissions} onChange={load} />}
+        {current === "partners" && <PartnerList rows={partners} onChange={load} />}
       </div>
     </>
   );
@@ -208,6 +212,51 @@ function Commissions({ rows, onChange }: { rows: AdminCommission[]; onChange: ()
   );
 }
 
+// ───────── Applications ─────────
+const STATUS_LABEL: Record<PartnerStatus, string> = { pending: "Pending review", active: "Active", suspended: "Suspended", rejected: "Rejected" };
+const STATUS_TONE: Record<PartnerStatus, string> = {
+  pending: "bg-amber-50 text-amber-800 ring-amber-200",
+  active: "bg-emerald-50 text-emerald-700 ring-emerald-200",
+  suspended: "bg-rose-50 text-rose-700 ring-rose-200",
+  rejected: "bg-gray-100 text-gray-700 ring-gray-200",
+};
+
+function Applications({ rows, onChange }: { rows: AdminPartner[]; onChange: () => void }) {
+  const [busy, setBusy] = useState("");
+  const decide = async (p: AdminPartner, status: PartnerStatus) => {
+    setBusy(p.id);
+    const res = await partnerAdmin.updatePartner(p.id, { program: p.program, rate: p.commission_rate, discount: p.customer_discount, status });
+    setBusy("");
+    if (res.error) return toast.error("Couldn't save: " + res.error);
+    toast.success(status === "active" ? `${p.name || p.username} approved. Their code is live. Let them know by email.` : "Application rejected");
+    onChange();
+  };
+  if (!rows.length) return <Empty>No applications waiting. New partner sign-ups appear here for you to approve or reject.</Empty>;
+  return (
+    <ul className="divide-y divide-gray-100">
+      {rows.map((p) => (
+        <li key={p.id} className="flex flex-wrap items-start justify-between gap-3 px-5 py-4">
+          <div className="min-w-0">
+            <p className="font-medium text-brand-navy">{p.name || p.username}</p>
+            <p className="mt-0.5 text-sm text-gray-600">{p.email} · @{p.username} · wants code <code className="font-semibold text-primary">{p.code}</code></p>
+            <p className="mt-0.5 text-xs text-gray-500">
+              Applied {fmtDate(p.created_at)}
+              {p.promote_via ? ` · ${p.promote_via}` : ""}
+              {p.content_url && <> · <a href={p.content_url} target="_blank" rel="noreferrer" className="text-primary hover:underline">{p.content_url}</a></>}
+              {p.paypal_email ? ` · PayPal ${p.paypal_email}` : ""}
+            </p>
+            <p className="mt-0.5 text-xs text-gray-500">On approval: {PROGRAMS.find((x) => x.value === p.program)?.label}, {pct(p.commission_rate)} commission, {pct(p.customer_discount)} off. Change this under the Partners tab first if needed.</p>
+          </div>
+          <div className="flex gap-2">
+            <button className={btnPrimary} disabled={busy === p.id} onClick={() => decide(p, "active")}>Approve</button>
+            <button className={cn(btn, "text-rose-700")} disabled={busy === p.id} onClick={() => confirm("Reject this application?") && decide(p, "rejected")}>Reject</button>
+          </div>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 // ───────── Partners ─────────
 function PartnerList({ rows, onChange }: { rows: AdminPartner[]; onChange: () => void }) {
   const [q, setQ] = useState("");
@@ -254,7 +303,7 @@ function PartnerRow({ p, onChange }: { p: AdminPartner; onChange: () => void }) 
         <div className="min-w-0">
           <div className="flex flex-wrap items-center gap-2">
             <p className="font-medium text-brand-navy">{p.name || p.username}</p>
-            <Pill tone={p.status === "active" ? "bg-emerald-50 text-emerald-700 ring-emerald-200" : "bg-rose-50 text-rose-700 ring-rose-200"}>{p.status === "active" ? "Active" : "Suspended"}</Pill>
+            <Pill tone={STATUS_TONE[p.status]}>{STATUS_LABEL[p.status]}</Pill>
             <Pill tone="bg-gray-100 text-gray-700 ring-gray-200">{PROGRAMS.find((x) => x.value === p.program)?.label}</Pill>
           </div>
           <p className="mt-0.5 text-sm text-gray-600">
@@ -289,8 +338,10 @@ function PartnerRow({ p, onChange }: { p: AdminPartner; onChange: () => void }) 
           </label>
           <label className="text-xs text-gray-600">Status
             <select className={cn(selectCls, "mt-1 block")} value={status} onChange={(e) => setStatus(e.target.value as PartnerStatus)}>
+              <option value="pending">Pending review</option>
               <option value="active">Active</option>
               <option value="suspended">Suspended</option>
+              <option value="rejected">Rejected</option>
             </select>
           </label>
           <button className={btnPrimary} disabled={busy} onClick={save}>{busy ? "Saving..." : "Save"}</button>
