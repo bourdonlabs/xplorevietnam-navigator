@@ -56,7 +56,7 @@ ROLE_ICONS={  # lucide-style outline icons, 24x24
  'bank':'<path d="M3 22h18"/><path d="M6 18v-7M10 18v-7M14 18v-7M18 18v-7"/><path d="m12 2 8 5H4z"/>',
 }
 TEAM=[('Case Manager','briefcase',{'name':'Anh Khoa','photo':'team-anh-khoa'}),('Immigration Specialist','stamp',{'name':'Thien Le (Tony)','photo':'team-thien-le'}),('Relocation Manager','house',{'name':'Cherry Anh Dao Nguyen','photo':'team-cherry-dao'}),('Client Operations &amp; Digital','headset',{'name':'Curly Nguyen','photo':'team-curly-nguyen'}),('Business Setup','building'),('Partnerships','users',{'name':'Therun Nakkeeran','photo':'team-therun-nakkeeran'}),('Social Media','megaphone')]
-PARTNERS=[('Immigration Lawyer','scale'),('Notary Services','pen'),('Real Estate Advisor','key',{'name':'Trần Quang Mỹ','photo':'team-tran-quang-my'}),('Accounting Services','calculator'),('Translation Services','languages'),('School Placement','school'),('Healthcare Liaison','health'),('Moving &amp; Shipping','truck'),('Banking Support','bank')]
+PARTNERS=[('Immigration Lawyer','scale',{'name':'Ngoc Thuy','photo':'team-ngoc-thuy'}),('Notary Services','pen'),('Real Estate Advisor','key',{'name':'Trần Quang Mỹ','photo':'team-tran-quang-my'}),('Accounting Services','calculator'),('Translation Services','languages'),('School Placement','school'),('Healthcare Liaison','health'),('Moving &amp; Shipping','truck'),('Banking Support','bank')]
 def members(roles,sub):
     """Role cards. Filled in (photo + name, role underneath) when a person is set; otherwise an icon card with the role."""
     out=[]
