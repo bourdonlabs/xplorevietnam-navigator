@@ -3,6 +3,33 @@ import type Stripe from "stripe";
 import { stripe, supabaseAdmin } from "@/lib/stripe";
 import { priceCart, unpackCart } from "@/lib/shop";
 
+type Db = NonNullable<ReturnType<typeof supabaseAdmin>>;
+
+/** Credits the partner whose code was used: their rate times what the customer paid at checkout, payable 30 days later. */
+async function creditPartner(db: Db, session: Stripe.Checkout.Session, code: string) {
+  const { data: p } = await db.from("partners").select("id, email, commission_rate, status").eq("code", code).maybeSingle();
+  if (!p || p.status !== "active") return;
+  // No commission on a partner's own purchase.
+  const buyer = session.customer_details?.email?.toLowerCase();
+  if (buyer && p.email && buyer === String(p.email).toLowerCase()) return;
+  const sale = (session.amount_total || 0) / 100;
+  const commission = Math.round(sale * Number(p.commission_rate) * 100) / 100;
+  if (commission <= 0) return;
+  const { data: order } = await db.from("orders").select("id").eq("stripe_session_id", session.id).maybeSingle();
+  await db.from("partner_commissions").upsert(
+    {
+      partner_id: p.id,
+      order_id: order?.id ?? null,
+      stripe_session_id: session.id,
+      sale_usd: sale,
+      rate: p.commission_rate,
+      commission_usd: commission,
+      payable_on: new Date(Date.now() + 30 * 86400000).toISOString().slice(0, 10),
+    },
+    { onConflict: "stripe_session_id", ignoreDuplicates: true },
+  );
+}
+
 // Stripe → Navigator. Records a paid Navigator service request, or a paid website order, once Checkout completes.
 // Set in Stripe Dashboard > Developers > Webhooks: endpoint /api/stripe/webhook,
 // events checkout.session.completed and checkout.session.async_payment_succeeded.
@@ -40,10 +67,13 @@ export async function POST(request: Request) {
           amount_total: session.amount_total || 0,
           currency: session.currency || "usd",
           status: "paid",
+          // Only sent when a code was used, so orders keep saving even before the partner migration is run.
+          ...(m.partner_code ? { partner_code: m.partner_code } : {}),
         },
         { onConflict: "stripe_session_id", ignoreDuplicates: true },
       );
       if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+      if (m.partner_code) await creditPartner(db, session, m.partner_code);
       return NextResponse.json({ received: true });
     }
     if (session.payment_status === "paid" && m.user_id && m.service) {

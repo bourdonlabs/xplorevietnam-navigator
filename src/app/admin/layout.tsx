@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { ArrowUpRight, ClipboardList, Inbox, LayoutDashboard, LogOut, Menu, ShieldAlert, ShoppingBag, Users, UsersRound, X, type LucideIcon } from "lucide-react";
+import { ArrowUpRight, ClipboardList, Handshake, Inbox, LayoutDashboard, LogOut, Menu, ShieldAlert, ShoppingBag, Users, UsersRound, X, type LucideIcon } from "lucide-react";
 import { useAuth } from "@/components/auth-provider";
 import { NavigatorLockup } from "@/components/brand";
 import { AdminCtx, type AdminCtxValue } from "@/components/admin/ui";
@@ -16,6 +16,7 @@ const NAV: { icon: LucideIcon; label: string; href: string }[] = [
   { icon: ClipboardList, label: "Requests", href: "/admin/requests" },
   { icon: Inbox, label: "Website leads", href: "/admin/leads" },
   { icon: ShoppingBag, label: "Website orders", href: "/admin/orders" },
+  { icon: Handshake, label: "Partners", href: "/admin/partners" },
   { icon: UsersRound, label: "Team", href: "/admin/team" },
 ];
 const row = "flex h-10 w-full items-center rounded-md px-3 text-[14px] transition-colors";

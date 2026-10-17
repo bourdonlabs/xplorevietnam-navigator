@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 // Values and labels use text colours; the bar colour only carries magnitude.
 
 /** Vertical bars over time, with a hover tooltip and recessive gridlines. */
-export function TimeBars({ data, height = 180 }: { data: { key: string; label: string; value: number }[]; height?: number }) {
+export function TimeBars({ data, height = 180, unit = "sign-up" }: { data: { key: string; label: string; value: number }[]; height?: number; unit?: string }) {
   const [hover, setHover] = useState<number | null>(null);
   const max = Math.max(1, ...data.map((d) => d.value));
   const top = niceMax(max);
@@ -52,7 +52,7 @@ export function TimeBars({ data, height = 180 }: { data: { key: string; label: s
                 transform: `translate(${hover < data.length * 0.15 ? "-12px" : hover > data.length * 0.85 ? "calc(-100% + 12px)" : "-50%"}, -100%)`,
               }}
             >
-              <span className="font-semibold">{h.value}</span> sign-up{h.value === 1 ? "" : "s"} · {h.label}
+              <span className="font-semibold">{h.value}</span> {unit}{h.value === 1 ? "" : "s"} · {h.label}
             </div>
           )}
         </div>

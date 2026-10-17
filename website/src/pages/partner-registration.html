@@ -5,8 +5,16 @@
 .pr-form select{width:100%;height:56px;padding:0 18px;border:1px solid var(--line);border-radius:999px;font:400 18px/25.2px var(--body);color:var(--navy);background:#fff;margin:12px 0 27px}
 .pr-form label{display:block}
 .pr-hint{margin:-14px 0 24px;font:400 14px/20px var(--body);color:var(--steel)}
+.pr-login{max-width:640px;margin:32px auto 0;text-align:center;background:#fff;border-radius:20px;padding:40px;box-shadow:0 12px 40px rgba(16,24,64,.10)}
+.pr-login h2{font:400 32px/38px var(--head);color:var(--navy)}
+.pr-login p{margin:12px 0 24px;font:400 18px/25px var(--body);color:var(--ink)}
+.pr-login .btn-line{display:inline-flex;width:auto;padding:8px 28px;margin:0}
+.pr-done{max-width:640px;margin:0 auto;text-align:center;background:#fff;border-radius:20px;padding:56px 40px;box-shadow:0 12px 40px rgba(16,24,64,.10)}
+.pr-done h2{font:400 36px/43px var(--head);color:var(--navy)}
+.pr-done p{margin-top:16px;font:400 18px/26px var(--body);color:var(--ink)}
+.pr-done small{display:block;margin-top:20px;font:400 15px/22px var(--body);color:var(--steel)}
 @media (max-width:1024px){ .pr-wrap{margin-top:0;padding:64px var(--pad-x)} }
-@media (max-width:767px){ .pr-form{padding:24px 20px} .pr-form select{height:64px} }
+@media (max-width:767px){ .pr-form,.pr-login,.pr-done{padding:24px 20px} .pr-form select{height:64px} .pr-login h2,.pr-done h2{font-size:26px;line-height:32px} }
 <!-- /style -->
 <main id="top" class="pr">
   <section class="p-hero">
@@ -16,19 +24,22 @@
     </div>
   </section>
   <section class="pr-wrap">
-      <form class="msg-form pr-form" id="pr-form" data-lead="contact" data-thanks="Thank you. We have received your application and will be in touch by email." novalidate>
+      <form class="msg-form pr-form" id="pr-form" novalidate>
         <label for="pr-name">Name</label>
         <input id="pr-name" name="name" type="text" placeholder="First and last name" autocomplete="name" maxlength="200">
         <label for="pr-email">Account Email <span class="req">*</span></label>
         <input id="pr-email" name="email" type="email" placeholder="you@example.com" autocomplete="email" required maxlength="320">
+        <label for="pr-pass">Password <span class="req">*</span></label>
+        <input id="pr-pass" name="password" type="password" placeholder="At least 8 characters" autocomplete="new-password" required minlength="8" maxlength="72">
         <label for="pr-paypal">PayPal email</label>
-        <input id="pr-paypal" data-field="paypal_email" type="email" placeholder="Where we send your rewards if you prefer PayPal" maxlength="320">
+        <input id="pr-paypal" type="email" placeholder="Where we send your rewards if you prefer PayPal" maxlength="320">
         <label for="pr-user">Your username <span class="req">*</span></label>
-        <input id="pr-user" data-field="username" type="text" placeholder="Choose a username" autocomplete="username" required maxlength="60">
+        <input id="pr-user" type="text" placeholder="Choose a username" autocomplete="username" required maxlength="60">
         <label for="pr-code">Coupon code <span class="req">*</span></label>
-        <input id="pr-code" data-field="coupon_code" type="text" placeholder="e.g. YOURNAME5" required maxlength="40">
+        <input id="pr-code" type="text" placeholder="e.g. YOURNAME5" required maxlength="20" style="text-transform:uppercase">
+        <p class="pr-hint">Letters and numbers only. Friends who enter it at checkout get 5% off.</p>
         <label for="pr-how">How will you promote us? <span class="req">*</span></label>
-        <select id="pr-how" data-field="promote_via" required>
+        <select id="pr-how" required>
           <option value="">Choose one</option>
           <option>Word of mouth (friends, family, colleagues)</option>
           <option>Videos or social media content</option>
@@ -38,25 +49,44 @@
           <option>Interviews or podcasts</option>
         </select>
         <label for="pr-url">Content URL</label>
-        <input id="pr-url" data-field="content_url" type="url" placeholder="Link to your channel, blog or group" maxlength="300">
-        <input type="hidden" name="message" id="pr-msg">
+        <input id="pr-url" type="url" placeholder="Link to your channel, blog or group" maxlength="300">
         <input class="hp" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true">
-        <button type="submit">Register <svg class="arr"><use href="#i-arr"/></svg></button>
+        <button type="submit" id="pr-btn">Register <svg class="arr"><use href="#i-arr"/></svg></button>
         <p class="note" aria-live="polite"></p>
       </form>
+      <div class="pr-done" id="pr-done" hidden>
+        <h2>Check your email.</h2>
+        <p>We sent a confirmation link to <b id="pr-done-email"></b>. Click it to open your partner dashboard and get your coupon code and link.</p>
+        <small>No email? Check your spam folder. Already have a Navigator account? Log in below and join from your dashboard.</small>
+      </div>
+      <div class="pr-login">
+        <h2>Already a partner?</h2>
+        <p>Log into your account to see your clicks, sales and commission.</p>
+        <a class="btn-line" href="https://navigator.xplorevietnam.org/auth?next=/partner">Log in to your partner account</a>
+      </div>
   </section>
   <script>
-  (function(){
+  document.addEventListener('DOMContentLoaded', function(){
     var f=document.getElementById('pr-form'); if(!f) return;
-    // Runs before the shared lead handler (capture phase): checks the required fields and builds the message the team reads in the admin.
-    f.addEventListener('submit',function(e){
-      var $=function(id){ return document.getElementById(id).value.trim(); }, note=f.querySelector('.note');
-      if(!$('pr-email')||!$('pr-user')||!$('pr-code')||!$('pr-how')){
-        e.preventDefault(); e.stopImmediatePropagation();
-        note.textContent='Please fill in your email, username, coupon code and how you will promote us.'; return;
-      }
-      document.getElementById('pr-msg').value='[PARTNER APPLICATION] Username: '+$('pr-user')+' | Coupon code: '+$('pr-code').toUpperCase()+' | Promotes via: '+$('pr-how')+' | PayPal: '+($('pr-paypal')||'-')+' | Content: '+($('pr-url')||'-');
-    },true);
-  })();
+    var $=function(id){ return document.getElementById(id).value.trim(); }, note=f.querySelector('.note'), btn=document.getElementById('pr-btn');
+    f.addEventListener('submit', function(e){
+      e.preventDefault();
+      var email=$('pr-email'), pass=document.getElementById('pr-pass').value;
+      if(!email||!$('pr-user')||!$('pr-code')||!$('pr-how')||!pass){ note.textContent='Please fill in your email, password, username, coupon code and how you will promote us.'; return; }
+      if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){ note.textContent='Enter a valid email address, like name@example.com.'; return; }
+      if(pass.length<8){ note.textContent='Choose a password of at least 8 characters.'; return; }
+      btn.disabled=true; note.textContent='Creating your account...';
+      XV.post('/api/partners/register',{
+        email:email, password:pass, name:$('pr-name'), paypal_email:$('pr-paypal'), username:$('pr-user'),
+        code:$('pr-code').toUpperCase(), promote_via:$('pr-how'), content_url:$('pr-url'), website:(f.querySelector('[name=website]')||{}).value||''
+      }).then(function(){
+        document.getElementById('pr-done-email').textContent=email;
+        f.hidden=true; document.getElementById('pr-done').hidden=false;
+        document.getElementById('pr-done').scrollIntoView({behavior:'smooth',block:'center'});
+      }).catch(function(err){
+        note.textContent=(err&&err.message)||'Sorry, that did not go through. Please email us at info@xplorevietnam.org.';
+      }).then(function(){ btn.disabled=false; });
+    });
+  });
   </script>
 </main>

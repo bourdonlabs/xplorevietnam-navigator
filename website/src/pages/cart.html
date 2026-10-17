@@ -49,6 +49,14 @@
 .s-note{font:400 16px/23px var(--body);color:#555}
 .summary button.btn-orange{width:100%;display:flex;align-items:center;justify-content:center;gap:10px;cursor:pointer}
 .summary button.btn-orange:disabled{opacity:.6}
+.cp{display:flex;gap:8px}
+.cp input{flex:1;min-width:0;height:46px;padding:0 16px;border:1px solid var(--line);border-radius:999px;font:400 16px/22px var(--body);color:var(--navy);text-transform:uppercase}
+.cp input::placeholder{text-transform:none}
+.cp button{height:46px;padding:0 20px;border:1px solid var(--navy);border-radius:999px;background:#fff;font:600 16px/22px var(--body);color:var(--navy);cursor:pointer}
+.cp button:disabled{opacity:.6}
+.cp-msg{margin-top:-24px;font:400 14px/20px var(--body);color:#555}
+.cp-msg.ok{color:#177245}.cp-msg.no{color:#B42318}
+.cp-msg button{border:0;background:none;padding:0;margin-left:6px;font:600 14px/20px var(--body);color:#888;text-decoration:underline;cursor:pointer}
 .q-form{padding:0;border:0;margin-top:-12px}
 .q-form input{height:48px;margin-bottom:18px}.q-form textarea{height:90px;margin-bottom:18px}
 @media (max-width:1024px){ .c-head{padding-top:120px;flex-direction:column;align-items:flex-start;gap:32px} .c-head h1{font-size:60px;line-height:70px} .c-body{flex-direction:column;padding:48px var(--pad-x) 64px} .summary{flex:none;width:100%} }
@@ -87,6 +95,19 @@
         if(b==null){ t.quote=true; return; } var now=Math.round(b*dep); t.today+=now+a; t.later+=b-now; t.total+=b+a; });
       return t;
     }
+    // Partner coupon: a ?ref=CODE link saved by site.js pre-fills it; the server confirms the code and its discount.
+    var cp={code:'',percent:0,input:XV.ref(),msg:'',ok:false,busy:false};
+    function applyCode(raw,silent){
+      var c=(raw||'').toUpperCase().replace(/[^A-Z0-9]/g,'');
+      if(c.length<3){ cp.msg=silent?'':'Enter your coupon code.'; cp.ok=false; render(); return; }
+      cp.busy=true; render();
+      XV.post('/api/partners/code',{code:c}).then(function(r){
+        cp.busy=false;
+        if(r.valid){ cp.code=r.code; cp.percent=r.percent; cp.input=r.code; cp.ok=true; cp.msg='Code applied.'; }
+        else { cp.code=''; cp.percent=0; cp.ok=false; cp.msg=silent?'':'That code is not valid.'; }
+        render();
+      }).catch(function(){ cp.busy=false; cp.msg=silent?'':'We could not check that code. Try again.'; cp.ok=false; render(); });
+    }
     function render(){
       var items=cart();
       if(!items.length){
@@ -105,13 +126,17 @@
           '<div class="c-row"><b>'+(b==null?'Price on request':usd(b+a))+'</b><button type="button" class="c-rm" data-act="rm" data-k="'+k+'">Remove</button></div></div></div>';
       }).join('');
       var t=totals(items);
+      var disc=(!t.quote&&cp.percent)?Math.round(t.today*cp.percent/100):0;
       sum.hidden=false;
       sum.innerHTML='<h2>Order Summary</h2><h4>'+items.length+' item'+(items.length>1?'s':'')+'</h4>'+
         items.map(function(i){ var b=base(i); return '<div class="s-line"><span>'+C.items[i.sku].name+'</span><b>'+(b==null?'On request':usd(b+addons(i)))+'</b></div>'; }).join('')+
         '<div class="s-rule"></div>'+
+        (t.quote?'':'<form class="cp" id="cp-form" novalidate><input id="cp-in" type="text" placeholder="Coupon code" aria-label="Coupon code" maxlength="20" autocomplete="off" value="'+esc(cp.input||'')+'"><button type="submit"'+(cp.busy?' disabled':'')+'>'+(cp.busy?'...':'Apply')+'</button></form>'+
+          (cp.msg?'<p class="cp-msg '+(cp.ok?'ok':'no')+'">'+esc(cp.msg)+(cp.code?'<button type="button" id="cp-rm">Remove</button>':'')+'</p>':''))+
         (t.quote?'<p class="s-note">One or more items need a quote. Send us your order and we will reply by email with the final price.</p>':
           (t.later?'<div class="s-line"><span>Order total</span><b>'+usd(t.total)+'</b></div><div class="s-line"><span>Due after your application is submitted</span><b>'+usd(t.later)+'</b></div>':'')+
-          '<div class="s-due">Due Today <span>'+usd(t.today)+'</span></div>')+
+          (disc?'<div class="s-line"><span>Code '+esc(cp.code)+' ('+cp.percent+'% off)</span><b>-'+usd(disc)+'</b></div>':'')+
+          '<div class="s-due">Due Today <span>'+usd(t.today-disc)+'</span></div>')+
         '<button type="button" class="btn-orange" id="go">'+(t.quote?'Request a Quote':'Proceed to Checkout')+' <svg class="arr"><use href="#i-arr"/></svg></button>'+
         '<p class="demo-note" id="go-note">'+(t.quote?'No payment is taken now.':'Secure payment by Stripe. Government fees are not included unless stated.')+'</p>'+
         '<form class="msg-form q-form" id="q-form" hidden novalidate><label for="q-name">Full Name</label><input id="q-name" name="name" type="text" autocomplete="name" maxlength="200">'+
@@ -119,6 +144,10 @@
         '<label for="q-phone">WhatsApp or phone</label><input id="q-phone" name="phone" type="tel" autocomplete="tel" maxlength="60">'+
         '<label for="q-msg">Message</label><textarea id="q-msg" name="message" maxlength="5000"></textarea>'+
         '<button type="submit">Send my order <svg class="arr"><use href="#i-arr"/></svg></button><p class="note" aria-live="polite"></p></form>';
+      var cf=document.getElementById('cp-form');
+      if(cf){ cf.onsubmit=function(e){ e.preventDefault(); applyCode(document.getElementById('cp-in').value,false); }; }
+      var cr=document.getElementById('cp-rm');
+      if(cr){ cr.onclick=function(){ cp.code=''; cp.percent=0; cp.input=''; cp.msg=''; cp.ok=false; render(); }; }
       document.getElementById('go').onclick=function(){ go(items,t); };
       document.getElementById('q-form').onsubmit=function(e){ e.preventDefault(); sendRequest(this,items,t); };
     }
@@ -127,7 +156,7 @@
     function go(items,t){
       if(t.quote) return showForm('Tell us where to send your quote.');
       var b=document.getElementById('go'); b.disabled=true; b.firstChild.textContent='Opening secure checkout... ';
-      XV.post('/api/shop/checkout',{items:items}).then(function(r){
+      XV.post('/api/shop/checkout',{items:items,coupon:cp.code}).then(function(r){
         if(r.url){ location.href=r.url; return; }
         showForm('Online payment is not switched on yet. Send us your order and we will email you a payment link.');
       }).catch(function(){ showForm('We could not open the payment page. Send us your order and we will email you a payment link.'); })
@@ -138,7 +167,7 @@
       if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){ note.textContent='Enter a valid email address, like name@example.com.'; return; }
       note.textContent='Sending...';
       XV.lead({kind:'order_request', name:f.name.value.trim(), email:email, phone:f.phone.value.trim(), message:f.message.value.trim(),
-        data:{items:items.map(function(i){ return {sku:i.sku, name:C.items[i.sku].name, dependents:i.dependents||0, addons:i.addons||[], options:i.options||{}, price:base(i)}; }), estimate_usd:t.quote?null:t.total}})
+        data:{items:items.map(function(i){ return {sku:i.sku, name:C.items[i.sku].name, dependents:i.dependents||0, addons:i.addons||[], options:i.options||{}, price:base(i)}; }), estimate_usd:t.quote?null:t.total, coupon:cp.code||(cp.input||'')||null}})
         .then(function(){ XV.write([]); list.innerHTML='<div class="c-empty"><p><b>Thank you, your order request is in.</b> We will email you with the next steps.</p><div><a class="btn-line" href="index.html">Back to home</a></div></div>'; sum.hidden=true; })
         .catch(function(){ note.textContent='Sorry, that did not go through. Please email us at info@xplorevietnam.org.'; });
     }
@@ -156,6 +185,7 @@
       XV.write(items); render();
     });
     render();
+    if(cp.input) applyCode(cp.input,true);
   });
   </script>
 </main>

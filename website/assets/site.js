@@ -161,7 +161,25 @@ var XV = (function(){
     document.querySelectorAll('.cart-n').forEach(function(b){ b.textContent = n; b.hidden = !n; });
   }
   function lead(o){ o.page = location.pathname.replace(/^\//,'') || 'index.html'; return post('/api/leads', o); }
-  return { API: API, post: post, read: read, write: write, badge: badge, lead: lead };
+  // Partner link tracking: ?ref=CODE is remembered for a year (last link wins) in a cookie and in localStorage, and
+  // each new visit through a link is counted once per browser session.
+  var REF = 'xv-ref', YEAR = 365 * 864e5;
+  function clean(c){ return String(c || '').toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 20); }
+  function ref(){
+    try { var o = JSON.parse(localStorage.getItem(REF) || 'null'); if(o && o.code && Date.now() - o.t < YEAR) return o.code; } catch(e){}
+    var m = document.cookie.match(/(?:^|; )xv_ref=([A-Z0-9]+)/); return m ? m[1] : '';
+  }
+  function captureRef(){
+    var c = clean(new URLSearchParams(location.search).get('ref'));
+    if(c.length < 3) return;
+    try { localStorage.setItem(REF, JSON.stringify({ code: c, t: Date.now() })); } catch(e){}
+    var dom = /(^|\.)xplorevietnam\.org$/.test(location.hostname) ? '; domain=.xplorevietnam.org' : '';
+    document.cookie = 'xv_ref=' + c + '; max-age=' + Math.round(YEAR / 1000) + '; path=/; SameSite=Lax' + dom;
+    try { if(sessionStorage.getItem('xv-ref-seen') === c) return; sessionStorage.setItem('xv-ref-seen', c); } catch(e){}
+    post('/api/partners/visit', { code: c, page: location.pathname.replace(/^\//, '') || 'index.html' }).catch(function(){});
+  }
+  captureRef();
+  return { API: API, post: post, read: read, write: write, badge: badge, lead: lead, ref: ref };
 })();
 
 (function(){
