@@ -8,60 +8,83 @@
 .step.on span{border-color:#FEDFE1;background:#FEDFE1;color:var(--accent)}
 .step p{font:700 18px/27px var(--body);color:#AAA}
 .step.on p{color:var(--navy)}
-.c-body{padding:80px var(--pad-x);display:flex;gap:80px;align-items:flex-start}
-.c-items{flex:1 1 0;min-width:0;padding:25px 0}
+.c-body{padding:56px var(--pad-x) 96px;display:flex;gap:56px;align-items:flex-start}
+.c-items{flex:1 1 0;min-width:0}
 .c-items>h2,.summary h2{font:400 26px/31.2px var(--head);color:var(--navy)}
-.c-item{padding:36px 0;display:flex;gap:30px}
-.c-item .ph{flex:0 0 128px;height:138px;border-radius:15px}
+.c-sub{margin:6px 0 0;font:400 16px/24px var(--body);color:#667}
+.c-item{display:grid;grid-template-columns:120px minmax(0,1fr);gap:24px;margin-top:18px;padding:24px;border:1px solid var(--line);border-radius:16px;background:#fff}
+.c-item .ph{width:120px;height:120px;border-radius:12px;background-size:cover}
 .c-item .ph::before{display:none}
-.c-info{flex:1;min-width:0;display:flex;flex-direction:column;gap:18px}
-.c-info h3{font:400 26px/31.2px var(--head);color:var(--navy)}
-.c-dep{display:flex;gap:10px;align-items:center;font:400 18px/21.6px var(--body);color:var(--navy)}
-.c-dep svg{width:20px;height:20px;color:var(--accent)}
-.c-row{display:flex;justify-content:space-between;align-items:center}
-.c-row b{font:400 26px/31.2px var(--head);color:var(--navy)}
-.qty{display:flex;align-items:center;gap:20px;font:400 18px/21.6px var(--body);color:var(--navy)}
-.qty button{width:14px;height:14px;padding:0;border:0;background:none;color:#AAA}.qty svg{width:14px;height:14px}
-.summary{flex:0 0 348px;padding:25px;border:1px solid var(--line);border-radius:10px;display:flex;flex-direction:column;gap:36px}
-.summary h4{font:700 18px/21.6px var(--body);color:var(--navy)}
-.s-line{display:flex;justify-content:space-between;gap:16px;font:400 18px/21.6px var(--body);color:var(--navy)}
-.s-line b{font-weight:700}
-.s-rule{height:1px;background:var(--line)}
-.s-due{display:flex;justify-content:space-between;align-items:center;font:700 18px/21.6px var(--body);color:var(--navy)}
-.s-due span{padding:4px 8px;border-radius:999px;background:#FEDFE1;color:var(--accent)}
-.summary .btn-orange{height:46px;padding:8px 14.4px;border:0;border-radius:32px;font:600 20px/30px var(--body)}
-.demo-note{font:400 14px/20px var(--body);color:var(--steel);text-align:center;margin-top:-20px}
-.c-item .ph{background-size:cover}
-.c-group{font:600 14px/18px var(--body);color:var(--accent);text-transform:uppercase;letter-spacing:.06em}
-.c-opt,.c-fees{font:400 16px/22px var(--body);color:#555}
-.c-dep small{color:#777;font-size:15px}
-.c-dep .qty{margin-left:8px}
-.c-add{display:flex;align-items:center;gap:10px;font:400 17px/22px var(--body);color:var(--navy);cursor:pointer}
-.c-add input{width:18px;height:18px;accent-color:var(--accent)}
-.c-add b{margin-left:auto;font-weight:600}
-.c-rm{border:0;background:none;padding:0;font:600 15px/20px var(--body);color:#888;text-decoration:underline;cursor:pointer}
+.c-info{display:flex;flex-direction:column;gap:14px;min-width:0}
+.c-top{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.c-group{font:600 13px/18px var(--body);color:var(--accent);text-transform:uppercase;letter-spacing:.06em}
+.c-tag{padding:3px 10px;border-radius:999px;font:600 12px/16px var(--body)}
+.c-tag.pay{background:#E7F6EE;color:#177245}
+.c-tag.quote{background:#FFF1D6;color:#8A5A00}
+.c-info h3{font:500 24px/30px var(--head);color:var(--navy)}
+.c-opt,.c-fees{font:400 15px/22px var(--body);color:#556}
+.c-dep{display:flex;gap:10px;align-items:center;flex-wrap:wrap;font:400 16px/22px var(--body);color:var(--navy)}
+.c-dep>svg{width:20px;height:20px;color:var(--accent)}
+.c-dep small{color:#778;font-size:14px}
+.qty{display:inline-flex;align-items:center;gap:6px;padding:3px;border:1px solid var(--line);border-radius:999px;font:600 16px/22px var(--body);color:var(--navy)}
+.qty span{min-width:22px;text-align:center}
+.qty button{width:30px;height:30px;padding:0;display:flex;align-items:center;justify-content:center;border:0;border-radius:999px;background:#F3F4F6;color:var(--navy);cursor:pointer}
+.qty button:hover{background:#FEDFE1;color:var(--accent)}
+.qty svg{width:14px;height:14px}
+.c-add{display:flex;align-items:center;gap:12px;padding:12px 14px;border:1px solid var(--line);border-radius:12px;font:400 16px/22px var(--body);color:var(--navy);cursor:pointer}
+.c-add:hover{border-color:#C9CDD3}
+.c-add input{width:18px;height:18px;flex:none;accent-color:var(--accent)}
+.c-add b{margin-left:auto;font-weight:600;white-space:nowrap}
+.c-foot{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;padding-top:14px;border-top:1px solid var(--line)}
+.c-price{text-align:right;margin-left:auto}
+.c-price b{display:block;font:600 26px/32px var(--head);color:var(--navy)}
+.c-price small{display:block;font:400 13px/18px var(--body);color:#667}
+.c-price.q b{font-size:20px;line-height:26px}
+.c-rm{border:0;background:none;padding:0;font:600 14px/20px var(--body);color:#888;text-decoration:underline;cursor:pointer}
 .c-rm:hover{color:var(--accent)}
-.c-item+.c-item{border-top:1px solid var(--line)}
+.c-more{display:inline-block;margin-top:22px;font:600 16px/22px var(--body);color:var(--navy);text-decoration:underline}
 .c-empty{padding:36px 0;display:flex;flex-direction:column;gap:24px;font:400 20px/28px var(--body);color:var(--navy)}
 .c-empty>div{display:flex;gap:12px;flex-wrap:wrap}
 .c-empty .btn-line{margin:0;width:auto;padding:8px 24px}
 .c-loading{padding:36px 0;color:#888}
-.s-note{font:400 16px/23px var(--body);color:#555}
-.summary button.btn-orange{width:100%;display:flex;align-items:center;justify-content:center;gap:10px;cursor:pointer}
+.summary{flex:0 0 400px;position:sticky;top:110px;padding:28px;border:1px solid var(--line);border-radius:16px;background:#fff;box-shadow:0 8px 30px rgba(9,8,37,.06);display:flex;flex-direction:column;gap:18px}
+.s-lines{display:flex;flex-direction:column;gap:12px}
+.s-line{display:flex;justify-content:space-between;gap:16px;font:400 16px/22px var(--body);color:var(--navy)}
+.s-line b{font-weight:600;white-space:nowrap}
+.s-line.mute{color:#667}
+.s-line.mute b{font-weight:500}
+.s-line.off{color:#177245}
+.s-rule{height:1px;background:var(--line)}
+.s-total{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font:600 20px/26px var(--body);color:var(--navy)}
+.s-total b{font:600 32px/38px var(--head)}
+.s-today{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 16px;border-radius:12px;background:#FEDFE1;font:600 17px/22px var(--body);color:var(--navy)}
+.s-today b{font:700 24px/30px var(--head);color:var(--accent)}
+.s-box{padding:14px 16px;border-radius:12px;background:#FFF8E8;border:1px solid #F4DFAE;font:400 15px/22px var(--body);color:#5F4400}
+.s-box b{font-weight:600}
+.s-note{font:400 15px/22px var(--body);color:#556}
+.summary button.btn-orange{width:100%;height:52px;padding:8px 16px;border:0;border-radius:32px;font:600 18px/26px var(--body);display:flex;align-items:center;justify-content:center;gap:10px;cursor:pointer}
 .summary button.btn-orange:disabled{opacity:.6}
+.s-alt{width:100%;height:48px;border:1px solid var(--navy);border-radius:32px;background:#fff;font:600 16px/22px var(--body);color:var(--navy);cursor:pointer}
+.s-alt:disabled{opacity:.6}
+.s-trust{display:flex;flex-direction:column;gap:8px;font:400 13px/18px var(--body);color:#667;text-align:center}
+.s-trust span{display:block}
+.s-trust svg{display:inline-block;width:14px;height:14px;vertical-align:-2px;margin-right:6px}
+.s-trust a{color:inherit;text-decoration:underline}
+.demo-note{font:400 14px/20px var(--body);color:var(--steel);text-align:center}
 .cp{display:flex;gap:8px}
 .cp input{flex:1;min-width:0;height:46px;padding:0 16px;border:1px solid var(--line);border-radius:999px;font:400 16px/22px var(--body);color:var(--navy);text-transform:uppercase}
 .cp input::placeholder{text-transform:none}
 .cp button{height:46px;padding:0 20px;border:1px solid var(--navy);border-radius:999px;background:#fff;font:600 16px/22px var(--body);color:var(--navy);cursor:pointer}
 .cp button:disabled{opacity:.6}
-.cp-msg{margin-top:-24px;font:400 14px/20px var(--body);color:#555}
+.cp-msg{margin-top:-8px;font:400 14px/20px var(--body);color:#555}
 .cp-msg.ok{color:#177245}.cp-msg.no{color:#B42318}
 .cp-msg button{border:0;background:none;padding:0;margin-left:6px;font:600 14px/20px var(--body);color:#888;text-decoration:underline;cursor:pointer}
-.q-form{padding:0;border:0;margin-top:-12px}
+.q-form{padding:0;border:0}
+.q-form[hidden]{display:none}
 .q-form select{width:100%;height:48px;padding:0 14.4px;border:1px solid var(--line);border-radius:999px;font:400 18px/25.2px var(--body);color:var(--navy);background:#fff;margin-bottom:18px}
 .q-form input{height:48px;margin-bottom:18px}.q-form textarea{height:90px;margin-bottom:18px}
-@media (max-width:1024px){ .c-head{padding-top:120px;flex-direction:column;align-items:flex-start;gap:32px} .c-head h1{font-size:60px;line-height:70px} .c-body{flex-direction:column;padding:48px var(--pad-x) 64px} .summary{flex:none;width:100%} }
-@media (max-width:767px){ .c-head{padding-top:110px} .c-head h1{font-size:40px;line-height:46px} .steps{gap:12px} .c-item{flex-direction:column} .c-item .ph{flex:none;width:128px} }
+@media (max-width:1024px){ .c-head{padding-top:120px;flex-direction:column;align-items:flex-start;gap:32px} .c-head h1{font-size:60px;line-height:70px} .c-body{flex-direction:column;padding:40px var(--pad-x) 64px;gap:32px} .c-items{width:100%} .summary{flex:none;width:100%;position:static} }
+@media (max-width:767px){ .c-head{padding-top:110px} .c-head h1{font-size:40px;line-height:46px} .steps{gap:12px} .c-item{grid-template-columns:1fr;padding:18px} .c-item .ph{width:100%;height:150px} .summary{padding:20px} .s-total b{font-size:28px} }
 <!-- /style -->
 <main id="top">
   <section class="c-head">
@@ -73,7 +96,7 @@
     </div>
   </section>
   <section class="c-body">
-    <div class="c-items"><h2>Your order</h2><div id="cart-list"><p class="c-loading">Loading your cart...</p></div></div>
+    <div class="c-items"><h2>Your order</h2><p class="c-sub" id="c-sub"></p><div id="cart-list"><p class="c-loading">Loading your cart...</p></div></div>
     <aside class="summary" id="cart-sum" hidden></aside>
   </section>
   <script id="catalog" type="application/json">{{@catalog_json}}</script>
@@ -90,10 +113,12 @@
     // price of the package itself (with dependents); null = needs a quote
     function base(i){ var it=C.items[i.sku], d=i.dependents||0; if(it.price==null||(d&&it.dependent==null)) return null; return it.price+d*(it.dependent||0); }
     function addons(i){ return (i.addons||[]).reduce(function(s,a){ return s+(C.addons[a]?C.addons[a].price:0); },0); }
+    // priced = items with a fixed price (can be paid online); quoted = items we must price by hand
     function totals(items){
-      var t={quote:false,today:0,later:0,total:0};
+      var t={priced:[],quoted:[],quote:false,mixed:false,today:0,later:0,total:0};
       items.forEach(function(i){ var b=base(i), a=addons(i), dep=C.items[i.sku].deposit||1;
-        if(b==null){ t.quote=true; return; } var now=Math.round(b*dep); t.today+=now+a; t.later+=b-now; t.total+=b+a; });
+        if(b==null){ t.quoted.push(i); return; } var now=Math.round(b*dep); t.priced.push(i); t.today+=now+a; t.later+=b-now; t.total+=b+a; });
+      t.quote=t.quoted.length>0; t.mixed=t.quote&&t.priced.length>0;
       return t;
     }
     // Partner coupon: a ?ref=CODE link saved by site.js pre-fills it; the server confirms the code and its discount.
@@ -109,37 +134,60 @@
         render();
       }).catch(function(){ cp.busy=false; cp.msg=silent?'':'We could not check that code. Try again.'; cp.ok=false; render(); });
     }
+    var LOCK='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>';
     function render(){
       var items=cart();
       if(!items.length){
+        document.getElementById('c-sub').textContent='';
         list.innerHTML='<div class="c-empty"><p>Your cart is empty.</p><div><a class="btn-line" href="relocate.html">Relocation packages</a><a class="btn-line" href="services.html">All services</a></div></div>';
         sum.hidden=true; return;
       }
+      document.getElementById('c-sub').textContent=items.length+' item'+(items.length>1?'s':'')+' in your cart';
       list.innerHTML=items.map(function(i,k){
-        var it=C.items[i.sku], b=base(i), a=addons(i), d=i.dependents||0;
+        var it=C.items[i.sku], b=base(i), a=addons(i), d=i.dependents||0, dep0=it.deposit||1;
         var dep=it.maxDependents?'<div class="c-dep">{{i:dep}}Dependents<div class="qty"><button type="button" data-act="dec" data-k="'+k+'" aria-label="Fewer dependents">{{i:minus}}</button><span>'+d+'</span><button type="button" data-act="inc" data-k="'+k+'" aria-label="More dependents">{{i:plus}}</button></div>'+
-          (it.dependent?'<small>'+usd(it.dependent)+' each</small>':(d?'<small>Price on request</small>':''))+'</div>':'';
+          (it.dependent?'<small>'+usd(it.dependent)+' each</small>':(d?'<small>Dependents are quoted</small>':''))+'</div>':'';
         var opt=i.options&&i.options.visa_type?'<p class="c-opt">Visa type: '+esc(i.options.visa_type)+'</p>':'';
         var ads=(it.addons||[]).map(function(x){ var on=(i.addons||[]).indexOf(x)>-1;
-          return '<label class="c-add"><input type="checkbox" data-act="addon" data-k="'+k+'" data-a="'+x+'"'+(on?' checked':'')+'> '+C.addons[x].name+' <b>'+usd(C.addons[x].price)+'</b></label>'; }).join('');
+          return '<label class="c-add"><input type="checkbox" data-act="addon" data-k="'+k+'" data-a="'+x+'"'+(on?' checked':'')+'> '+C.addons[x].name+' <b>+'+usd(C.addons[x].price)+'</b></label>'; }).join('');
+        var price;
+        if(b!=null) price='<div class="c-price"><b>'+usd(b+a)+'</b>'+(dep0<1?'<small>'+Math.round(dep0*100)+'% today, rest after filing</small>':'<small>Paid online today</small>')+'</div>';
+        else price='<div class="c-price q"><b>'+(it.price!=null?'From '+usd(it.price+a)+' + dependents':'Price on request')+'</b><small>We email you the final price</small></div>';
         return '<div class="c-item"><div class="ph" style="background:#DDE3EA url('+IMG[it.group]+') center/cover no-repeat"></div><div class="c-info">'+
-          '<p class="c-group">'+it.group+'</p><h3>'+it.name+'</h3>'+opt+dep+ads+(it.fees?'<p class="c-fees">'+it.fees+'</p>':'')+
-          '<div class="c-row"><b>'+(b==null?'Price on request':usd(b+a))+'</b><button type="button" class="c-rm" data-act="rm" data-k="'+k+'">Remove</button></div></div></div>';
-      }).join('');
+          '<div class="c-top"><span class="c-group">'+it.group+'</span><span class="c-tag '+(b==null?'quote':'pay')+'">'+(b==null?'Quote needed':'Pay online')+'</span></div><h3>'+it.name+'</h3>'+opt+dep+ads+(it.fees?'<p class="c-fees">'+it.fees+'</p>':'')+
+          '<div class="c-foot"><button type="button" class="c-rm" data-act="rm" data-k="'+k+'">Remove</button>'+price+'</div></div></div>';
+      }).join('')+'<a class="c-more" href="services.html">+ Add another service</a>';
+
       var t=totals(items);
-      var disc=(!t.quote&&cp.percent)?Math.round(t.today*cp.percent/100):0;
+      var disc=(t.priced.length&&cp.percent)?Math.round(t.today*cp.percent/100):0;
+      var due=t.today-disc;
+      var lines='';
+      t.priced.forEach(function(i){ lines+='<div class="s-line"><span>'+C.items[i.sku].name+'</span><b>'+usd(base(i)+addons(i))+'</b></div>'; });
+      t.quoted.forEach(function(i){ lines+='<div class="s-line mute"><span>'+C.items[i.sku].name+'</span><b>Quote needed</b></div>'; });
+      var money='';
+      if(t.priced.length){
+        money+='<div class="s-total"><span>'+(t.quote?'Total (priced items)':'Order total')+'</span><b>'+usd(t.total)+'</b></div>';
+        if(disc) money+='<div class="s-line off"><span>Code '+esc(cp.code)+' ('+cp.percent+'% off today\'s payment)</span><b>-'+usd(disc)+'</b></div>';
+        money+='<div class="s-today"><span>Due today</span><b>'+usd(due)+'</b></div>';
+        if(t.later) money+='<div class="s-line mute"><span>Due after your application is submitted</span><b>'+usd(t.later)+'</b></div>';
+      } else {
+        money+='<div class="s-total"><span>Order total</span><b>Quote</b></div>';
+      }
+      var box='';
+      if(t.mixed) box='<div class="s-box"><b>'+t.quoted.length+' item'+(t.quoted.length>1?'s need':' needs')+' a quote.</b> Pay for the priced items now, or send everything in one request and we reply with one final price.</div>';
+      else if(t.quote) box='<p class="s-note">These items are priced by hand. Send your order and we reply by email with the final price. No payment is taken now.</p>';
+      var coupon=t.priced.length?'<form class="cp" id="cp-form" novalidate><input id="cp-in" type="text" placeholder="Partner or coupon code" aria-label="Coupon code" maxlength="20" autocomplete="off" value="'+esc(cp.input||'')+'"><button type="submit"'+(cp.busy?' disabled':'')+'>'+(cp.busy?'...':'Apply')+'</button></form>'+
+        (cp.msg?'<p class="cp-msg '+(cp.ok?'ok':'no')+'">'+esc(cp.msg)+(cp.code?'<button type="button" id="cp-rm">Remove</button>':'')+'</p>':''):'';
+      var arr=' <svg class="arr"><use href="#i-arr"/></svg>';
+      var btns;
+      if(!t.quote) btns='<button type="button" class="btn-orange" id="go">Pay '+usd(due)+' securely'+arr+'</button>';
+      else if(t.mixed) btns='<button type="button" class="btn-orange" id="go-q">Request a quote for everything'+arr+'</button><button type="button" class="s-alt" id="go">Pay '+usd(due)+' for priced items only</button>';
+      else btns='<button type="button" class="btn-orange" id="go-q">Request a quote'+arr+'</button>';
+      var trust=(t.priced.length?'<span>'+LOCK+'Secure payment by Stripe. Visa, Mastercard and Amex accepted.</span>':'<span>'+LOCK+'No payment is taken now.</span>')+
+        '<span>Government fees are not included unless stated. <a href="refunds.html">Refund policy</a></span>';
       sum.hidden=false;
-      sum.innerHTML='<h2>Order Summary</h2><h4>'+items.length+' item'+(items.length>1?'s':'')+'</h4>'+
-        items.map(function(i){ var b=base(i); return '<div class="s-line"><span>'+C.items[i.sku].name+'</span><b>'+(b==null?'On request':usd(b+addons(i)))+'</b></div>'; }).join('')+
-        '<div class="s-rule"></div>'+
-        (t.quote?'':'<form class="cp" id="cp-form" novalidate><input id="cp-in" type="text" placeholder="Coupon code" aria-label="Coupon code" maxlength="20" autocomplete="off" value="'+esc(cp.input||'')+'"><button type="submit"'+(cp.busy?' disabled':'')+'>'+(cp.busy?'...':'Apply')+'</button></form>'+
-          (cp.msg?'<p class="cp-msg '+(cp.ok?'ok':'no')+'">'+esc(cp.msg)+(cp.code?'<button type="button" id="cp-rm">Remove</button>':'')+'</p>':''))+
-        (t.quote?'<p class="s-note">One or more items need a quote. Send us your order and we will reply by email with the final price.</p>':
-          (t.later?'<div class="s-line"><span>Order total</span><b>'+usd(t.total)+'</b></div><div class="s-line"><span>Due after your application is submitted</span><b>'+usd(t.later)+'</b></div>':'')+
-          (disc?'<div class="s-line"><span>Code '+esc(cp.code)+' ('+cp.percent+'% off)</span><b>-'+usd(disc)+'</b></div>':'')+
-          '<div class="s-due">Due Today <span>'+usd(t.today-disc)+'</span></div>')+
-        '<button type="button" class="btn-orange" id="go">'+(t.quote?'Request a Quote':'Proceed to Checkout')+' <svg class="arr"><use href="#i-arr"/></svg></button>'+
-        '<p class="demo-note" id="go-note">'+(t.quote?'No payment is taken now.':'Secure payment by Stripe. Government fees are not included unless stated.')+'</p>'+
+      sum.innerHTML='<h2>Order summary</h2><div class="s-lines">'+lines+'</div><div class="s-rule"></div>'+money+
+        (coupon?'<div class="s-rule"></div>'+coupon:'')+box+btns+'<div class="s-trust" id="go-note">'+trust+'</div>'+
         '<form class="msg-form q-form" id="q-form" hidden novalidate><label for="q-name">Full Name</label><input id="q-name" name="name" type="text" autocomplete="name" maxlength="200">'+
         '<label for="q-email">Email Address <span class="req">*</span></label><input id="q-email" name="email" type="email" autocomplete="email" required maxlength="320">'+
         '<label for="q-phone">WhatsApp or phone</label><input id="q-phone" name="phone" type="tel" autocomplete="tel" maxlength="60">'+
@@ -152,19 +200,29 @@
       if(cf){ cf.onsubmit=function(e){ e.preventDefault(); applyCode(document.getElementById('cp-in').value,false); }; }
       var cr=document.getElementById('cp-rm');
       if(cr){ cr.onclick=function(){ cp.code=''; cp.percent=0; cp.input=''; cp.msg=''; cp.ok=false; render(); }; }
-      document.getElementById('go').onclick=function(){ go(items,t); };
+      var q=document.getElementById('go-q');
+      if(q) q.onclick=function(){ showForm('Tell us where to send your quote.'); };
+      var g=document.getElementById('go');
+      if(g) g.onclick=function(){ go(items,t); };
       document.getElementById('q-form').onsubmit=function(e){ e.preventDefault(); sendRequest(this,items,t); };
     }
-    function showForm(msg){ var f=document.getElementById('q-form'); f.hidden=false; document.getElementById('go').hidden=true;
-      document.getElementById('go-note').textContent=msg; f.querySelector('input[name=email]').focus(); }
+    function showForm(msg){ var f=document.getElementById('q-form'); f.hidden=false;
+      ['go','go-q'].forEach(function(id){ var e=document.getElementById(id); if(e) e.hidden=true; });
+      document.getElementById('go-note').innerHTML='<span>'+msg+'</span>'; f.querySelector('input[name=email]').focus(); }
     function go(items,t){
-      if(t.quote) return showForm('Tell us where to send your quote.');
-      var b=document.getElementById('go'); b.disabled=true; b.firstChild.textContent='Opening secure checkout... ';
-      XV.post('/api/shop/checkout',{items:items,coupon:cp.code}).then(function(r){
+      var b=document.getElementById('go'), label=b.textContent; b.disabled=true; b.textContent='Opening secure checkout...';
+      // only fixed-price items go to Stripe; quote items stay in the cart for after the payment
+      try{ sessionStorage.setItem('xv-left',JSON.stringify(t.quoted)); }catch(e){}
+      XV.post('/api/shop/checkout',{items:t.priced,coupon:cp.code}).then(function(r){
         if(r.url){ location.href=r.url; return; }
+        try{ sessionStorage.removeItem('xv-left'); }catch(e){}
+        b.disabled=false; b.textContent=label;
         showForm('Online payment is not switched on yet. Send us your order and we will email you a payment link.');
-      }).catch(function(){ showForm('We could not open the payment page. Send us your order and we will email you a payment link.'); })
-      .then(function(){ b.disabled=false; b.firstChild.textContent='Proceed to Checkout '; });
+      }).catch(function(){
+        try{ sessionStorage.removeItem('xv-left'); }catch(e){}
+        b.disabled=false; b.textContent=label;
+        showForm('We could not open the payment page. Send us your order and we will email you a payment link.');
+      });
     }
     function sendRequest(f,items,t){
       var note=f.querySelector('.note'), email=f.email.value.trim();
@@ -194,6 +252,7 @@
       var items=cart(), i=items[+x.dataset.k]; i.addons=(i.addons||[]).filter(function(a){ return a!==x.dataset.a; }); if(x.checked) i.addons.push(x.dataset.a);
       XV.write(items); render();
     });
+    try{ sessionStorage.removeItem('xv-left'); }catch(e){}
     render();
     if(cp.input) applyCode(cp.input,true);
   });

@@ -35,5 +35,5 @@
       <small>Questions about your order? Email <a href="mailto:info@xplorevietnam.org">info@xplorevietnam.org</a>.</small>
     </div>
   </section>
-  <script>document.addEventListener('DOMContentLoaded', function(){ XV.write([]); });</script>
+  <script>document.addEventListener('DOMContentLoaded', function(){ var left=[]; try{ left=JSON.parse(sessionStorage.getItem('xv-left')||'[]'); sessionStorage.removeItem('xv-left'); }catch(e){} XV.write(left); });</script>
 </main>
