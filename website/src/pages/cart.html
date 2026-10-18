@@ -108,7 +108,10 @@
       'Visas & Extensions':'img/svc/visas.jpg','Temporary Residence Card (TRC)':'img/svc/trc.jpg','Business Setup':'img/svc/business.jpg','Relocation':'img/svc/relocation-apartment.jpg','Overstay':'img/guide-hcmc.jpg'};
     // Product thumbnails (square, 1:1). A product listed here overrides its group image above.
     var SKU_IMG={'overstay-review':'img/svc/overstay-case-review.webp',
-      'rl-visa':'img/svc/visa-package.webp','svc-visas-1':'img/svc/visa-package.webp'};   // both "Visa Package" products
+      'rl-visa':'img/svc/visa-package.webp','svc-visas-1':'img/svc/visa-package.webp',   // both "Visa Package" products
+      'svc-visas-3':'img/svc/visa-concierge-package.webp'};                              // Visa Concierge Package
+    // Descriptive alt text per product (products not listed keep the decorative empty alt).
+    var SKU_ALT={'svc-visas-3':'XploreVietnam premium visa concierge service'};
     function usd(n){ return '$'+n.toLocaleString('en-US'); }
     function esc(t){ var d=document.createElement('div'); d.textContent=t; return d.innerHTML; }
     function cart(){ return XV.read().filter(function(i){ return C.items[i.sku]; }); }
@@ -155,7 +158,7 @@
         var price;
         if(b!=null) price='<div class="c-price"><b>'+usd(b+a)+'</b>'+(dep0<1?'<small>'+Math.round(dep0*100)+'% today, rest after filing</small>':'<small>Paid online today</small>')+'</div>';
         else price='<div class="c-price q"><b>'+(it.price!=null?'From '+usd(it.price+a)+' + dependents':'Price on request')+'</b><small>We email you the final price</small></div>';
-        return '<div class="c-item"><img class="c-thumb" src="'+(SKU_IMG[i.sku]||IMG[it.group])+'" alt="" width="120" height="120" loading="lazy"><div class="c-info">'+
+        return '<div class="c-item"><img class="c-thumb" src="'+(SKU_IMG[i.sku]||IMG[it.group])+'" alt="'+(SKU_ALT[i.sku]||'')+'" width="120" height="120" loading="lazy"><div class="c-info">'+
           '<div class="c-top"><span class="c-group">'+it.group+'</span><span class="c-tag '+(b==null?'quote':'pay')+'">'+(b==null?'Quote needed':'Pay online')+'</span></div><h3>'+it.name+'</h3>'+opt+dep+ads+(it.fees?'<p class="c-fees">'+it.fees+'</p>':'')+
           '<div class="c-foot"><button type="button" class="c-rm" data-act="rm" data-k="'+k+'">Remove</button>'+price+'</div></div></div>';
       }).join('')+'<a class="c-more" href="services.html">+ Add another service</a>';
