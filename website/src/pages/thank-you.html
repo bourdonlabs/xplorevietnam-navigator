@@ -9,19 +9,44 @@
 .ty-card .acts{margin-top:32px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
 .ty-card .acts .btn-line{margin:0;width:auto;padding:8px 24px}
 .ty-card small{display:block;margin-top:24px;font:400 16px/24px var(--body);color:var(--steel)}
-@media (max-width:1024px){ .ty-wrap{margin-top:0;padding:64px var(--pad-x)} }
-@media (max-width:767px){ .ty-card{padding:28px 20px} .ty-card h2{font-size:28.8px;line-height:34.56px} }
+.ty-order{text-align:left;max-width:560px;margin:0 auto 44px;padding:24px 28px;border:1px solid var(--line);border-radius:14px;background:#F7F9FC}
+.ty [hidden]{display:none!important}
+.ty-card .ty-order h2{font:600 24px/30px var(--head)}
+.ty-ref{margin-top:4px;font:400 15px/22px var(--body);color:var(--steel)}
+.ty-ref b{color:var(--navy);letter-spacing:.06em}
+.ty-rows{margin-top:12px}
+.ty-row{display:flex;justify-content:space-between;gap:20px;padding:14px 0;border-bottom:1px solid var(--line);font:500 17px/24px var(--body);color:var(--navy)}
+.ty-row b{font-weight:600;white-space:nowrap}
+.ty-card .ty-order .ty-row small{margin:3px 0 0;font:400 14px/20px var(--body);color:var(--steel)}
+.ty-row.disc{color:#1E7A4B}
+.ty-tot{display:flex;justify-content:space-between;gap:20px;padding-top:16px;font:600 22px/30px var(--head);color:var(--navy)}
+.ty-later{margin-top:10px;padding:12px 14px;border-radius:10px;background:#fff;border:1px solid var(--line);font:400 15px/22px var(--body);color:var(--ink)}
+.ty-test{display:inline-block;margin-top:10px;padding:2px 10px;border-radius:999px;background:#FFF3D6;color:#7A5300;font:500 13px/20px var(--body)}
+.ty-mail{max-width:520px;margin:0 auto 28px;font:400 17px/26px var(--body);color:var(--ink)}
+.ty-mail b{color:var(--navy)}
+@media print{ .ty-card .acts,.ty-card small,header,footer{display:none} .ty-wrap{margin-top:0} }
+@media (max-width:1024px){ .ty-wrap{margin-top:0;padding:40px var(--pad-x) 64px} .ty .p-hero-in{min-height:0;aspect-ratio:auto;padding-bottom:40px} }
+@media (max-width:767px){ .ty-card .acts .btn-orange{width:100%;justify-content:center;white-space:nowrap} .ty-card .acts .nv{display:none} .ty-card{padding:28px 20px} .ty-card h2{font-size:28.8px;line-height:34.56px} .ty-order{padding:20px 16px} .ty-card .ty-order h2{font-size:22px;line-height:28px} .ty-row{font-size:16px} }
 <!-- /style -->
 <main id="top" class="ty">
   <section class="p-hero">
     <div class="p-hero-in soft">
-      <div class="pill">Payment received</div>
-      <h1>Thank you</h1>
-      <p class="tag">Your order is confirmed.</p>
+      <div class="pill" id="ty-pill">Payment received</div>
+      <h1 id="ty-h1">Thank you</h1>
+      <p class="tag" id="ty-tag">Your order is confirmed.</p>
     </div>
   </section>
   <section class="ty-wrap">
     <div class="ty-card">
+      <div class="ty-order" id="ty-order" hidden>
+        <h2>Your order</h2>
+        <div class="ty-ref">Reference <b id="ty-ref"></b></div>
+        <div class="ty-rows" id="ty-rows"></div>
+        <div class="ty-tot"><span id="ty-paidlbl">Paid today</span><span id="ty-paid"></span></div>
+        <div class="ty-later" id="ty-later" hidden></div>
+        <span class="ty-test" id="ty-test" hidden>Test payment, no real money was taken</span>
+      </div>
+      <p class="ty-mail" id="ty-mail" hidden></p>
       <h2>What happens next</h2>
       <ol>
         <li>You will receive a payment receipt by email.</li>
@@ -29,11 +54,43 @@
         <li>In the meantime, create your free Navigator account to see your visa checklist and plan your move.</li>
       </ol>
       <div class="acts">
-        <a class="btn-orange md" href="https://navigator.xplorevietnam.org/auth?tab=signup">Create my Navigator account <svg class="arr"><use href="#i-arr"/></svg></a>
+        <a class="btn-orange md" href="https://navigator.xplorevietnam.org/auth?tab=signup">Create my <span class="nv">Navigator </span>account <svg class="arr"><use href="#i-arr"/></svg></a>
         <a class="btn-line" href="index.html">Back to home</a>
+        <button type="button" class="btn-line" id="ty-print" hidden>Print this page</button>
       </div>
       <small>Questions about your order? Email <a href="mailto:info@xplorevietnam.org">info@xplorevietnam.org</a>.</small>
     </div>
   </section>
-  <script>document.addEventListener('DOMContentLoaded', function(){ var left=[]; try{ left=JSON.parse(sessionStorage.getItem('xv-left')||'[]'); sessionStorage.removeItem('xv-left'); sessionStorage.removeItem('xv-co'); sessionStorage.removeItem('xv-coupon'); }catch(e){} XV.write(left); });</script>
+  <script>document.addEventListener('DOMContentLoaded', function(){
+  // Leftover quote-only items stay in the cart; everything that was just paid is cleared. Only when we really came back from a payment.
+  var id = new URLSearchParams(location.search).get('order');
+  function usd(n){ return '$' + Number(n).toLocaleString('en-US', {minimumFractionDigits: n % 1 ? 2 : 0, maximumFractionDigits: 2}); }
+  function esc(s){ var d=document.createElement('div'); d.textContent = s == null ? '' : s; return d.innerHTML; }
+  function $(x){ return document.getElementById(x); }
+  if (!id) return;
+  var left = [];
+  try { left = JSON.parse(sessionStorage.getItem('xv-left') || '[]'); sessionStorage.removeItem('xv-left'); sessionStorage.removeItem('xv-co'); sessionStorage.removeItem('xv-coupon'); } catch(e) {}
+  XV.write(left);
+
+  XV.post('/api/shop/order', { session: id }).then(function(o){
+    if (!o || !o.items) return;
+    if (o.first) $('ty-h1').textContent = 'Thank you, ' + o.first;
+    if (!o.paid) {
+      $('ty-pill').textContent = 'Payment processing';
+      $('ty-h1').textContent = o.first ? 'Almost there, ' + o.first : 'Almost there';
+      $('ty-tag').textContent = 'Your bank is still confirming the payment. We will email you as soon as it clears.';
+      $('ty-paidlbl').textContent = 'Amount';
+    }
+    $('ty-ref').textContent = o.ref;
+    $('ty-rows').innerHTML = o.items.map(function(i){
+      return '<div class="ty-row"><span>' + esc(i.name) + (i.detail ? '<small>' + esc(i.detail) + '</small>' : '') + '</span><b>' + usd(i.dueNow) + '</b></div>';
+    }).join('') + (o.discount > 0 ? '<div class="ty-row disc"><span>Partner discount</span><b>-' + usd(o.discount) + '</b></div>' : '');
+    $('ty-paid').textContent = usd(o.paidToday);
+    if (o.balance > 0) { var l = $('ty-later'); l.hidden = false; l.textContent = usd(o.balance) + ' is due after your application is submitted. We will email you a secure payment link then.'; }
+    if (o.test) $('ty-test').hidden = false;
+    if (o.paid && o.email) { var m = $('ty-mail'); m.hidden = false; m.innerHTML = 'We have emailed your receipt and a copy of your signed agreement to <b>' + esc(o.email) + '</b>. If you cannot find it, check your spam folder.'; }
+    $('ty-order').hidden = false;
+    var p = $('ty-print'); p.hidden = false; p.addEventListener('click', function(){ window.print(); });
+  }).catch(function(){});
+});</script>
 </main>

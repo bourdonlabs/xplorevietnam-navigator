@@ -1,6 +1,7 @@
 import type Stripe from "stripe";
 import { signedAgreementHtml, signedAgreementText, type Section } from "./agreements";
 import { NOTIFY_TO, sendEmail, staffMail, whatsappUrl, type MailButton } from "./mailer";
+import { orderRef } from "./order-summary";
 import type { CartLine } from "./shop";
 
 type SignedRow = {
@@ -25,7 +26,7 @@ export async function mailPaidOrder(o: { session: Stripe.Checkout.Session; lines
   const items = lines
     .map((l) => `${l.name}${l.options.visa_type ? ` (${l.options.visa_type})` : ""}${l.dependents ? ` + ${l.dependents} dependent${l.dependents > 1 ? "s" : ""}` : ""}${l.addons.length ? ` + ${l.addons.map((a) => a.name).join(", ")}` : ""}`)
     .join("\n");
-  const ref = (o.orderId || session.id).slice(0, 8).toUpperCase();
+  const ref = orderRef(session.id);
 
   if (email) {
     const extraHtml = agreements

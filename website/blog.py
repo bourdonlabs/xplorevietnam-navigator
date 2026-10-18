@@ -120,7 +120,7 @@ POST_STYLE = '''<style>
 .post .by span{display:flex;align-items:center;gap:12px;font:700 16px/18px var(--body);color:var(--navy)}
 .post .by i{width:34px;height:34px;border-radius:50%;background:url(img/author-john.jpg) center/cover no-repeat #fff;border:1px solid var(--line)}
 .post .by svg{width:20px;height:14px;color:var(--navy)}
-@media (max-width:1024px){.bp-hero{padding-top:110px}.bp-hero h1{font-size:44px;line-height:52px}.bp-wrap{grid-template-columns:1fr;gap:40px}.bp-side{position:static}.bp-more .grid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:1024px){.bp-hero{padding-top:110px}.bp-hero h1{font-size:44px;line-height:52px}.bp-wrap{grid-template-columns:minmax(0,1fr);gap:40px}.bp-side{position:static}.bp-side .btn-orange{white-space:normal;text-align:center}.bp-more .grid{grid-template-columns:repeat(2,1fr)}}
 @media (max-width:767px){.bp-hero h1{font-size:32px;line-height:40px}.bp-cover{margin-top:32px;aspect-ratio:4/3}.bp-body{font-size:17px;line-height:28px}.bp-body .lede{font-size:19px;line-height:30px}.bp-body h2{font-size:26px;line-height:32px}.bp-more .grid{grid-template-columns:1fr}.bp-body table{display:block;overflow-x:auto}}
 </style>
 '''
