@@ -1,5 +1,6 @@
-import { NextResponse } from "next/server";
+import { after, NextResponse } from "next/server";
 import type Stripe from "stripe";
+import { mailPaidOrder } from "@/lib/order-mail";
 import { stripe, supabaseAdmin } from "@/lib/stripe";
 import { priceCart, unpackCart } from "@/lib/shop";
 
@@ -53,6 +54,7 @@ export async function POST(request: Request) {
     if (session.payment_status === "paid" && m.kind === "shop") {
       const cart = priceCart(unpackCart(m.cart));
       const c = session.customer_details;
+      const { data: before } = await db.from("orders").select("id").eq("stripe_session_id", session.id).maybeSingle();
       const { error } = await db.from("orders").upsert(
         {
           stripe_session_id: session.id,
@@ -74,6 +76,25 @@ export async function POST(request: Request) {
       );
       if (error) return NextResponse.json({ error: error.message }, { status: 500 });
       if (m.partner_code) await creditPartner(db, session, m.partner_code);
+
+      // Attach the agreements the customer signed to this order (only ones not yet attached, so a repeat delivery does nothing).
+      const { data: order } = await db.from("orders").select("id").eq("stripe_session_id", session.id).maybeSingle();
+      const ids = (m.agreement_ids || "").split(",").filter((x) => /^[0-9a-f-]{36}$/i.test(x));
+      let linked: Parameters<typeof mailPaidOrder>[0]["agreements"] = [];
+      if (ids.length) {
+        const { data } = await db
+          .from("signed_agreements")
+          .update({ stripe_session_id: session.id, order_id: order?.id ?? null })
+          .in("id", ids)
+          .is("stripe_session_id", null)
+          .select("id, title, version, created_at, signer_name, signer_email, body");
+        linked = data || [];
+      }
+      // Emails go out once per order: on the first delivery, or when a retry is the one that attached the agreements.
+      if (!before || linked.length) {
+        const origin = new URL(request.url).origin;
+        after(() => mailPaidOrder({ session, lines: cart.lines, agreements: linked, origin, orderId: order?.id }));
+      }
       return NextResponse.json({ received: true });
     }
     if (session.payment_status === "paid" && m.user_id && m.service) {

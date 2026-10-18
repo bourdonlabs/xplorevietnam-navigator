@@ -1,0 +1,325 @@
+<!-- title: XploreVietnam Checkout -->
+<!-- style -->
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@500&family=Dancing+Script:wght@500&family=La+Belle+Aurore&family=Mrs+Saint+Delafield&display=swap');
+.c-head{padding:140px var(--pad-x) 0;display:flex;justify-content:space-between;align-items:center;gap:80px}
+.c-head h1{font:600 75px/86px var(--head);color:var(--navy)}
+.steps{display:flex;gap:28px}
+.step{width:84px;display:flex;flex-direction:column;align-items:center;gap:12px;text-decoration:none}
+.step span{width:42px;height:42px;padding:10px;border:1px solid var(--line);border-radius:999px;background:#fff;color:#AAA;display:flex;align-items:center;justify-content:center}
+.step span svg{width:20px;height:20px}
+.step.on span{border-color:#FEDFE1;background:#FEDFE1;color:var(--accent)}
+.step.done span{border-color:#CDEBD9;background:#E7F6EE;color:#177245}
+.step p{font:700 17px/26px var(--body);color:#AAA;text-align:center}
+.step.on p,.step.done p{color:var(--navy)}
+.co-body{padding:56px var(--pad-x) 96px;display:flex;gap:56px;align-items:flex-start}
+.co-main{flex:1 1 0;min-width:0}
+.co-main h2{font:400 26px/31.2px var(--head);color:var(--navy);margin-bottom:8px}
+.co-sub{font:400 16px/24px var(--body);color:#667;margin-bottom:26px}
+.co-load{padding:60px 0;font:400 18px/26px var(--body);color:#667}
+.co-err{margin:0 0 22px;padding:14px 16px;border-radius:12px;background:#FDECEC;border:1px solid #F5C6C6;font:400 15px/22px var(--body);color:#8C1D18}
+.co-err a{color:inherit;font-weight:600}
+.co-draft{margin:0 0 22px;padding:14px 16px;border-radius:12px;background:#FFF1D6;border:1px solid #F4DFAE;font:400 15px/22px var(--body);color:#5F4400}
+.f-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px 18px}
+.f-grid .full{grid-column:1/-1}
+.f label{display:block;margin-bottom:8px;font:600 16px/22px var(--body);color:var(--navy)}
+.f label i{font-style:normal;color:var(--accent)}
+.f input,.f select{width:100%;height:50px;padding:0 18px;border:1px solid var(--line);border-radius:999px;background:#fff;font:400 17px/24px var(--body);color:var(--navy)}
+.f input:focus,.f select:focus{outline:2px solid #FEDFE1;border-color:var(--accent)}
+.f.bad input,.f.bad select{border-color:#C0392B}
+.f small{display:none;margin-top:6px;font:400 14px/20px var(--body);color:#B42318}
+.f.bad small{display:block}
+.btn-main{width:100%;height:54px;margin-top:26px;padding:8px 16px;border:0;border-radius:32px;background:var(--accent);color:#fff;font:600 19px/28px var(--body);display:flex;align-items:center;justify-content:center;gap:10px;cursor:pointer}
+.btn-main:disabled{opacity:.6;cursor:default}
+.btn-main svg{width:18px;height:18px}
+.btn-alt{background:none;border:0;padding:0;font:600 15px/22px var(--body);color:#667;text-decoration:underline;cursor:pointer}
+.co-back{margin-top:18px;text-align:center}
+.sum{flex:0 0 380px;position:sticky;top:110px;padding:26px;border:1px solid var(--line);border-radius:16px;background:#fff;box-shadow:0 8px 30px rgba(9,8,37,.06);display:flex;flex-direction:column;gap:16px}
+.sum h2{font:400 24px/30px var(--head);color:var(--navy)}
+.s-line{display:flex;justify-content:space-between;gap:16px;font:400 16px/22px var(--body);color:var(--navy)}
+.s-line b{font-weight:600;white-space:nowrap}
+.s-line small{display:block;font-size:13px;line-height:18px;color:#778}
+.s-line.mute{color:#667}.s-line.off{color:#177245}
+.s-rule{height:1px;background:var(--line)}
+.s-total{display:flex;justify-content:space-between;align-items:baseline;font:600 19px/26px var(--body);color:var(--navy)}
+.s-total b{font:600 30px/36px var(--head)}
+.s-today{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;border-radius:12px;background:#FEDFE1;font:600 17px/22px var(--body);color:var(--navy)}
+.s-today b{font:700 24px/30px var(--head);color:var(--accent)}
+.s-trust{font:400 13px/18px var(--body);color:#667;text-align:center}
+/* agreement */
+.ag-head{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;margin-bottom:18px}
+.ag-head h2{margin:0}
+.ag-count{font:600 15px/22px var(--body);color:#667}
+.ag-wrap{background:#EEF0F3;border-radius:16px;padding:32px 16px}
+.ag-page{max-width:780px;margin:0 auto;padding:56px 64px;background:#fff;border:1px solid #DDE1E6;border-radius:6px;font:400 15px/24px var(--body);color:#1C1C2E}
+.ag-t{font:600 26px/32px var(--head);color:var(--navy);margin-bottom:4px}
+.ag-sub{margin-bottom:26px;color:#667;font-size:14px}
+.ag-page h3{margin:30px 0 10px;font:600 20px/28px var(--head);color:var(--navy)}
+.ag-page h4{margin:16px 0 6px;font:700 15px/22px var(--body);color:var(--navy)}
+.ag-page p{margin:0 0 12px}
+.ag-page ul{margin:0 0 12px;padding-left:22px}
+.ag-page li{margin:0 0 5px}
+.ag-sig2{display:grid;grid-template-columns:1fr 1fr;border:1px solid #DDE1E6;margin:14px 0 26px}
+.ag-sig2>div{padding:16px 18px;font-size:14px;line-height:22px}
+.ag-sig2>div+div{border-left:1px solid #DDE1E6}
+.ag-sig2 b{display:block;margin-bottom:8px}
+.sg-form{display:grid;gap:12px;max-width:340px}
+.sg-form input{width:100%;height:46px;padding:0 14px;border:1px solid #CBD0D6;border-radius:4px;font:400 16px/22px var(--body);color:var(--navy);background:#fff}
+.sg-form input[readonly]{background:#F5F6F8;color:#667}
+.sg-box{width:100%;min-height:84px;margin-top:8px;border:0;border-radius:4px;background:#E6E4FB;color:#3B3796;display:flex;align-items:center;justify-content:center;gap:10px;cursor:pointer;font:400 30px/1 'Caveat',cursive}
+.sg-box small{font:600 12px/16px var(--body);letter-spacing:.04em}
+.sg-done{margin-top:8px;display:flex;flex-direction:column;gap:6px}
+.sg-done img{display:block;max-width:320px;max-height:90px;border-bottom:1px dashed #AAB;padding:0 0 6px}
+.sg-done span{font-size:13px;color:#667}
+.ag-bar{position:sticky;bottom:0;z-index:20;margin:18px -16px -32px;padding:14px 18px;background:#fff;border-top:1px solid var(--line);box-shadow:0 -6px 20px rgba(9,8,37,.07);display:flex;align-items:center;justify-content:space-between;gap:18px;border-radius:0 0 16px 16px}
+.ag-bar p{font:400 14px/20px var(--body);color:#445;max-width:620px}
+.ag-bar button{flex:none;height:48px;padding:0 28px;border:0;border-radius:6px;background:#1D74D6;color:#fff;font:700 15px/20px var(--body);letter-spacing:.04em;text-transform:uppercase;cursor:pointer}
+.ag-bar button:disabled{background:#B9C4D2;cursor:default}
+.ag-msg{font:400 14px/20px var(--body);color:#B42318;margin-top:8px}
+/* signature popup */
+.md{position:fixed;inset:0;z-index:100;background:rgba(9,8,37,.55);display:flex;align-items:center;justify-content:center;padding:16px;overflow:auto}
+.md[hidden]{display:none}
+.md-card{width:100%;max-width:640px;padding:32px 36px;border-radius:14px;background:#fff;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+.md-card h3{font:600 24px/30px var(--head);color:var(--navy);text-align:center;margin-bottom:8px}
+.md-card>p{font:400 15px/22px var(--body);color:#445;text-align:center;margin-bottom:18px}
+.md-card label{display:block;font:600 14px/20px var(--body);color:var(--navy);margin-bottom:6px}
+.md-card input[type=text]{width:100%;height:44px;padding:0 12px;border:1px solid #CBD0D6;border-radius:4px;font:400 16px/22px var(--body);color:var(--navy)}
+.md-tabs{display:flex;align-items:center;gap:22px;margin-top:16px;border-bottom:1px solid var(--line)}
+.md-tabs button{padding:8px 0;border:0;border-bottom:2px solid transparent;background:none;font:500 16px/22px var(--body);color:#445;cursor:pointer}
+.md-tabs button.on{border-bottom-color:#6B5BFF;color:var(--navy);font-weight:600}
+.md-tabs .md-font{margin-left:auto;border:0;color:#5B4BE0;text-decoration:underline;font-size:15px}
+.md-pad{position:relative;height:170px;margin-top:6px}
+.md-pad canvas{position:absolute;inset:0;width:100%;height:100%;touch-action:none;cursor:crosshair}
+.md-type{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:0 24px;font-size:56px;line-height:1.1;color:#090825;text-align:center;white-space:nowrap;overflow:hidden}
+.md-line{position:absolute;left:4px;right:4px;bottom:26px;border-bottom:3px dashed #E1E4E8;pointer-events:none}
+.md-line::before{content:'X';position:absolute;left:0;bottom:2px;font:400 24px/1 var(--body);color:#C9CDD3}
+.md-hint{margin:6px 0 14px;font:400 13px/18px var(--body);color:#667}
+.md-consent{margin:6px 0 16px;font:500 13px/19px var(--body);color:#445;text-align:center}
+.md-act{display:flex;flex-direction:column;align-items:center;gap:12px}
+.md-act .go{padding:0 40px;height:48px;border:0;border-radius:8px;background:#6B5BFF;color:#fff;font:600 16px/22px var(--body);cursor:pointer}
+.md-act .go:disabled{opacity:.45;cursor:default}
+.md-act a,.md-act button.cn{border:0;background:none;font:500 15px/22px var(--body);color:#5B4BE0;text-decoration:underline;cursor:pointer}
+.pay-list{display:flex;flex-direction:column;gap:10px;margin:0 0 22px}
+.pay-list div{display:flex;align-items:center;gap:10px;padding:12px 14px;border:1px solid var(--line);border-radius:12px;font:500 16px/22px var(--body);color:var(--navy)}
+.pay-list svg{width:18px;height:18px;color:#177245;flex:none}
+.pay-recap{padding:16px 18px;border:1px solid var(--line);border-radius:12px;font:400 15px/22px var(--body);color:#445;margin-bottom:8px}
+.pay-recap b{color:var(--navy)}
+.pay-wallets{margin-top:14px;font:400 14px/20px var(--body);color:#667;text-align:center}
+@media (max-width:1024px){ .c-head{padding-top:120px;flex-direction:column;align-items:flex-start;gap:32px} .c-head h1{font-size:60px;line-height:70px} .co-body{flex-direction:column;padding:40px var(--pad-x) 64px;gap:32px} .co-main{width:100%} .sum{flex:none;width:100%;position:static} }
+@media (max-width:767px){ .c-head{padding-top:110px} .c-head h1{font-size:40px;line-height:46px} .steps{gap:6px} .step{width:70px} .step p{font-size:14px} .f-grid{grid-template-columns:1fr} .ag-page{padding:28px 20px} .ag-wrap{padding:16px 8px} .ag-sig2{grid-template-columns:1fr} .ag-sig2>div+div{border-left:0;border-top:1px solid #DDE1E6} .ag-bar{flex-direction:column;align-items:stretch;margin:18px -8px -16px} .ag-bar button{width:100%} .md-card{padding:22px 18px} .md-type{font-size:40px} }
+<!-- /style -->
+<main id="top">
+  <section class="c-head">
+    <h1 id="co-h1">Checkout</h1>
+    <div class="steps" id="co-steps"></div>
+  </section>
+  <section class="co-body" id="co-body"><div class="co-main"><p class="co-load">Preparing your checkout...</p></div></section>
+  <div class="md" id="sg-md" hidden role="dialog" aria-modal="true" aria-labelledby="sg-t"></div>
+  <script>
+  document.addEventListener('DOMContentLoaded', function(){
+    var CODES='AD AE AF AG AI AL AM AO AQ AR AS AT AU AW AX AZ BA BB BD BE BF BG BH BI BJ BL BM BN BO BQ BR BS BT BV BW BY BZ CA CC CD CF CG CH CI CK CL CM CN CO CR CU CV CW CX CY CZ DE DJ DK DM DO DZ EC EE EG EH ER ES ET FI FJ FK FM FO FR GA GB GD GE GF GG GH GI GL GM GN GP GQ GR GS GT GU GW GY HK HM HN HR HT HU ID IE IL IM IN IO IQ IR IS IT JE JM JO JP KE KG KH KI KM KN KP KR KW KY KZ LA LB LC LI LK LR LS LT LU LV LY MA MC MD ME MF MG MH MK ML MM MN MO MP MQ MR MS MT MU MV MW MX MY MZ NA NC NE NF NG NI NL NO NP NR NU NZ OM PA PE PF PG PH PK PL PM PN PR PS PT PW PY QA RE RO RS RU RW SA SB SC SD SE SG SH SI SJ SK SL SM SN SO SR SS ST SV SX SY SZ TC TD TF TG TH TJ TK TL TM TN TO TR TT TV TW TZ UA UG UM US UY UZ VA VC VE VG VI VN VU WF WS YE YT ZA ZM ZW'.split(' ');
+    var FONTS=['Mrs Saint Delafield','La Belle Aurore','Dancing Script','Caveat'];
+    var SKEY='xv-co';
+    var body=document.getElementById('co-body'), stepsEl=document.getElementById('co-steps'), h1=document.getElementById('co-h1'), md=document.getElementById('sg-md');
+    var S={items:XV.read(), pre:null, step:'details', idx:0, d:{}, sig:null, signed:{}, coupon:null, err:''};
+    function usd(n){ return '$'+Number(n).toLocaleString('en-US'); }
+    function esc(t){ var d=document.createElement('div'); d.textContent=t==null?'':t; return d.innerHTML; }
+    function save(){ try{ sessionStorage.setItem(SKEY,JSON.stringify({d:S.d,sig:S.sig,signed:S.signed})); }catch(e){} }
+    try{ var o=JSON.parse(sessionStorage.getItem(SKEY)||'null'); if(o){ S.d=o.d||{}; S.sig=o.sig||null; S.signed=o.signed||{}; } }catch(e){}
+    try{ var cp=JSON.parse(sessionStorage.getItem('xv-coupon')||'null'); if(cp&&cp.code&&cp.percent) S.coupon=cp; }catch(e){}
+    if(!S.items.length){ location.replace('cart.html'); return; }
+
+    var PEN='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>';
+    var TICK='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
+    var ARR=' <svg class="arr"><use href="#i-arr"/></svg>';
+    function names(){ var dn; try{ dn=new Intl.DisplayNames(['en'],{type:'region'}); }catch(e){} return CODES.map(function(c){ var n=c; try{ n=dn?dn.of(c)||c:c; }catch(e){} return [c,n]; }).sort(function(a,b){ return a[1].localeCompare(b[1]); }); }
+    var COUNTRIES=names();
+
+    function renderSteps(){
+      var order=['details','agree','pay'], cur=order.indexOf(S.step);
+      function st(cls,icon,label,href){ return '<'+(href?'a href="'+href+'"':'div')+' class="step '+cls+'"><span>'+icon+'</span><p>'+label+'</p></'+(href?'a':'div')+'>'; }
+      stepsEl.innerHTML=st('done',TICK,'Cart','cart.html')+
+        st(cur===0?'on':'done',cur===0?'{{i:addr}}':TICK,'Details')+
+        st(cur===1?'on':(cur>1?'done':''),cur>1?TICK:PEN,'Agreement')+
+        st(cur===2?'on':'','{{i:checkout}}','Payment');
+    }
+    function pct(){ return S.coupon?S.coupon.percent:0; }
+    function summary(){
+      var p=S.pre, t=p.totals, disc=pct()?Math.round(t.dueNow*pct()/100):0, h='<aside class="sum"><h2>Order summary</h2>';
+      p.lines.forEach(function(l){
+        var bits=[l.options&&l.options.visa_type, l.dependents?l.dependents+' dependent'+(l.dependents>1?'s':''):'', l.addons.join(', ')].filter(Boolean).join(' · ');
+        h+='<div class="s-line"><span>'+esc(l.name)+(bits?'<small>'+esc(bits)+'</small>':'')+'</span><b>'+usd(l.total)+'</b></div>';
+      });
+      h+='<div class="s-rule"></div><div class="s-total"><span>Order total</span><b>'+usd(t.total)+'</b></div>';
+      if(disc) h+='<div class="s-line off"><span>Code '+esc(S.coupon.code)+' ('+pct()+'% off today)</span><b>-'+usd(disc)+'</b></div>';
+      h+='<div class="s-today"><span>Due today</span><b>'+usd(t.dueNow-disc)+'</b></div>';
+      if(t.later>0) h+='<div class="s-line mute"><span>Due after your application is submitted</span><b>'+usd(t.later)+'</b></div>';
+      if(p.quoted.length) h+='<p class="s-trust" style="text-align:left">'+p.quoted.length+' other item'+(p.quoted.length>1?'s are':' is')+' in your cart and needs a quote. It stays in your cart after this payment.</p>';
+      return h+'<p class="s-trust">Secure payment by Stripe. Government fees are not included unless stated.</p></aside>';
+    }
+
+    function field(id,label,val,opt){ opt=opt||{}; return '<div class="f'+(opt.full?' full':'')+'" id="f-'+id+'"><label for="'+id+'">'+label+(opt.req?' <i>*</i>':'')+'</label><input id="'+id+'" name="'+id+'" type="'+(opt.type||'text')+'" value="'+esc(val||'')+'" autocomplete="'+(opt.ac||'off')+'" maxlength="'+(opt.max||200)+'"><small>'+(opt.msg||'This is required.')+'</small></div>'; }
+
+    function showDetails(){
+      S.step='details'; h1.textContent='Your details'; renderSteps();
+      var d=S.d, opts='<option value="">Select country</option>'+COUNTRIES.map(function(c){ return '<option value="'+c[0]+'"'+(d.country===c[0]?' selected':'')+'>'+esc(c[1])+'</option>'; }).join('');
+      body.innerHTML='<div class="co-main"><h2>Enter your details</h2><p class="co-sub">We use these for your agreement, your payment and to contact you about your case.</p>'+(S.err?'<p class="co-err">'+S.err+'</p>':'')+
+        '<form id="d-form" novalidate><div class="f-grid">'+
+        field('email','Email address',d.email,{req:1,type:'email',ac:'email',full:1,max:320,msg:'Enter a valid email, like name@example.com.'})+
+        field('first','First name',d.first,{req:1,ac:'given-name'})+field('last','Last name',d.last,{req:1,ac:'family-name'})+
+        '<div class="f full" id="f-country"><label for="country">Country / Region <i>*</i></label><select id="country" name="country" autocomplete="country">'+opts+'</select><small>Choose your country.</small></div>'+
+        field('line1','Street address',d.line1,{req:1,ac:'address-line1',full:1})+
+        field('line2','Apartment, suite, unit (optional)',d.line2,{ac:'address-line2',full:1})+
+        field('city','Town / City',d.city,{req:1,ac:'address-level2'})+field('postcode','Postcode / ZIP (optional)',d.postcode,{ac:'postal-code',max:30})+
+        field('phone','WhatsApp or phone (optional)',d.phone,{type:'tel',ac:'tel',full:1,max:60})+
+        '</div><button class="btn-main" type="submit">Continue to agreement'+ARR+'</button></form><p class="co-back"><a class="btn-alt" href="cart.html">Back to cart</a></p></div>'+summary();
+      S.err='';
+      document.getElementById('d-form').onsubmit=function(e){ e.preventDefault(); submitDetails(); };
+    }
+    function submitDetails(){
+      var g=function(id){ return document.getElementById(id).value.trim(); }, bad=false;
+      var d={email:g('email').toLowerCase(),first:g('first'),last:g('last'),country:g('country'),line1:g('line1'),line2:g('line2'),city:g('city'),postcode:g('postcode'),phone:g('phone')};
+      function chk(id,ok){ document.getElementById('f-'+id).classList.toggle('bad',!ok); if(!ok&&!bad){ bad=true; document.getElementById(id).focus(); } }
+      chk('email',/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(d.email)); chk('first',!!d.first); chk('last',!!d.last); chk('country',!!d.country); chk('line1',!!d.line1); chk('city',!!d.city);
+      if(bad) return;
+      if(S.d.email&&S.d.email!==d.email){ S.signed={}; }  // signatures are tied to the email they were signed with
+      S.d=d; save(); S.idx=0; showAgree();
+    }
+
+    function docHtml(doc){
+      var h='<h2 class="ag-t">'+esc(doc.title)+'</h2><p class="ag-sub">'+esc(doc.subtitle)+'</p>';
+      doc.sections.forEach(function(s,i){
+        h+='<h3>'+(i+1)+'. '+esc(s.h)+'</h3>';
+        s.body.forEach(function(b){ if(typeof b==='string') h+='<p>'+esc(b)+'</p>'; else if(Array.isArray(b)) h+='<ul>'+b.map(function(x){ return '<li>'+esc(x)+'</li>'; }).join('')+'</ul>'; else h+='<h4>'+esc(b.h3)+'</h4>'; });
+      });
+      return h;
+    }
+    function today(){ return new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'}); }
+    function fullName(){ return ((S.d.first||'')+' '+(S.d.last||'')).trim(); }
+
+    function showAgree(keep){
+      S.step='agree'; renderSteps();
+      var docs=S.pre.documents;
+      // skip agreements already signed for exactly this cart
+      while(S.idx<docs.length && S.signed[docs[S.idx].key] && S.signed[docs[S.idx].key].hash===docs[S.idx].cart_hash) S.idx++;
+      if(S.idx>=docs.length) return showPay();
+      var doc=docs[S.idx];
+      h1.textContent='Agreement';
+      var sg=S.sig, name=(S.legal&&S.legal.k===doc.key?S.legal.v:(sg&&sg.name)||fullName());
+      body.innerHTML='<div class="co-main" style="width:100%"><div class="ag-head"><div><h2>Please review &amp; sign this document</h2><p class="co-sub" style="margin:0">Read the agreement below, then sign at the bottom.</p></div><span class="ag-count">Agreement '+(S.idx+1)+' of '+docs.length+'</span></div>'+
+        (S.err?'<p class="co-err">'+S.err+'</p>':'')+
+        (S.pre.draft?'<p class="co-draft"><b>Draft wording.</b> This agreement text is a draft for testing and has not been finalised. Please do not rely on it.</p>':'')+
+        '<div class="ag-wrap"><div class="ag-page">'+docHtml(doc)+
+        '<h3>'+(doc.sections.length+1)+'. Signatures</h3><p>By signing below, each party acknowledges that they have read, understood and agreed to the terms of this agreement.</p>'+
+        '<div class="ag-sig2"><div><b>Client</b>Name: <span id="ag-nm">'+esc(name)+'</span><br>Date: '+today()+'</div><div><b>'+esc(S.pre.company)+'</b>Accepted electronically when your order is confirmed.<br>Date: '+today()+'</div></div>'+
+        '<div class="sg-form"><input id="ag-name" type="text" placeholder="Your legal name" value="'+esc(name)+'" autocomplete="name" aria-label="Your legal name" maxlength="200"><input type="text" value="'+esc(S.d.email)+'" readonly aria-label="Your email address">'+
+        (sg?'<div class="sg-done"><img alt="Your signature" src="'+sg.image+'"><span>Signed by: <b id="ag-by">'+esc(name)+'</b> · '+today()+' · <button type="button" class="btn-alt" id="sg-change">Change signature</button></span></div>':
+        '<button type="button" class="sg-box" id="sg-open">Sign Here <small>CLICK TO SIGN</small></button>')+'</div>'+
+        '<p class="ag-msg" id="ag-msg"></p></div>'+
+        '<div class="ag-bar"><p id="ag-stmt">'+(sg?'I, <b id="ag-st-n">'+esc(name)+'</b>, have read this agreement and agree to be legally bound by it, together with the <a href="terms.html" target="_blank">Terms &amp; Conditions</a> and the <a href="refunds.html" target="_blank">Refund Policy</a>.':'Please review the document, then add your signature to continue.')+'</p><button type="button" id="ag-go"'+(sg?'':' disabled')+'>Agree &amp; finish</button></div></div>'+
+        '<p class="co-back"><button type="button" class="btn-alt" id="ag-back">'+(S.idx>0?'Previous agreement':'Back to details')+'</button></p></div>';
+      S.err='';
+      var nameEl=document.getElementById('ag-name');
+      nameEl.oninput=function(){ S.legal={k:doc.key,v:nameEl.value}; document.getElementById('ag-nm').textContent=nameEl.value; var b=document.getElementById('ag-by'); if(b) b.textContent=nameEl.value; var s2=document.getElementById('ag-st-n'); if(s2) s2.textContent=nameEl.value; };
+      var op=document.getElementById('sg-open'); if(op) op.onclick=function(){ openSig(nameEl.value||fullName(), reshow); };
+      var ch=document.getElementById('sg-change'); if(ch) ch.onclick=function(){ openSig(nameEl.value||fullName(), reshow); };
+      document.getElementById('ag-back').onclick=function(){ if(S.idx>0){ S.idx--; S.signed[docs[S.idx].key]=null; showAgree(); } else showDetails(); };
+      document.getElementById('ag-go').onclick=function(){ finish(doc,nameEl.value.trim()); };
+      if(!keep) window.scrollTo(0,0);
+    }
+
+    function reshow(){ var y=window.scrollY; showAgree(true); window.scrollTo(0,y); }
+    function finish(doc,name){
+      var msg=document.getElementById('ag-msg'), go=document.getElementById('ag-go');
+      if(name.length<2){ msg.textContent='Enter your legal name above.'; document.getElementById('ag-name').focus(); return; }
+      go.disabled=true; go.textContent='Signing...'; msg.textContent='';
+      XV.post('/api/shop/agreements/sign',{items:S.items,key:doc.key,consent:true,
+        signer:{name:name,email:S.d.email,phone:S.d.phone,country:S.d.country,line1:S.d.line1,line2:S.d.line2,city:S.d.city,postcode:S.d.postcode},
+        signature:{type:S.sig.type,font:S.sig.font||'',image:S.sig.image}})
+      .then(function(r){ S.signed[doc.key]={id:r.id,hash:doc.cart_hash}; save(); S.idx++; showAgree(); })
+      .catch(function(e){ go.disabled=false; go.textContent='Agree & finish'; msg.textContent=(e&&e.error==='too_many')?'Too many attempts. Please try again in a little while.':'We could not save your signature. Please check your connection and try again.'; });
+    }
+
+    /* ---- signature popup: draw or type, same idea as the reference page ---- */
+    function openSig(name,done){
+      var mode=S.sig&&S.sig.type==='drawn'?'draw':'type', fi=S.sig&&S.sig.font?Math.max(0,FONTS.indexOf(S.sig.font)):0, strokes=0, drawing=false, last=null;
+      md.hidden=false;
+      md.innerHTML='<div class="md-card"><h3 id="sg-t">Add Your Signature</h3><p>Let\'s get your signature added'+(name?', '+esc(name):'')+'. It will be used to sign the agreements in your order.</p>'+
+        '<label for="sg-name">Confirm your legal name and signature</label><input type="text" id="sg-name" value="'+esc(name)+'" maxlength="200" autocomplete="name">'+
+        '<div class="md-tabs"><button type="button" data-m="draw">Draw Signature</button><button type="button" data-m="type">Type Signature</button><button type="button" class="md-font" id="sg-font">Change font</button></div>'+
+        '<div class="md-pad"><canvas id="sg-cv"></canvas><div class="md-type" id="sg-ty"></div><div class="md-line"></div></div>'+
+        '<p class="md-hint" id="sg-hint"></p><p class="md-consent">I consent to use my electronic signature on documents, including legally binding contracts, as a digital representation of my signature, just like pen and paper.</p>'+
+        '<div class="md-act"><button type="button" class="go" id="sg-ok">Adopt Signature</button><button type="button" class="cn" id="sg-cancel">Cancel</button></div></div>';
+      var cv=document.getElementById('sg-cv'), ty=document.getElementById('sg-ty'), nm=document.getElementById('sg-name'), ok=document.getElementById('sg-ok'), ctx;
+      function size(){ var r=cv.getBoundingClientRect(), k=window.devicePixelRatio||1; cv.width=Math.round(r.width*k); cv.height=Math.round(r.height*k); ctx=cv.getContext('2d'); ctx.scale(k,k); ctx.lineWidth=2.6; ctx.lineCap='round'; ctx.lineJoin='round'; ctx.strokeStyle='#090825'; }
+      function ui(){
+        md.querySelectorAll('.md-tabs [data-m]').forEach(function(b){ b.classList.toggle('on',b.dataset.m===mode); });
+        document.getElementById('sg-font').style.display=mode==='type'?'':'none';
+        cv.style.display=mode==='draw'?'block':'none'; ty.style.display=mode==='type'?'flex':'none';
+        ty.style.fontFamily="'"+FONTS[fi]+"',cursive"; ty.textContent=nm.value;
+        document.getElementById('sg-hint').textContent=mode==='type'?'Type your signature in the field above or switch to drawn mode.':'Draw your signature in the box with your mouse, finger or stylus.';
+        ok.disabled=nm.value.trim().length<2||(mode==='draw'&&!strokes);
+      }
+      function pos(e){ var r=cv.getBoundingClientRect(); return {x:e.clientX-r.left,y:e.clientY-r.top}; }
+      cv.onpointerdown=function(e){ drawing=true; last=pos(e); cv.setPointerCapture(e.pointerId); ctx.beginPath(); ctx.moveTo(last.x,last.y); ctx.lineTo(last.x+.1,last.y+.1); ctx.stroke(); strokes++; ui(); e.preventDefault(); };
+      cv.onpointermove=function(e){ if(!drawing) return; var p=pos(e); ctx.beginPath(); ctx.moveTo(last.x,last.y); ctx.lineTo(p.x,p.y); ctx.stroke(); last=p; };
+      cv.onpointerup=cv.onpointercancel=function(){ drawing=false; };
+      md.querySelectorAll('.md-tabs [data-m]').forEach(function(b){ b.onclick=function(){ mode=b.dataset.m; ui(); if(mode==='draw'){ size(); strokes=0; ui(); } }; });
+      document.getElementById('sg-font').onclick=function(){ fi=(fi+1)%FONTS.length; ui(); };
+      nm.oninput=ui;
+      function close(){ md.hidden=true; md.innerHTML=''; document.removeEventListener('keydown',esc2); }
+      function esc2(e){ if(e.key==='Escape') close(); }
+      document.addEventListener('keydown',esc2);
+      document.getElementById('sg-cancel').onclick=close;
+      md.onclick=function(e){ if(e.target===md) close(); };
+      ok.onclick=function(){
+        var n=nm.value.trim(), out=document.createElement('canvas'); out.width=640; out.height=170; var c=out.getContext('2d'); c.fillStyle='#090825'; c.strokeStyle='#090825';
+        function finishSig(){ S.sig={type:mode==='draw'?'drawn':'typed',font:mode==='type'?FONTS[fi]:'',name:n,image:out.toDataURL('image/png')}; S.legal={k:'*',v:n}; save(); close(); done(); }
+        if(mode==='type'){
+          var f="64px '"+FONTS[fi]+"'"; (document.fonts&&document.fonts.load?document.fonts.load(f,n):Promise.resolve()).then(function(){
+            c.font=f; c.textBaseline='middle'; var w=c.measureText(n).width; if(w>600){ c.font=Math.floor(64*600/w)+"px '"+FONTS[fi]+"'"; w=c.measureText(n).width; } c.fillText(n,(640-w)/2,85); finishSig(); });
+        } else { c.drawImage(cv,0,0,cv.width,cv.height,0,0,640,170); finishSig(); }
+      };
+      ui(); size(); nm.focus();
+    }
+
+    function showPay(){
+      S.step='pay'; renderSteps(); h1.textContent='Payment';
+      var t=S.pre.totals, disc=pct()?Math.round(t.dueNow*pct()/100):0;
+      body.innerHTML='<div class="co-main"><h2>Review and pay</h2><p class="co-sub">Your agreement is signed. One last step: pay securely with Stripe.</p>'+(S.err?'<p class="co-err">'+S.err+'</p>':'')+
+        '<div class="pay-list">'+S.pre.documents.map(function(d){ return '<div>'+TICK+'<span>'+esc(d.title)+' signed</span></div>'; }).join('')+'</div>'+
+        '<div class="pay-recap"><b>'+esc(fullName())+'</b><br>'+esc(S.d.email)+'<br>'+esc([S.d.line1,S.d.city,S.d.country].filter(Boolean).join(', '))+' · <button type="button" class="btn-alt" id="p-edit">Edit details</button></div>'+
+        '<button class="btn-main" id="p-go" type="button">Pay '+usd(t.dueNow-disc)+' securely'+ARR+'</button>'+
+        '<p class="pay-wallets">You will pay on Stripe\'s secure page. Card, and Apple Pay or Google Pay where your device supports them.</p>'+
+        '<p class="co-back"><button type="button" class="btn-alt" id="p-back">Back to agreement</button></p></div>'+summary();
+      S.err='';
+      document.getElementById('p-edit').onclick=showDetails;
+      document.getElementById('p-back').onclick=function(){ S.idx=Math.max(0,S.pre.documents.length-1); S.signed[S.pre.documents[S.idx].key]=null; showAgree(); };
+      document.getElementById('p-go').onclick=pay;
+      window.scrollTo(0,0);
+    }
+    function pay(){
+      var b=document.getElementById('p-go'), label=b.innerHTML; b.disabled=true; b.textContent='Opening secure payment...';
+      var ids=S.pre.documents.map(function(d){ return S.signed[d.key]&&S.signed[d.key].id; }).filter(Boolean);
+      var quoted=S.pre.quoted, priced=S.items.filter(function(i){ return quoted.indexOf(i.sku)<0; });
+      try{ sessionStorage.setItem('xv-left',JSON.stringify(S.items.filter(function(i){ return quoted.indexOf(i.sku)>-1; }))); }catch(e){}
+      XV.post('/api/shop/checkout',{items:priced,coupon:S.coupon?S.coupon.code:'',agreements:ids,customer:{name:fullName(),email:S.d.email,phone:S.d.phone,country:S.d.country,line1:S.d.line1,line2:S.d.line2,city:S.d.city,postcode:S.d.postcode}})
+      .then(function(r){
+        if(r.url){ location.href=r.url; return; }
+        fail(r.fallback?'Online payment is not switched on yet. <a href="cart.html">Go back to your cart</a> and send us your order, and we will email you a payment link.':'We could not open the payment page. Please try again.');
+      }).catch(function(e){
+        if(e&&e.error==='agreement_required'){ S.signed={}; save(); S.idx=0; S.err='Your signature did not match this order. Please sign again.'; return showAgree(); }
+        fail(e&&e.error==='agreements_not_ready'?'Online payment is temporarily unavailable. Please email info@xplorevietnam.org and we will help you pay.':'We could not open the payment page. Please try again, or email info@xplorevietnam.org.');
+      });
+      function fail(m){ try{ sessionStorage.removeItem('xv-left'); }catch(e){} b.disabled=false; b.innerHTML=label; S.err=m; var host=body.querySelector('.co-main'), old=host.querySelector('.co-err'); if(old) old.remove(); host.insertAdjacentHTML('afterbegin','<p class="co-err">'+m+'</p>'); }
+    }
+
+    renderSteps();
+    XV.post('/api/shop/agreements/preview',{items:S.items}).then(function(p){
+      if(!p.documents.length){ location.replace('cart.html'); return; }
+      S.pre=p; showDetails();
+    }).catch(function(){
+      body.innerHTML='<div class="co-main"><p class="co-err">We could not load your checkout. Please check your connection and <a href="checkout.html">try again</a>, or go back to your <a href="cart.html">cart</a>.</p></div>';
+    });
+  });
+  </script>
+</main>

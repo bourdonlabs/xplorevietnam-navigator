@@ -180,10 +180,10 @@
         (cp.msg?'<p class="cp-msg '+(cp.ok?'ok':'no')+'">'+esc(cp.msg)+(cp.code?'<button type="button" id="cp-rm">Remove</button>':'')+'</p>':''):'';
       var arr=' <svg class="arr"><use href="#i-arr"/></svg>';
       var btns;
-      if(!t.quote) btns='<button type="button" class="btn-orange" id="go">Pay '+usd(due)+' securely'+arr+'</button>';
-      else if(t.mixed) btns='<button type="button" class="btn-orange" id="go-q">Request a quote for everything'+arr+'</button><button type="button" class="s-alt" id="go">Pay '+usd(due)+' for priced items only</button>';
+      if(!t.quote) btns='<button type="button" class="btn-orange" id="go">Continue to checkout'+arr+'</button>';
+      else if(t.mixed) btns='<button type="button" class="btn-orange" id="go-q">Request a quote for everything'+arr+'</button><button type="button" class="s-alt" id="go">Continue with priced items only ('+usd(due)+' today)</button>';
       else btns='<button type="button" class="btn-orange" id="go-q">Request a quote'+arr+'</button>';
-      var trust=(t.priced.length?'<span>'+LOCK+'Secure payment by Stripe. Visa, Mastercard and Amex accepted.</span>':'<span>'+LOCK+'No payment is taken now.</span>')+
+      var trust=(t.priced.length?'<span>'+LOCK+'Secure payment by Stripe. Apple Pay and Google Pay where supported.</span>':'<span>'+LOCK+'No payment is taken now.</span>')+
         '<span>Government fees are not included unless stated. <a href="refunds.html">Refund policy</a></span>';
       sum.hidden=false;
       sum.innerHTML='<h2>Order summary</h2><div class="s-lines">'+lines+'</div><div class="s-rule"></div>'+money+
@@ -209,20 +209,10 @@
     function showForm(msg){ var f=document.getElementById('q-form'); f.hidden=false;
       ['go','go-q'].forEach(function(id){ var e=document.getElementById(id); if(e) e.hidden=true; });
       document.getElementById('go-note').innerHTML='<span>'+msg+'</span>'; f.querySelector('input[name=email]').focus(); }
+    // Pay no longer goes straight to Stripe: the customer first gives their details and signs the agreement(s) on checkout.html.
     function go(items,t){
-      var b=document.getElementById('go'), label=b.textContent; b.disabled=true; b.textContent='Opening secure checkout...';
-      // only fixed-price items go to Stripe; quote items stay in the cart for after the payment
-      try{ sessionStorage.setItem('xv-left',JSON.stringify(t.quoted)); }catch(e){}
-      XV.post('/api/shop/checkout',{items:t.priced,coupon:cp.code}).then(function(r){
-        if(r.url){ location.href=r.url; return; }
-        try{ sessionStorage.removeItem('xv-left'); }catch(e){}
-        b.disabled=false; b.textContent=label;
-        showForm('Online payment is not switched on yet. Send us your order and we will email you a payment link.');
-      }).catch(function(){
-        try{ sessionStorage.removeItem('xv-left'); }catch(e){}
-        b.disabled=false; b.textContent=label;
-        showForm('We could not open the payment page. Send us your order and we will email you a payment link.');
-      });
+      try{ sessionStorage.setItem('xv-coupon',JSON.stringify(cp.code&&cp.percent?{code:cp.code,percent:cp.percent}:null)); }catch(e){}
+      location.href='checkout.html';
     }
     function sendRequest(f,items,t){
       var note=f.querySelector('.note'), email=f.email.value.trim();

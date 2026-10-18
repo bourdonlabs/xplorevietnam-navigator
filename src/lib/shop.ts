@@ -15,6 +15,8 @@ type Item = {
 };
 const ITEMS = catalog.items as Record<string, Item>;
 const ADDONS = catalog.addons as Record<string, { name: string; price: number }>;
+/** Catalog entry for a SKU (name, fee note and so on), or undefined if unknown. */
+export const itemInfo = (sku: string): Item | undefined => ITEMS[sku];
 
 export type CartInput = { sku: string; dependents?: number; addons?: string[]; options?: Record<string, string> };
 export type CartLine = {
