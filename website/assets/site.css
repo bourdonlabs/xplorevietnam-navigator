@@ -325,6 +325,7 @@ button{font:inherit;cursor:pointer}
 .ftr-div{padding:50px 0}
 .ftr-div hr{margin:0;border:0;height:1px;background:var(--footer-line)}
 .ftr-legal{display:flex;justify-content:space-between;align-items:center;gap:160px;font:300 18px/21.6px var(--body)}
+.ftr-addr{display:block;margin-top:8px;font:300 15px/22px var(--body);opacity:.75}
 .legal-links{flex:0 1 440px;display:flex;justify-content:space-between;gap:24px}
 .legal-links a:hover{color:var(--accent)}
 

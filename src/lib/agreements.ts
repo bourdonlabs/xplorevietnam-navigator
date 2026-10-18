@@ -36,10 +36,11 @@ export type AgreementDoc = {
 /** Bump when the wording of an agreement changes, so each signature records which text it was. */
 const VERSION = "2026-10-18-draft1";
 
-// Company details shown in every agreement. The address is optional: leave AGREEMENT_COMPANY_ADDRESS unset to omit it.
+// Company details shown in every agreement. The registered address appears only in agreements (not elsewhere on the website).
 export const COMPANY = {
   name: process.env.AGREEMENT_COMPANY_NAME?.trim() || "XPLOREVIETNAM INC",
-  address: process.env.AGREEMENT_COMPANY_ADDRESS?.trim() || "",
+  registeredAddress: process.env.AGREEMENT_REGISTERED_ADDRESS?.trim() || "6400, Floor 3, local 21 Roberts St, Burnaby, BC V5G 4E1, Canada",
+  office: process.env.AGREEMENT_OFFICE_ADDRESS?.trim() || "598/2 Điện Biên Phủ, Phường 22, Quận Bình Thạnh, Ho Chi Minh City, Vietnam",
   law: process.env.AGREEMENT_GOVERNING_LAW?.trim() || "the Province of British Columbia, Canada",
 };
 /** Live card payments open only after someone confirms the agreement wording has been reviewed by a lawyer (env AGREEMENTS_REVIEWED=1). */
@@ -274,7 +275,7 @@ function sectionsFor(def: Def, lines: DocLine[]): Section[] {
     {
       h: "About us",
       body: [
-        `XploreVietnam is operated by ${COMPANY.name}${COMPANY.address ? `, ${COMPANY.address}` : ""} ("XploreVietnam", "we", "us"). We coordinate immigration, relocation and related services in Vietnam. Where a service needs a licensed professional, such as a lawyer or a notary, that professional is an independent provider (see "Independent providers" below).`,
+        `XploreVietnam is operated by ${COMPANY.name}, registered at ${COMPANY.registeredAddress}, with an office at ${COMPANY.office} ("XploreVietnam", "we", "us"). We coordinate immigration, relocation and related services in Vietnam. Where a service needs a licensed professional, such as a lawyer or a notary, that professional is an independent provider (see "Independent providers" below).`,
       ],
     },
     { h: "What is included", body: scope },
