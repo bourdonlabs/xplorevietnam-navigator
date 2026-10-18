@@ -103,6 +103,9 @@
 .pay-list svg{width:18px;height:18px;color:#177245;flex:none}
 .pay-recap{padding:16px 18px;border:1px solid var(--line);border-radius:12px;font:400 15px/22px var(--body);color:#445;margin-bottom:8px}
 .pay-recap b{color:var(--navy)}
+.pay-embed{margin-top:8px;min-height:140px}
+.pay-load{padding:36px 0;text-align:center;font:400 15px/22px var(--body);color:#667}
+.pay-embed .co-err{margin-bottom:14px}
 .pay-wallets{margin-top:14px;font:400 14px/20px var(--body);color:#667;text-align:center}
 @media (max-width:1024px){ .c-head{padding-top:120px;flex-direction:column;align-items:flex-start;gap:32px} .c-head h1{font-size:60px;line-height:70px} .co-body{flex-direction:column;padding:40px var(--pad-x) 64px;gap:32px} .co-main{width:100%} .sum{flex:none;width:100%;position:static} }
 @media (max-width:767px){ .c-head{padding-top:110px} .c-head h1{font-size:40px;line-height:46px} .steps{gap:6px} .step{width:70px} .step p{font-size:14px} .f-grid{grid-template-columns:1fr} .ag-page{padding:28px 20px} .ag-wrap{padding:16px 8px} .ag-sig2{grid-template-columns:1fr} .ag-sig2>div+div{border-left:0;border-top:1px solid #DDE1E6} .ag-bar{flex-direction:column;align-items:stretch;margin:18px -8px -16px} .ag-bar button{width:100%} .md-card{padding:22px 18px} .md-type{font-size:40px} }
@@ -282,35 +285,58 @@
       ui(); size(); nm.focus();
     }
 
+    function killCo(){ if(S.co){ try{ S.co.destroy(); }catch(e){} S.co=null; } }
     function showPay(){
+      killCo();
       S.step='pay'; renderSteps(); h1.textContent='Payment';
-      var t=S.pre.totals, disc=pct()?Math.round(t.dueNow*pct()/100):0;
-      body.innerHTML='<div class="co-main"><h2>Review and pay</h2><p class="co-sub">Your agreement is signed. One last step: pay securely with Stripe.</p>'+(S.err?'<p class="co-err">'+S.err+'</p>':'')+
+      body.innerHTML='<div class="co-main"><h2>Review and pay</h2><p class="co-sub">Your agreement is signed. One last step: pay securely.</p>'+(S.err?'<p class="co-err">'+S.err+'</p>':'')+
         '<div class="pay-list">'+S.pre.documents.map(function(d){ return '<div>'+TICK+'<span>'+esc(d.title)+' signed</span></div>'; }).join('')+'</div>'+
         '<div class="pay-recap"><b>'+esc(fullName())+'</b><br>'+esc(S.d.email)+'<br>'+esc([S.d.line1,S.d.city,S.d.country].filter(Boolean).join(', '))+' · <button type="button" class="btn-alt" id="p-edit">Edit details</button></div>'+
-        '<button class="btn-main" id="p-go" type="button">Pay '+usd(t.dueNow-disc)+' securely'+ARR+'</button>'+
-        '<p class="pay-wallets">You will pay on Stripe\'s secure page. Card, and Apple Pay or Google Pay where your device supports them.</p>'+
+        '<div class="pay-embed" id="p-embed"><p class="pay-load">Loading secure payment...</p></div>'+
+        '<p class="pay-wallets">Pay with Apple Pay, Google Pay, Link or card. Payments are processed by Stripe, so we never see your card details.</p>'+
         '<p class="co-back"><button type="button" class="btn-alt" id="p-back">Back to agreement</button></p></div>'+summary();
       S.err='';
-      document.getElementById('p-edit').onclick=showDetails;
-      document.getElementById('p-back').onclick=function(){ S.idx=Math.max(0,S.pre.documents.length-1); S.signed[S.pre.documents[S.idx].key]=null; showAgree(); };
-      document.getElementById('p-go').onclick=pay;
+      document.getElementById('p-edit').onclick=function(){ killCo(); showDetails(); };
+      document.getElementById('p-back').onclick=function(){ killCo(); S.idx=Math.max(0,S.pre.documents.length-1); S.signed[S.pre.documents[S.idx].key]=null; showAgree(); };
       window.scrollTo(0,0);
+      startPay(false);
     }
-    function pay(){
-      var b=document.getElementById('p-go'), label=b.innerHTML; b.disabled=true; b.textContent='Opening secure payment...';
+    function loadStripeJs(){
+      if(window.Stripe) return Promise.resolve();
+      return new Promise(function(res,rej){
+        var urls=['https://js.stripe.com/endive/stripe.js','https://js.stripe.com/v3/'];
+        (function next(i){ if(i>=urls.length) return rej(new Error('stripejs')); var s=document.createElement('script'); s.src=urls[i]; s.onload=function(){ window.Stripe?res():(s.remove(),next(i+1)); }; s.onerror=function(){ s.remove(); next(i+1); }; document.head.appendChild(s); })(0);
+      });
+    }
+    // Stripe's payment form (Apple Pay, Google Pay, Link and card) inside this page. If it cannot load, the customer can still pay on Stripe's own page.
+    function mountStripe(host,r){
+      return loadStripeJs().then(function(){
+        var st=window.Stripe(r.publishableKey), mk=st.createEmbeddedCheckoutPage||st.initEmbeddedCheckout;
+        if(!mk) throw new Error('embedded');
+        return mk.call(st,{fetchClientSecret:function(){ return Promise.resolve(r.clientSecret); }});
+      }).then(function(co){ S.co=co; host.innerHTML='<div id="p-embed-in"></div>'; co.mount('#p-embed-in'); });
+    }
+    function hostedButton(host,why){
+      var t=S.pre.totals, disc=pct()?Math.round(t.dueNow*pct()/100):0;
+      host.innerHTML=(why?'<p class="co-err">'+why+'</p>':'')+'<button class="btn-main" id="p-go" type="button">Pay '+usd(t.dueNow-disc)+' securely'+ARR+'</button>';
+      document.getElementById('p-go').onclick=function(){ var b=this; b.disabled=true; b.textContent='Opening secure payment...'; startPay(true); };
+    }
+    function startPay(hosted){
+      var host=document.getElementById('p-embed'); if(!host) return;
       var ids=S.pre.documents.map(function(d){ return S.signed[d.key]&&S.signed[d.key].id; }).filter(Boolean);
       var quoted=S.pre.quoted, priced=S.items.filter(function(i){ return quoted.indexOf(i.sku)<0; });
       try{ sessionStorage.setItem('xv-left',JSON.stringify(S.items.filter(function(i){ return quoted.indexOf(i.sku)>-1; }))); }catch(e){}
-      XV.post('/api/shop/checkout',{items:priced,coupon:S.coupon?S.coupon.code:'',agreements:ids,customer:{name:fullName(),email:S.d.email,phone:S.d.phone,country:S.d.country,line1:S.d.line1,line2:S.d.line2,city:S.d.city,postcode:S.d.postcode}})
+      XV.post('/api/shop/checkout',{items:priced,coupon:S.coupon?S.coupon.code:'',agreements:ids,embedded:!hosted,customer:{name:fullName(),email:S.d.email,phone:S.d.phone,country:S.d.country,line1:S.d.line1,line2:S.d.line2,city:S.d.city,postcode:S.d.postcode}})
       .then(function(r){
-        if(r.url){ location.href=r.url; return; }
+        if(!document.getElementById('p-embed')) return;
+        if(r.clientSecret&&r.publishableKey) return mountStripe(host,r).catch(function(){ hostedButton(host,'The payment form could not load here.'); });
+        if(r.url){ if(hosted){ location.href=r.url; } else { hostedButton(host,''); } return; }
         fail(r.fallback?'Online payment is not switched on yet. <a href="cart.html">Go back to your cart</a> and send us your order, and we will email you a payment link.':'We could not open the payment page. Please try again.');
       }).catch(function(e){
         if(e&&e.error==='agreement_required'){ S.signed={}; save(); S.idx=0; S.err='Your signature did not match this order. Please sign again.'; return showAgree(); }
         fail(e&&e.error==='agreements_not_ready'?'Online payment is temporarily unavailable. Please email info@xplorevietnam.org and we will help you pay.':'We could not open the payment page. Please try again, or email info@xplorevietnam.org.');
       });
-      function fail(m){ try{ sessionStorage.removeItem('xv-left'); }catch(e){} b.disabled=false; b.innerHTML=label; S.err=m; var host=body.querySelector('.co-main'), old=host.querySelector('.co-err'); if(old) old.remove(); host.insertAdjacentHTML('afterbegin','<p class="co-err">'+m+'</p>'); }
+      function fail(m){ try{ sessionStorage.removeItem('xv-left'); }catch(e){} S.err=m; var h=document.getElementById('p-embed'); if(h) h.innerHTML='<p class="co-err">'+m+'</p><button class="btn-main" id="p-retry" type="button">Try again</button>'; var rb=document.getElementById('p-retry'); if(rb) rb.onclick=function(){ S.err=''; showPay(); }; }
     }
 
     renderSteps();

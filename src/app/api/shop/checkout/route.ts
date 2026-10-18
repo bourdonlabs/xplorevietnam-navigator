@@ -5,8 +5,9 @@ import { lookupCode } from "@/lib/partner-code";
 import { packCart, priceCart } from "@/lib/shop";
 import { stripe, supabaseAdmin } from "@/lib/stripe";
 
-// Website cart → Stripe Checkout. Returns { url } to redirect to, { quote: true } when an item has no fixed price,
-// or { fallback: true } when payments aren't switched on (no Stripe key): the website then sends an order request.
+// Website cart → Stripe Checkout. Returns { url } to redirect to, { clientSecret, publishableKey } when the website asked
+// for the in-page payment form (embedded: true) and the publishable key is set, { quote: true } when an item has no
+// fixed price, or { fallback: true } when payments aren't switched on (no Stripe key): the website then sends an order request.
 // An optional partner coupon code takes the partner's customer discount off the whole cart and is recorded on the
 // order, so the Stripe webhook can credit the partner's commission.
 // Before any payment page opens, the customer must have e-signed every agreement the cart needs (see agreements.ts),
@@ -14,11 +15,18 @@ import { stripe, supabaseAdmin } from "@/lib/stripe";
 // they are switched on in the Stripe Dashboard (Settings > Payment methods) and the device supports them.
 export const OPTIONS = preflight;
 
+/** Publishable key (public by design) for Stripe.js on the website. Used only when it matches the secret key's mode. */
+function publishableKey() {
+  const pk = (process.env.STRIPE_PUBLISHABLE_KEY || process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || "").trim();
+  const live = process.env.STRIPE_SECRET_KEY?.startsWith("sk_live");
+  return pk.startsWith(live ? "pk_live_" : "pk_test_") ? pk : "";
+}
+
 type Customer = { name?: string; email?: string; phone?: string; country?: string; line1?: string; line2?: string; city?: string; postcode?: string };
 const clip = (v: unknown, n: number) => (typeof v === "string" ? v.trim().slice(0, n) : "");
 
 export async function POST(request: Request) {
-  const body = (await request.json().catch(() => ({}))) as { items?: unknown; coupon?: unknown; agreements?: unknown; customer?: Customer };
+  const body = (await request.json().catch(() => ({}))) as { items?: unknown; coupon?: unknown; agreements?: unknown; customer?: Customer; embedded?: unknown };
   const cart = priceCart(body.items);
   if (!cart.lines.length) return json(request, { error: "empty_cart" }, 400);
   if (cart.quote) return json(request, { quote: true });
@@ -78,6 +86,9 @@ export async function POST(request: Request) {
   const site = websiteOrigin(request);
   const meta: Record<string, string> = { kind: "shop", cart: packCart(cart.lines), total_usd: String(cart.total), agreement_ids: signed.ids.join(",") };
   if (partner) meta.partner_code = partner.code;
+  // In-page form: Stripe's payment form (with Apple Pay, Google Pay and Link on top) shows inside our checkout page.
+  // Without the publishable key the customer is sent to Stripe's own page instead, exactly as before.
+  const pk = body.embedded === true ? publishableKey() : "";
   const session = await s.checkout.sessions.create({
     mode: "payment",
     line_items: lineItems,
@@ -87,8 +98,10 @@ export async function POST(request: Request) {
     billing_address_collection: "required",
     metadata: meta,
     payment_intent_data: { description: "XploreVietnam order", metadata: meta },
-    success_url: `${site}/thank-you.html?order={CHECKOUT_SESSION_ID}`,
-    cancel_url: `${site}/cart.html`,
+    ...(pk
+      ? { ui_mode: "embedded_page" as const, return_url: `${site}/thank-you.html?order={CHECKOUT_SESSION_ID}` }
+      : { success_url: `${site}/thank-you.html?order={CHECKOUT_SESSION_ID}`, cancel_url: `${site}/cart.html` }),
   });
+  if (pk && session.client_secret) return json(request, { clientSecret: session.client_secret, publishableKey: pk });
   return json(request, { url: session.url });
 }

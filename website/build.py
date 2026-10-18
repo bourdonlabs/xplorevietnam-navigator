@@ -253,6 +253,8 @@ def build():
     os.makedirs(DIST,exist_ok=True)
     for f in ('site.css','site.js'): shutil.copy(f'{ROOT}/assets/{f}',f'{DIST}/{f}')
     shutil.copytree(f'{ROOT}/assets/img',f'{DIST}/img',dirs_exist_ok=True)
+    # Files served from /.well-known/ (for example Stripe's Apple Pay domain verification file)
+    if os.path.isdir(f'{ROOT}/well-known'): shutil.copytree(f'{ROOT}/well-known',f'{DIST}/.well-known',dirs_exist_ok=True)
     pages=sorted(glob.glob(f'{SRC}/pages/*.html'))
     def write(name, title, page_css, main, description=DESCRIPTION):
         page_css=expand(page_css)
