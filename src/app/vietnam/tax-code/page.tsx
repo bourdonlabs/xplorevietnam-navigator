@@ -132,7 +132,7 @@ export default function TaxCodePage() {
               "Do I need a tax code for a SIM card or everyday purchases?",
               "No. Everyday transactions, like SIM cards, rely on your passport instead.",
             ],
-            ["Can I apply for multiple people at once?", "Yes. Choose the number of people before you get started; the fee is $150 per person."],
+            ["Can I apply for multiple people at once?", "Yes. Choose the number of people before you get started; the fee is $59 per person."],
             [
               "Is my personal information secure?",
               "Yes. Files are encrypted in transit and at rest, stored on GDPR-compliant infrastructure, and only ever accessed by the XploreVietnam team handling your application.",

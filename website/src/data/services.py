@@ -1,36 +1,38 @@
-# Service tabs for the Services page. Prices are placeholders until XploreVietnam confirms its pricing.
+# Service tabs for the Services page. Prices must match catalog.json (build.py checks this).
+# "gov": True = the tab's prices are service fees, with official government fees passed through at cost
+# (Circular 28/2026/TT-BTC, effective 1 April 2026): visa $25–$165, TRC $145–$165 per card, work permit set by each province.
 TABS = [
- {"id":"visas","tab":"Visas & Extensions","title":"Vietnam Visa and In-Country Extension Services",
+ {"id":"visas","tab":"Visas & Extensions","title":"Vietnam Visa and In-Country Extension Services","gov":True,
   "note":"Learn more about visa types and extensions in Vietnam",
   "packages":[
-   {"name":"Visa<br>Package","desc":"The visa process is bureaucratic and the rules change often. Let us manage it for you.","price":"$2650","fees":["Includes the government fee* ($25–$165/ person)","and document translation and notarisation"],"dep":["Add dependent: $1,250, government fee* included"],
+   {"name":"Visa<br>Package","desc":"The visa process is bureaucratic and the rules change often. Let us manage it for you.","price":"$149","fees":["Service fee $149","Government fee* $25–$165, depending on visa type"],"dep":["Dependent application","Service fee $99/ dependent","Government fee* $25–$165/ dependent"],
     "get":"Full management of your visa or extension from start to finish: the right visa type, documents, submission, follow-up with the immigration office and collection.","best":"People who need the right visa, filed correctly and on time."},
-   {"name":"Visa + Stay<br>Package","desc":"Everything you need to arrive and settle in smoothly. Nothing you don’t.","price":"$4150","fees":["Includes the government fee* ($25–$165/ person)","Add dependent: $2,250"],
+   {"name":"Visa + Stay<br>Package","desc":"Everything you need to arrive and settle in smoothly. Nothing you don’t.","price":"$599","fees":["Government fee* $25–$165/ person, paid at cost","Add dependent: $149"],
     "get":"Everything in the Visa Package, plus two coaching calls, temporary residence registration, SIM card and bank account setup, and 30 days of post-arrival support.","best":"People who want help beyond the visa itself during the first month."},
-   {"name":"Concierge<br>Package","desc":"No two moves are the same. We stay with you, guiding you every step of the way.","price":"$5495","fees":["Includes the government fee* ($25–$165/ person)","Add dependent: $2,350"],"badge":"Best Value",
+   {"name":"Concierge<br>Package","desc":"No two moves are the same. We stay with you, guiding you every step of the way.","price":"$1490","fees":["Government fee* $25–$165/ person, paid at cost","Add dependent: $290"],"badge":"Best Value",
     "get":"Everything in the Visa + Stay Package, plus unlimited calls, airport pickup, apartment search, in-person support at every office visit and a dedicated WhatsApp line.","best":"Families and professionals who want one team handling the whole move."}]},
- {"id":"trc","tab":"Temporary Residence Card (TRC)","title":"Vietnam Temporary Residence Card (TRC) Services",
+ {"id":"trc","tab":"Temporary Residence Card (TRC)","title":"Vietnam Temporary Residence Card (TRC) Services","gov":True,
   "note":"Learn more about the Temporary Residence Card",
   "packages":[
-   {"name":"TRC<br>Package","desc":"A residence card lets you stay up to two years without visa runs. We handle the paperwork.","price":"$1020","fees":["Government fee* $145–$165 per card,","billed separately at cost","Add dependent: $395"],
+   {"name":"TRC<br>Package","desc":"A residence card lets you stay up to two years without visa runs. We handle the paperwork.","price":"$490","fees":["Government fee* $145–$165 per card, paid at cost","Add dependent: $190"],
     "get":"Eligibility check, document list, translations and notarisation, submission to the immigration office and collection of your card.","best":"People with a work permit, investment or family link who qualify for a TRC."},
-   {"name":"TRC + Permit<br>Package","desc":"For employees who need a work permit before the residence card.","price":"$2845","fees":["Government fees* billed separately at cost:","card $145–$165, work permit 400,000–1,000,000 VND (about $15–$40)","Add dependent: $495"],
+   {"name":"TRC + Permit<br>Package","desc":"For employees who need a work permit before the residence card.","price":"$1290","fees":["Government fees* paid at cost:","card $145–$165, work permit 400,000–1,000,000 VND (about $15–$40)","Add dependent: $190"],
     "get":"Everything in the TRC Package, plus the work permit or exemption, legalisation of your degree and criminal record, and employer paperwork.","best":"Professionals starting a new job in Vietnam."},
-   {"name":"Concierge<br>Package","desc":"We manage every step for you and your family, from first document to final card.","price":"$3950","fees":["Government fee* $145–$165 per card,","billed separately at cost","Add dependent: $1,200"],"badge":"Best Value",
+   {"name":"Concierge<br>Package","desc":"We manage every step for you and your family, from first document to final card.","price":"$2290","fees":["Government fees* $145–$165 per card, paid at cost","Add dependent: $490"],"badge":"Best Value",
     "get":"Everything in the TRC + Permit Package, plus family cards, school registration support, housing search and a dedicated case manager.","best":"Families relocating together."}]},
  {"id":"business","tab":"Business Setup","title":"Vietnam Company Setup Services",
   "note":"Learn more about opening a company in Vietnam",
   "packages":[
-   {"name":"Company<br>Package","desc":"Register your company correctly the first time, with the right business lines.","price":"$[price]","no_dependents":True,"price_note":"Price bracket range depends heavily on your corporate structure and what you are selling.","fees":["Service fee $[amount]","Government fees $[amount]"],
-    "get":"Investment registration certificate, enterprise registration, company seal, tax registration and bank account opening support.","best":"Founders opening a single-member LLC."}]},
+   {"name":"Company<br>Package","desc":"Register your company correctly the first time, with the right business lines, and get your own residence card with it.","price":"$[price]","no_dependents":True,"price_note":"Service fee from $3,900 for your company, investor visa and residence card. Your final quote depends on your structure and business lines.","fees":["Service fee $[amount]","Government fees $[amount]"],
+    "get":"Investment registration certificate, enterprise registration, company seal, tax registration, bank account opening support, plus your investor (ĐT) visa and temporary residence card.","best":"Founders opening a single-member LLC who want to live in Vietnam."}]},
  {"id":"relocation","tab":"Relocation","title":"Vietnam Relocation and Settling-in Services",
   "note":"Learn more about living in Vietnam",
   "packages":[
-   {"name":"Arrival<br>Package","desc":"Land with the basics sorted: phone, bank and a place to stay.","price":"$[price]","fees":["Service fee $[amount]"],
+   {"name":"Arrival<br>Package","desc":"Land with the basics sorted: phone, bank and a place to stay.","price":"$490","fees":["Add dependent: $99"],
     "get":"Airport pickup, SIM card, bank account appointment, temporary residence registration and a city orientation call.","best":"Solo movers who want a smooth first week."},
-   {"name":"Home<br>Package","desc":"Find the right apartment in the right neighbourhood without the stress.","price":"$[price]","fees":["Service fee $[amount]"],
+   {"name":"Home<br>Package","desc":"Find the right apartment in the right neighbourhood without the stress.","price":"$790","fees":["Add dependent: $99"],
     "get":"Everything in the Arrival Package, plus apartment search, viewings, lease review in English and utility setup.","best":"People who want help finding a long-term home."},
-   {"name":"Concierge<br>Package","desc":"We handle housing, schools and daily life so your family can settle in.","price":"$[price]","fees":["Service fee $[amount]"],"badge":"Best Value",
+   {"name":"Concierge<br>Package","desc":"We handle housing, schools and daily life so your family can settle in.","price":"$1990","fees":["Add dependent: $390"],"badge":"Best Value",
     "get":"Everything in the Home Package, plus school placement support, healthcare registration, shipping coordination and 60 days of on-call help.","best":"Families moving with children."}]},
  {"id":"overstay","tab":"Overstay","title":"Vietnam Visa Overstay Help",
   "note":"Overstayed your visa? Get expert advice before you go to the airport or the immigration office.",

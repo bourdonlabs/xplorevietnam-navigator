@@ -3,15 +3,17 @@ import Link from "next/link";
 import { ArrowRight, BarChart3, Check, ShieldCheck, Star } from "lucide-react";
 import { REVIEWS } from "@/lib/reviews";
 import { SERVICE_CATALOG } from "@/lib/services";
+import catalog from "../../../../website/src/data/catalog.json";
 import { cn, siteLink } from "@/lib/utils";
 
 // Package names, prices, "best for", payment terms and "you get" text are the website's (relocate page).
+// Prices are read from the website catalog, the same table checkout charges from.
 const PACKAGES = [
   {
     name: "Visa Package",
     types: "E-visa · Work · Investor · Family",
     best: "People who are confident managing their own move but want an expert handling the immigration process.",
-    price: 975,
+    price: catalog.items["rl-visa"].price,
     addons: "Dependents, Tax Code, Bank Account, Driving Licence",
     terms: ["Payment due in full at booking"],
     get: "The visa is the part of this process you cannot afford to get wrong. We choose the right route for your circumstances, prepare your documents to a standard that holds up to scrutiny, file your application and follow it up with the immigration office until it’s approved.",
@@ -20,7 +22,7 @@ const PACKAGES = [
     name: "Get to Vietnam Package",
     types: "Work · Investor · Family",
     best: "People who want the critical parts handled by experts and are comfortable managing the day-to-day of the move themselves.",
-    price: 2450,
+    price: catalog.items["rl-get-to-vietnam"].price,
     addons: "Dependents, Tax Code, Bank Account, Driving Licence",
     terms: ["Payment due in full at booking"],
     get: "You’ll arrive with your visa approved, a home lined up, and a bank account open. We’re in regular contact throughout, so you always know where things stand. Not every detail is managed for you, but the ones that can derail a move are.",
@@ -29,7 +31,7 @@ const PACKAGES = [
     name: "Concierge Package",
     types: "Work · Investor · Family",
     best: "Families, couples, and professionals who want one trusted person handling the entire move — not a checklist to manage themselves.",
-    price: 4750,
+    price: catalog.items["rl-concierge"].price,
     addons: "Dependents",
     terms: ["Pay 70% at booking", "Pay 30% after your visa application is submitted"],
     get: "Moving countries involves a thousand decisions, and the hardest ones are the ones you don’t know to ask about yet. As a Concierge client, you have a dedicated relocation specialist in your corner from day one: someone who knows what you’ll need before you need it, and is reachable on WhatsApp when anything comes up.",
@@ -110,7 +112,7 @@ export default function RelocationPackagesPage() {
       </div>
 
       <p className="text-sm text-gray-700">
-        *Our fee does not include government application fees. These are approximately $350 per applicant.
+        *Our fee does not include government fees: visas $25–$165 per person and residence cards $145–$165 per card (Circular 28/2026/TT-BTC). Work permit fees are set by each province, about $15–$40.
       </p>
 
       <div className="flex flex-col gap-5 rounded-xl border border-brand-tint-line bg-brand-tint p-6 sm:flex-row sm:items-start">

@@ -6,6 +6,7 @@ import { IS_DEMO } from "./supabase/env";
 import { supabaseBrowser } from "./supabase/client";
 import type { Dependent, Profile, UploadedDoc } from "./backend";
 import { CHECKLISTS } from "./visa-docs";
+import { SERVICE_CATALOG } from "./services";
 
 export type Stage = "new" | "contacted" | "consultation" | "proposal" | "client" | "lost";
 export const STAGES: { value: Stage; label: string; tone: string }[] = [
@@ -256,7 +257,7 @@ function seed() {
   const stages = ["researching", "planning", "moving_soon", "moving_soon", "moved"];
   const pipeline: Stage[] = ["new", "new", "new", "contacted", "contacted", "consultation", "proposal", "client", "lost"];
   const services = ["visa_review", "tax_code", "bank_account"];
-  const prices: Record<string, number> = { visa_review: 595, tax_code: 150, bank_account: 325 };
+  const prices: Record<string, number> = { visa_review: SERVICE_CATALOG.visa_review.unitUsd, tax_code: SERVICE_CATALOG.tax_code.unitUsd, bank_account: SERVICE_CATALOG.bank_account.unitUsd };
   const clients: AdminClient[] = [];
   const docs: Record<string, UploadedDoc[]> = {};
   const deps: Record<string, Dependent[]> = {};

@@ -3,6 +3,9 @@
 // Law on Entry, Exit, Transit and Residence of Foreigners (TRC: forms NA6/NA7/NA8/NA16,
 // card must expire at least 30 days before the passport). Review before launch: rules change often.
 
+import catalog from "../../website/src/data/catalog.json";
+import { SERVICE_CATALOG } from "./services";
+
 export type VisaDoc = {
   key: string;
   title: string;
@@ -290,4 +293,10 @@ export const ACCEPT_ATTR = ".pdf,.png,.jpg,.jpeg,application/pdf,image/png,image
 
 export const CITIES = ["Ho Chi Minh City", "Hanoi", "Da Nang", "Hoi An", "Other"];
 
-export const REVIEW = { price: 595, perDependent: 125, fullServiceFrom: 975 };
+// Shown on the Visa page. Read from the tables checkout charges from (services.ts and the website catalog),
+// so the price on screen can never differ from the price charged.
+export const REVIEW = {
+  price: SERVICE_CATALOG.visa_review.unitUsd,
+  perDependent: SERVICE_CATALOG.visa_review.perDependentUsd ?? 0,
+  fullServiceFrom: catalog.items["rl-visa"].price, // first package on /vietnam/relocation-packages
+};

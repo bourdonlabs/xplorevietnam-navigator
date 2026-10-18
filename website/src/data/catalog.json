@@ -5,7 +5,7 @@
     "rl-visa": {
       "name": "Visa Package",
       "group": "Relocation packages",
-      "price": 975,
+      "price": 590,
       "dependent": null,
       "maxDependents": 5,
       "fees": "Government fees ($25–$165 per visa, $145–$165 per residence card) not included.",
@@ -28,7 +28,7 @@
     "rl-get-to-vietnam": {
       "name": "Get to Vietnam Package",
       "group": "Relocation packages",
-      "price": 2450,
+      "price": 1690,
       "dependent": null,
       "maxDependents": 5,
       "fees": "Government fees ($25–$165 per visa, $145–$165 per residence card) not included.",
@@ -42,7 +42,7 @@
     "rl-concierge": {
       "name": "Concierge Package",
       "group": "Relocation packages",
-      "price": 4750,
+      "price": 2990,
       "deposit": 0.7,
       "dependent": null,
       "maxDependents": 5,
@@ -52,7 +52,7 @@
     "rl-trc-renewal": {
       "name": "Residence Card Renewal",
       "group": "Stay in Vietnam",
-      "price": 450,
+      "price": 390,
       "page": "relocate.html"
     },
     "teach-in-vietnam": {
@@ -64,48 +64,48 @@
     "svc-visas-1": {
       "name": "Visa Package",
       "group": "Visas & Extensions",
-      "price": 2650,
-      "dependent": 1250,
+      "price": 149,
+      "dependent": 99,
       "maxDependents": 5,
-      "fees": "Includes the government fee ($25–$165 per person).",
+      "fees": "Government fee ($25–$165 per person) billed separately at cost.",
       "page": "services.html",
-      "deposit": 0.7
+      "deposit": 1
     },
     "svc-visas-2": {
       "name": "Visa + Stay Package",
       "group": "Visas & Extensions",
-      "price": 4150,
-      "dependent": 2250,
+      "price": 599,
+      "dependent": 149,
       "maxDependents": 5,
-      "fees": "Includes the government fee ($25–$165 per person).",
+      "fees": "Government fee ($25–$165 per person) billed separately at cost.",
       "page": "services.html",
       "deposit": 0.7
     },
     "svc-visas-3": {
       "name": "Visa Concierge Package",
       "group": "Visas & Extensions",
-      "price": 5495,
-      "dependent": 2350,
+      "price": 1490,
+      "dependent": 290,
       "maxDependents": 5,
-      "fees": "Includes the government fee ($25–$165 per person).",
+      "fees": "Government fee ($25–$165 per person) billed separately at cost.",
       "page": "services.html",
       "deposit": 0.7
     },
     "svc-trc-1": {
       "name": "TRC Package",
       "group": "Temporary Residence Card (TRC)",
-      "price": 1020,
-      "dependent": 395,
+      "price": 490,
+      "dependent": 190,
       "maxDependents": 5,
       "fees": "Government fee ($145–$165 per card) billed separately at cost.",
       "page": "services.html",
-      "deposit": 0.7
+      "deposit": 1
     },
     "svc-trc-2": {
       "name": "TRC + Permit Package",
       "group": "Temporary Residence Card (TRC)",
-      "price": 2845,
-      "dependent": 495,
+      "price": 1290,
+      "dependent": 190,
       "maxDependents": 5,
       "fees": "Government fees billed separately at cost: card $145–$165, work permit 400,000–1,000,000 VND (about $15–$40, set by province).",
       "page": "services.html",
@@ -114,8 +114,8 @@
     "svc-trc-3": {
       "name": "TRC Concierge Package",
       "group": "Temporary Residence Card (TRC)",
-      "price": 3950,
-      "dependent": 1200,
+      "price": 2290,
+      "dependent": 490,
       "maxDependents": 5,
       "fees": "Government fee ($145–$165 per card) billed separately at cost.",
       "page": "services.html",
@@ -147,23 +147,29 @@
     "svc-relocation-1": {
       "name": "Arrival Package",
       "group": "Relocation",
-      "price": null,
+      "price": 490,
       "page": "services.html",
-      "deposit": 0.7
+      "deposit": 1,
+      "dependent": 99,
+      "maxDependents": 5
     },
     "svc-relocation-2": {
       "name": "Home Package",
       "group": "Relocation",
-      "price": null,
+      "price": 790,
       "page": "services.html",
-      "deposit": 0.7
+      "deposit": 0.7,
+      "dependent": 99,
+      "maxDependents": 5
     },
     "svc-relocation-3": {
       "name": "Relocation Concierge Package",
       "group": "Relocation",
-      "price": null,
+      "price": 1990,
       "page": "services.html",
-      "deposit": 0.7
+      "deposit": 0.7,
+      "dependent": 390,
+      "maxDependents": 5
     },
     "overstay-review": {
       "name": "Overstay Case Review",
@@ -176,11 +182,11 @@
   "addons": {
     "tax-code": {
       "name": "Vietnamese tax code (MST)",
-      "price": 150
+      "price": 59
     },
     "bank-account": {
       "name": "Vietnamese bank account",
-      "price": 325
+      "price": 79
     },
     "driving-licence": {
       "name": "Driving licence conversion",

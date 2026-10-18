@@ -10,20 +10,20 @@ export const SERVICE_CATALOG: Record<
   tax_code: {
     name: "Vietnamese Tax Code (MST)",
     description: "Personal tax code registration with the tax office, handled by XploreVietnam.",
-    unitUsd: 150,
+    unitUsd: 59,
     page: "/vietnam/tax-code",
   },
   bank_account: {
     name: "Vietnamese Bank Account",
     description: "Document preparation and bank appointment, handled by XploreVietnam.",
-    unitUsd: 325,
+    unitUsd: 79,
     page: "/vietnam/bank-account",
   },
   visa_review: {
     name: "Visa Packet Review",
     description: "Written review of your visa documents within 3 business days plus a 30-minute expert call.",
-    unitUsd: 595,
-    perDependentUsd: 125,
+    unitUsd: 99,
+    perDependentUsd: 29,
     page: "/vietnam/visa",
   },
 };

@@ -93,7 +93,7 @@ export function buildJourney(visaType: string | null, moveDate: string | null): 
       title: "Start Collecting Visa Documents",
       description:
         "Proof of qualifications or experience, such as a degree and work references, legalised and translated. Collecting and legalising documents abroad usually takes 2–6 weeks.",
-      cta: { label: "Get my visa packet reviewed for $595 →", href: "/vietnam/visa#review" },
+      cta: { label: "Get my visa packet reviewed for $99 →", href: "/vietnam/visa#review" },
       date: addMonths(t, -4),
     },
     residence &&
@@ -145,7 +145,7 @@ export function buildJourney(visaType: string | null, moveDate: string | null): 
       title: "Open a Vietnamese Bank Account",
       description:
         "A Vietnamese bank account is how you'll pay rent, receive your salary and use local payment apps. We prepare your documents and book your appointment with a bank that works well with foreigners, so it's done in one visit.",
-      cta: { label: "Open my bank account for $325 →", href: "/vietnam/bank-account" },
+      cta: { label: "Open my bank account for $79 →", href: "/vietnam/bank-account" },
       date: addDays(t, 14),
     },
     {
@@ -153,7 +153,7 @@ export function buildJourney(visaType: string | null, moveDate: string | null): 
       title: "Get Your Tax Code (MST)",
       description:
         "Your personal tax code (MST) is needed to file taxes in Vietnam, and for many banking and employment steps. We handle the registration with the tax office, start to finish, so it's ready when you need it.",
-      cta: { label: "Handle my tax code for $150 →", href: "/vietnam/tax-code" },
+      cta: { label: "Handle my tax code for $59 →", href: "/vietnam/tax-code" },
       date: addDays(t, 21),
     },
     residence && {
