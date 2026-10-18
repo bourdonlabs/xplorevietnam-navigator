@@ -103,10 +103,14 @@
 .pay-list svg{width:18px;height:18px;color:#177245;flex:none}
 .pay-recap{padding:16px 18px;border:1px solid var(--line);border-radius:12px;font:400 15px/22px var(--body);color:#445;margin-bottom:8px}
 .pay-recap b{color:var(--navy)}
-.pay-embed{margin:8px 0 0;min-height:140px;max-width:520px}
+.pay-row{display:flex;flex-wrap:wrap;align-items:flex-start;gap:24px 32px;margin-top:8px}
+.pay-main{flex:0 1 520px;min-width:0}
+.pay-side{flex:1 1 280px;min-width:0}
+.pay-side .co-back{margin-top:14px;text-align:left}
+.pay-embed{margin:0;min-height:140px}
 .pay-load{padding:36px 0;text-align:center;font:400 15px/22px var(--body);color:#667}
 .pay-embed .co-err{margin-bottom:14px}
-.pay-wallets{margin:14px 0 28px;max-width:520px;font:400 14px/20px var(--body);color:#667;text-align:left}
+.pay-wallets{margin:14px 0 0;font:400 14px/20px var(--body);color:#667;text-align:left}
 @media (max-width:1024px){ .c-head{padding-top:120px;flex-direction:column;align-items:flex-start;gap:32px} .c-head h1{font-size:60px;line-height:70px} .co-body{flex-direction:column;padding:40px var(--pad-x) 64px;gap:32px} .co-main{width:100%} .sum{flex:none;width:100%;position:static} }
 @media (max-width:767px){ .c-head{padding-top:110px} .c-head h1{font-size:40px;line-height:46px} .steps{gap:6px} .step{width:70px} .step p{font-size:14px} .f-grid{grid-template-columns:1fr} .ag-page{padding:28px 20px} .ag-wrap{padding:16px 8px} .ag-sig2{grid-template-columns:1fr} .ag-sig2>div+div{border-left:0;border-top:1px solid #DDE1E6} .ag-bar{flex-direction:column;align-items:stretch;margin:18px -8px -16px} .ag-bar button{width:100%} .md-card{padding:22px 18px} .md-type{font-size:40px} }
 <!-- /style -->
@@ -290,11 +294,11 @@
       killCo();
       S.step='pay'; renderSteps(); h1.textContent='Payment';
       body.innerHTML='<div class="co-main"><h2>Review and pay</h2><p class="co-sub">Your agreement is signed. One last step: pay securely.</p>'+(S.err?'<p class="co-err">'+S.err+'</p>':'')+
-        '<div class="pay-embed" id="p-embed"><p class="pay-load">Loading secure payment...</p></div>'+
-        '<p class="pay-wallets">Pay with Apple Pay, Google Pay, Link or card. Payments are processed by Stripe, so we never see your card details.</p>'+
-        '<div class="pay-list">'+S.pre.documents.map(function(d){ return '<div>'+TICK+'<span>'+esc(d.title)+' signed</span></div>'; }).join('')+'</div>'+
+        '<div class="pay-row"><div class="pay-main"><div class="pay-embed" id="p-embed"><p class="pay-load">Loading secure payment...</p></div>'+
+        '<p class="pay-wallets">Pay with Apple Pay, Google Pay, Link or card. Payments are processed by Stripe, so we never see your card details.</p></div>'+
+        '<div class="pay-side"><div class="pay-list">'+S.pre.documents.map(function(d){ return '<div>'+TICK+'<span>'+esc(d.title)+' signed</span></div>'; }).join('')+'</div>'+
         '<div class="pay-recap"><b>'+esc(fullName())+'</b><br>'+esc(S.d.email)+'<br>'+esc([S.d.line1,S.d.city,S.d.country].filter(Boolean).join(', '))+' · <button type="button" class="btn-alt" id="p-edit">Edit details</button></div>'+
-        '<p class="co-back"><button type="button" class="btn-alt" id="p-back">Back to agreement</button></p></div>'+summary();
+        '<p class="co-back"><button type="button" class="btn-alt" id="p-back">Back to agreement</button></p></div></div></div>'+summary();
       S.err='';
       document.getElementById('p-edit').onclick=function(){ killCo(); showDetails(); };
       document.getElementById('p-back').onclick=function(){ killCo(); S.idx=Math.max(0,S.pre.documents.length-1); S.signed[S.pre.documents[S.idx].key]=null; showAgree(); };
