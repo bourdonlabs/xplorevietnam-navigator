@@ -58,6 +58,7 @@
 .cp-msg.ok{color:#177245}.cp-msg.no{color:#B42318}
 .cp-msg button{border:0;background:none;padding:0;margin-left:6px;font:600 14px/20px var(--body);color:#888;text-decoration:underline;cursor:pointer}
 .q-form{padding:0;border:0;margin-top:-12px}
+.q-form select{width:100%;height:48px;padding:0 14.4px;border:1px solid var(--line);border-radius:999px;font:400 18px/25.2px var(--body);color:var(--navy);background:#fff;margin-bottom:18px}
 .q-form input{height:48px;margin-bottom:18px}.q-form textarea{height:90px;margin-bottom:18px}
 @media (max-width:1024px){ .c-head{padding-top:120px;flex-direction:column;align-items:flex-start;gap:32px} .c-head h1{font-size:60px;line-height:70px} .c-body{flex-direction:column;padding:48px var(--pad-x) 64px} .summary{flex:none;width:100%} }
 @media (max-width:767px){ .c-head{padding-top:110px} .c-head h1{font-size:40px;line-height:46px} .steps{gap:12px} .c-item{flex-direction:column} .c-item .ph{flex:none;width:128px} }
@@ -142,6 +143,9 @@
         '<form class="msg-form q-form" id="q-form" hidden novalidate><label for="q-name">Full Name</label><input id="q-name" name="name" type="text" autocomplete="name" maxlength="200">'+
         '<label for="q-email">Email Address <span class="req">*</span></label><input id="q-email" name="email" type="email" autocomplete="email" required maxlength="320">'+
         '<label for="q-phone">WhatsApp or phone</label><input id="q-phone" name="phone" type="tel" autocomplete="tel" maxlength="60">'+
+        (items.some(function(i){ return i.sku.indexOf('svc-business')===0; })?
+          '<label for="q-struct">Company structure <span class="req">*</span></label><select id="q-struct" name="structure" required><option value="">Choose one</option><option>Single-member LLC (one owner)</option><option>Multi-member LLC (two or more owners)</option><option>Joint-stock company</option><option>Branch or representative office</option><option>Not sure yet</option></select>'+
+          '<label for="q-sell">What will the company sell? <span class="req">*</span></label><textarea id="q-sell" name="selling" required maxlength="1000" placeholder="For example: software services, trading goods, consulting, restaurant"></textarea>':'')+
         '<label for="q-msg">Message</label><textarea id="q-msg" name="message" maxlength="5000"></textarea>'+
         '<button type="submit">Send my order <svg class="arr"><use href="#i-arr"/></svg></button><p class="note" aria-live="polite"></p></form>';
       var cf=document.getElementById('cp-form');
@@ -165,9 +169,15 @@
     function sendRequest(f,items,t){
       var note=f.querySelector('.note'), email=f.email.value.trim();
       if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){ note.textContent='Enter a valid email address, like name@example.com.'; return; }
+      var company=null;
+      if(f.structure){
+        if(!f.structure.value){ note.textContent='Choose a company structure so we can price your setup.'; return; }
+        if(!f.selling.value.trim()){ note.textContent='Tell us what the company will sell so we can price your setup.'; return; }
+        company={structure:f.structure.value, selling:f.selling.value.trim()};
+      }
       note.textContent='Sending...';
       XV.lead({kind:'order_request', name:f.name.value.trim(), email:email, phone:f.phone.value.trim(), message:f.message.value.trim(),
-        data:{items:items.map(function(i){ return {sku:i.sku, name:C.items[i.sku].name, dependents:i.dependents||0, addons:i.addons||[], options:i.options||{}, price:base(i)}; }), estimate_usd:t.quote?null:t.total, coupon:cp.code||(cp.input||'')||null}})
+        data:{company:company, items:items.map(function(i){ return {sku:i.sku, name:C.items[i.sku].name, dependents:i.dependents||0, addons:i.addons||[], options:i.options||{}, price:base(i)}; }), estimate_usd:t.quote?null:t.total, coupon:cp.code||(cp.input||'')||null}})
         .then(function(){ XV.write([]); list.innerHTML='<div class="c-empty"><p><b>Thank you, your order request is in.</b> We will email you with the next steps.</p><div><a class="btn-line" href="index.html">Back to home</a></div></div>'; sum.hidden=true; })
         .catch(function(){ note.textContent='Sorry, that did not go through. Please email us at info@xplorevietnam.org.'; });
     }

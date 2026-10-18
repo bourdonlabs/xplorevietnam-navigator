@@ -111,6 +111,11 @@ function detailsText(l: Lead) {
   if (d.interest) parts.push(`Interested in: ${d.interest}`);
   if (d.preferred_time) parts.push(`Best time: ${d.preferred_time}`);
   if (d.result) parts.push(`Quiz result: ${d.result}`);
+  if (d.company && typeof d.company === "object") {
+    const c = d.company as { structure?: string; selling?: string };
+    if (c.structure) parts.push(`Structure: ${c.structure}`);
+    if (c.selling) parts.push(`Will sell: ${c.selling}`);
+  }
   if (Array.isArray(d.items))
     parts.push(
       (d.items as { name: string; dependents?: number; price?: number | null; addons?: string[] }[])
@@ -139,6 +144,7 @@ function LeadRow({ l, clientId, onChange }: { l: Lead; clientId?: string; onChan
     else onChange();
   };
   const wa = l.phone ? waLink(l.phone) : null;
+  const company = d.company && typeof d.company === "object" ? (d.company as { structure?: string; selling?: string }) : null;
   const items = Array.isArray(d.items) ? (d.items as { name: string; dependents?: number; price?: number | null; addons?: string[]; options?: Record<string, string> }[]) : [];
 
   return (
@@ -192,6 +198,12 @@ function LeadRow({ l, clientId, onChange }: { l: Lead; clientId?: string; onChan
           {d.interest ? <div><dt className="inline text-gray-500">Needs help with: </dt><dd className="inline text-brand-navy">{String(d.interest)}</dd></div> : null}
           {d.preferred_time ? <div><dt className="inline text-gray-500">Best time: </dt><dd className="inline text-brand-navy">{String(d.preferred_time)}</dd></div> : null}
           {d.result ? <div><dt className="inline text-gray-500">Quiz result: </dt><dd className="inline text-brand-navy">{String(d.result)}</dd></div> : null}
+        </dl>
+      )}
+      {company && (company.structure || company.selling) && (
+        <dl className="flex flex-wrap gap-x-6 gap-y-1 text-sm">
+          {company.structure ? <div><dt className="inline text-gray-500">Company structure: </dt><dd className="inline text-brand-navy">{company.structure}</dd></div> : null}
+          {company.selling ? <div><dt className="inline text-gray-500">Will sell: </dt><dd className="inline text-brand-navy">{company.selling}</dd></div> : null}
         </dl>
       )}
       {items.length > 0 && (

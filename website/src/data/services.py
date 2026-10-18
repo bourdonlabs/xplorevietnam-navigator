@@ -21,7 +21,7 @@ TABS = [
  {"id":"business","tab":"Business Setup","title":"Vietnam Company Setup Services",
   "note":"Learn more about opening a company in Vietnam",
   "packages":[
-   {"name":"Company<br>Package","desc":"Register your company correctly the first time, with the right business lines.","price":"$[price]","price_note":"Price bracket range depends heavily on your corporate structure and what you are selling.","fees":["Service fee $[amount]","Government fees $[amount]"],
+   {"name":"Company<br>Package","desc":"Register your company correctly the first time, with the right business lines.","price":"$[price]","no_dependents":True,"price_note":"Price bracket range depends heavily on your corporate structure and what you are selling.","fees":["Service fee $[amount]","Government fees $[amount]"],
     "get":"Investment registration certificate, enterprise registration, company seal, tax registration and bank account opening support.","best":"Founders opening a single-member LLC."}]},
  {"id":"relocation","tab":"Relocation","title":"Vietnam Relocation and Settling-in Services",
   "note":"Learn more about living in Vietnam",
