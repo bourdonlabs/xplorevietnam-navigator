@@ -32,25 +32,63 @@ export async function sendEmail(m: { to: string | string[]; subject: string; htm
   }
 }
 
-/** A simple, plain staff email: a title, label/value rows and an optional button. Inline styles so mail apps show it. */
-export function staffMail(title: string, rows: [string, string | null | undefined][], button?: { label: string; url: string }) {
-  const shown = rows.filter(([, v]) => v && String(v).trim()) as [string, string][];
+export type MailButton = { label: string; url: string; primary?: boolean };
+export type MailRow = [label: string, value: string | null | undefined, showIfEmpty?: boolean];
+
+const stamp = () =>
+  new Date().toLocaleString("en-GB", { timeZone: "Asia/Ho_Chi_Minh", day: "numeric", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit" }) +
+  " (Vietnam time)";
+
+/** WhatsApp link for a phone number typed on the website, or null when it has too few digits to be a number. */
+export const whatsappUrl = (phone: string | null | undefined) => {
+  const d = (phone || "").replace(/\D/g, "");
+  return d.length >= 8 && d.length <= 15 ? `https://wa.me/${d}` : null;
+};
+
+/** A staff notification: header bar, what happened and when, the details, the message in its own box, then action buttons.
+ *  Table layout and inline styles only, so it looks the same in Zoho, Gmail and Outlook. */
+export function staffMail(m: { eyebrow: string; title: string; preview?: string; rows: MailRow[]; message?: string | null; buttons: MailButton[] }) {
+  const rows = m.rows.filter(([, v, always]) => (v && String(v).trim()) || always) as [string, string | null | undefined, boolean?][];
+  const when = stamp();
+  const rowHtml = rows
+    .map(([k, v]) => {
+      const has = v && String(v).trim();
+      return (
+        `<tr><td style="padding:9px 16px 9px 0;width:150px;color:#6b7a8a;font-size:13px;vertical-align:top;border-bottom:1px solid #eef1f5">${esc(k)}</td>` +
+        `<td style="padding:9px 0;font-size:15px;line-height:1.45;vertical-align:top;border-bottom:1px solid #eef1f5;white-space:pre-wrap;color:${has ? "#090825" : "#9aa5b1"}">${has ? esc(v) : "Not provided"}</td></tr>`
+      );
+    })
+    .join("");
+  const msgHtml = m.message && m.message.trim()
+    ? `<p style="margin:24px 0 8px;font-size:13px;color:#6b7a8a">Message</p>` +
+      `<div style="padding:14px 16px;background:#f5f7fa;border-left:4px solid #FF2D3B;border-radius:4px;font-size:15px;line-height:1.55;white-space:pre-wrap;color:#090825">${esc(m.message.trim())}</div>`
+    : "";
+  const btnHtml = m.buttons
+    .map((b) =>
+      b.primary
+        ? `<a href="${esc(b.url)}" style="display:inline-block;margin:0 10px 10px 0;background:#FF2D3B;color:#ffffff;text-decoration:none;padding:12px 22px;border-radius:999px;font-weight:bold;font-size:15px">${esc(b.label)}</a>`
+        : `<a href="${esc(b.url)}" style="display:inline-block;margin:0 10px 10px 0;background:#ffffff;color:#090825;text-decoration:none;padding:11px 21px;border:1px solid #090825;border-radius:999px;font-weight:bold;font-size:15px">${esc(b.label)}</a>`,
+    )
+    .join("");
   const html =
-    `<div style="font-family:Arial,Helvetica,sans-serif;color:#090825;max-width:560px">` +
-    `<h2 style="margin:0 0 16px;font-size:20px">${esc(title)}</h2>` +
-    `<table style="border-collapse:collapse;width:100%">` +
-    shown
-      .map(
-        ([k, v]) =>
-          `<tr><td style="padding:8px 12px 8px 0;color:#6b7a8a;font-size:14px;vertical-align:top;white-space:nowrap">${esc(k)}</td>` +
-          `<td style="padding:8px 0;font-size:15px;white-space:pre-wrap">${esc(v)}</td></tr>`,
-      )
-      .join("") +
-    `</table>` +
-    (button
-      ? `<p style="margin:24px 0 0"><a href="${esc(button.url)}" style="background:#FF2D3B;color:#fff;text-decoration:none;padding:12px 22px;border-radius:999px;font-weight:bold;font-size:15px">${esc(button.label)}</a></p>`
-      : "") +
-    `</div>`;
-  const text = `${title}\n\n${shown.map(([k, v]) => `${k}: ${v}`).join("\n")}${button ? `\n\n${button.label}: ${button.url}` : ""}`;
+    `<div style="display:none;max-height:0;overflow:hidden;opacity:0">${esc(m.preview || m.title)}</div>` +
+    `<div style="background:#f5f7fa;padding:24px 12px;font-family:Arial,Helvetica,sans-serif;color:#090825">` +
+    `<table role="presentation" style="width:100%;max-width:600px;margin:0 auto;border-collapse:collapse;background:#ffffff;border-radius:8px;overflow:hidden">` +
+    `<tr><td style="background:#090825;padding:16px 28px;color:#ffffff;font-size:17px;font-weight:bold;letter-spacing:.3px">XploreVietnam</td></tr>` +
+    `<tr><td style="padding:28px 28px 8px">` +
+    `<p style="margin:0 0 6px;font-size:12px;font-weight:bold;letter-spacing:1px;text-transform:uppercase;color:#FF2D3B">${esc(m.eyebrow)}</p>` +
+    `<h1 style="margin:0 0 6px;font-size:22px;line-height:1.25">${esc(m.title)}</h1>` +
+    `<p style="margin:0 0 20px;font-size:13px;color:#6b7a8a">Received ${esc(when)}</p>` +
+    `<table role="presentation" style="width:100%;border-collapse:collapse;border-top:1px solid #eef1f5">${rowHtml}</table>` +
+    msgHtml +
+    `<p style="margin:26px 0 0">${btnHtml}</p>` +
+    `</td></tr>` +
+    `<tr><td style="padding:12px 28px 24px;font-size:12px;color:#9aa5b1">Sent automatically by xplorevietnam.org when someone fills in a form. Reply to this email to answer the person directly.</td></tr>` +
+    `</table></div>`;
+  const text =
+    `${m.eyebrow.toUpperCase()}\n${m.title}\nReceived ${when}\n\n` +
+    rows.map(([k, v]) => `${k}: ${v && String(v).trim() ? v : "Not provided"}`).join("\n") +
+    (m.message && m.message.trim() ? `\n\nMessage:\n${m.message.trim()}` : "") +
+    `\n\n${m.buttons.map((b) => `${b.label}: ${b.url}`).join("\n")}`;
   return { html, text };
 }

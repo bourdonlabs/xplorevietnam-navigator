@@ -1,6 +1,6 @@
 import { after } from "next/server";
 import { json, preflight } from "@/lib/cors";
-import { NOTIFY_TO, sendEmail, staffMail } from "@/lib/mailer";
+import { NOTIFY_TO, sendEmail, staffMail, whatsappUrl, type MailButton } from "@/lib/mailer";
 import { SUPABASE_KEY, SUPABASE_URL } from "@/lib/supabase/env";
 
 // Website forms (contact, free-call request, newsletter, city quiz, order requests) → website_leads.
@@ -29,23 +29,32 @@ async function notifyTeam(r: Row, origin: string) {
         .map((i) => `${i.name}${i.dependents ? ` + ${i.dependents} dependent(s)` : ""} (${i.price == null ? "quote needed" : "$" + i.price})`)
         .join("\n")
     : "";
-  const { html, text } = staffMail(
-    `${LABEL[r.kind]}${r.name ? `: ${r.name}` : ""}`,
-    [
-      ["Name", r.name],
+  const first = (r.name || "").split(" ")[0];
+  const wa = whatsappUrl(r.phone);
+  const buttons: MailButton[] = [
+    { label: first ? `Reply to ${first}` : "Reply", url: `mailto:${r.email}?subject=${encodeURIComponent("Re: your message to XploreVietnam")}`, primary: true },
+    ...(wa ? [{ label: "WhatsApp", url: wa }] : []),
+    { label: "Open in Navigator", url: `${origin}/admin/leads` },
+  ];
+  const { html, text } = staffMail({
+    eyebrow: LABEL[r.kind],
+    title: r.name || r.email,
+    preview: r.message || `${LABEL[r.kind]} from ${r.name || r.email}`,
+    rows: [
+      ["Name", r.name, true],
       ["Email", r.email],
-      ["WhatsApp / phone", r.phone],
+      ["WhatsApp / phone", r.phone, true],
       ["Items", items],
       ["Company structure", company?.structure],
       ["Will sell", company?.selling],
       ["Needs help with", typeof d.interest === "string" ? d.interest : null],
-      ["Best time", typeof d.preferred_time === "string" ? d.preferred_time : null],
+      ["Best time to call", typeof d.preferred_time === "string" ? d.preferred_time : null],
       ["Quiz result", typeof d.result === "string" ? d.result : null],
-      ["Message", r.message],
-      ["From page", r.page],
+      ["Sent from", r.page],
     ],
-    { label: "Open in Navigator", url: `${origin}/admin/leads` },
-  );
+    message: r.message,
+    buttons,
+  });
   await sendEmail({ to: NOTIFY_TO, subject: `${LABEL[r.kind]}${r.name ? `: ${r.name}` : ` (${r.email})`}`, html, text, replyTo: r.email });
 }
 
