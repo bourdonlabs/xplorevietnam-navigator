@@ -43,6 +43,7 @@
       "name": "Concierge Package",
       "group": "Relocation packages",
       "price": 4750,
+      "deposit": 0.7,
       "dependent": null,
       "maxDependents": 5,
       "fees": "Government application fees (~$350/applicant) not included.",

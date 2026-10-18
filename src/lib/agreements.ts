@@ -3,8 +3,8 @@
 // always the same words: the browser only ever sends which items are in the cart.
 //
 // DRAFT NOTICE: this wording is a starting draft built from the website's package descriptions, the Terms & Conditions
-// and the Refund Policy. It has not been reviewed by a lawyer. Live payments stay blocked until the company details
-// below are filled in (Vercel env vars) and AGREEMENTS_REVIEWED=1 is set. See agreementsReady().
+// and the Refund Policy. Until a lawyer has reviewed it, live card payments stay off: they open as soon as
+// AGREEMENTS_REVIEWED=1 is set in Vercel (no code change). See agreementsReady().
 import { createHash } from "node:crypto";
 import { esc } from "./mailer";
 import { itemInfo, type CartLine } from "./shop";
@@ -36,15 +36,14 @@ export type AgreementDoc = {
 /** Bump when the wording of an agreement changes, so each signature records which text it was. */
 const VERSION = "2026-10-18-draft1";
 
-const env = (k: string, placeholder: string) => process.env[k]?.trim() || placeholder;
+// Company details shown in every agreement. The address is optional: leave AGREEMENT_COMPANY_ADDRESS unset to omit it.
 export const COMPANY = {
-  name: env("AGREEMENT_COMPANY_NAME", "[Company legal name]"),
-  address: env("AGREEMENT_COMPANY_ADDRESS", "[Company address]"),
-  law: env("AGREEMENT_GOVERNING_LAW", "[governing law and courts]"),
+  name: process.env.AGREEMENT_COMPANY_NAME?.trim() || "XPLOREVIETNAM INC",
+  address: process.env.AGREEMENT_COMPANY_ADDRESS?.trim() || "",
+  law: process.env.AGREEMENT_GOVERNING_LAW?.trim() || "the Province of British Columbia, Canada",
 };
-/** True only when the company details are filled in AND someone has confirmed a lawyer reviewed the text. */
-export const agreementsReady = () =>
-  process.env.AGREEMENTS_REVIEWED === "1" && ![COMPANY.name, COMPANY.address, COMPANY.law].some((v) => v.startsWith("["));
+/** Live card payments open only after someone confirms the agreement wording has been reviewed by a lawyer (env AGREEMENTS_REVIEWED=1). */
+export const agreementsReady = () => process.env.AGREEMENTS_REVIEWED === "1";
 
 export const CONSENT =
   "I consent to use my electronic signature on documents, including legally binding contracts, as a digital representation of my signature, just like pen and paper.";
@@ -275,7 +274,7 @@ function sectionsFor(def: Def, lines: DocLine[]): Section[] {
     {
       h: "About us",
       body: [
-        `XploreVietnam is operated by ${COMPANY.name}, ${COMPANY.address} ("XploreVietnam", "we", "us"). We coordinate immigration, relocation and related services in Vietnam. Where a service needs a licensed professional, such as a lawyer or a notary, that professional is an independent provider (see "Independent providers" below).`,
+        `XploreVietnam is operated by ${COMPANY.name}${COMPANY.address ? `, ${COMPANY.address}` : ""} ("XploreVietnam", "we", "us"). We coordinate immigration, relocation and related services in Vietnam. Where a service needs a licensed professional, such as a lawyer or a notary, that professional is an independent provider (see "Independent providers" below).`,
       ],
     },
     { h: "What is included", body: scope },
