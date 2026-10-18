@@ -228,7 +228,13 @@ function Applications({ rows, onChange }: { rows: AdminPartner[]; onChange: () =
     const res = await partnerAdmin.updatePartner(p.id, { program: p.program, rate: p.commission_rate, discount: p.customer_discount, status });
     setBusy("");
     if (res.error) return toast.error("Couldn't save: " + res.error);
-    toast.success(status === "active" ? `${p.name || p.username} approved. Their code is live. Let them know by email.` : "Application rejected");
+    if (status === "active") {
+      // Emails the partner. If email is not set up yet, the admin is told to let them know by hand.
+      const sent = await fetch("/api/partners/approved", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ partnerId: p.id }) })
+        .then((r) => r.ok)
+        .catch(() => false);
+      toast.success(sent ? `${p.name || p.username} approved. Their code is live and we emailed them.` : `${p.name || p.username} approved. Their code is live. The email did not send, so let them know yourself.`);
+    } else toast.success("Application rejected");
     onChange();
   };
   if (!rows.length) return <Empty>No applications waiting. New partner sign-ups appear here for you to approve or reject.</Empty>;

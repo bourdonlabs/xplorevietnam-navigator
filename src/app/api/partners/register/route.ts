@@ -1,5 +1,7 @@
+import { after } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 import { json, preflight } from "@/lib/cors";
+import { NOTIFY_TO, sendEmail, staffMail } from "@/lib/mailer";
 import { checkAvailable, cleanCode, cleanUsername } from "@/lib/partner-code";
 import { SUPABASE_KEY, SUPABASE_URL } from "@/lib/supabase/env";
 
@@ -48,5 +50,19 @@ export async function POST(request: Request) {
   if (data.user && data.user.identities?.length === 0) {
     return fail("account_exists", "An account with this email already exists. Log in to Navigator and open Partner program to join from there.", 409);
   }
+  const { html, text } = staffMail(
+    `New partner application${partner.name ? `: ${partner.name}` : ""}`,
+    [
+      ["Name", partner.name],
+      ["Email", email],
+      ["Username", partner.username],
+      ["Coupon code asked for", partner.code],
+      ["Promotes via", partner.promote_via],
+      ["Link to their content", partner.content_url],
+      ["Status", "Waiting for them to confirm their email, then for your approval"],
+    ],
+    { label: "Review applications", url: `${new URL(request.url).origin}/admin/partners` },
+  );
+  after(() => sendEmail({ to: NOTIFY_TO, subject: `New partner application${partner.name ? `: ${partner.name}` : ` (${email})`}`, html, text, replyTo: email }));
   return json(request, { ok: true, confirm: !data.session });
 }
