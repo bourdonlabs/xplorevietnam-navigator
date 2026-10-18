@@ -107,7 +107,8 @@
     var IMG={'Relocation packages':'img/relocation-packages.jpg','Stay in Vietnam':'img/stay-in-vietnam.jpg','Teachers':'img/aud/teachers.jpg',
       'Visas & Extensions':'img/svc/visas.jpg','Temporary Residence Card (TRC)':'img/svc/trc.jpg','Business Setup':'img/svc/business.jpg','Relocation':'img/svc/relocation-apartment.jpg','Overstay':'img/guide-hcmc.jpg'};
     // Product thumbnails (square, 1:1). A product listed here overrides its group image above.
-    var SKU_IMG={'overstay-review':'img/svc/overstay-case-review.webp'};
+    var SKU_IMG={'overstay-review':'img/svc/overstay-case-review.webp',
+      'rl-visa':'img/svc/visa-package.webp','svc-visas-1':'img/svc/visa-package.webp'};   // both "Visa Package" products
     function usd(n){ return '$'+n.toLocaleString('en-US'); }
     function esc(t){ var d=document.createElement('div'); d.textContent=t; return d.innerHTML; }
     function cart(){ return XV.read().filter(function(i){ return C.items[i.sku]; }); }
