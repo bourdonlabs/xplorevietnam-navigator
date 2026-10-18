@@ -64,60 +64,60 @@
     "svc-visas-1": {
       "name": "Visa Package",
       "group": "Visas & Extensions",
-      "price": 2650,
-      "dependent": 1250,
+      "price": 149,
+      "dependent": 99,
       "maxDependents": 5,
-      "fees": "Includes government and admin fees (~$1,000).",
+      "fees": "Government fee $25–$155 per person (set by Circular 28/2026/TT-BTC) billed separately at cost.",
       "page": "services.html",
-      "deposit": 0.7
+      "deposit": 1
     },
     "svc-visas-2": {
       "name": "Visa + Stay Package",
       "group": "Visas & Extensions",
-      "price": 4150,
-      "dependent": 2250,
+      "price": 599,
+      "dependent": 149,
       "maxDependents": 5,
-      "fees": "Includes government and admin fees.",
+      "fees": "Government fee $25–$155 per person (set by Circular 28/2026/TT-BTC) billed separately at cost.",
       "page": "services.html",
       "deposit": 0.7
     },
     "svc-visas-3": {
       "name": "Visa Concierge Package",
       "group": "Visas & Extensions",
-      "price": 5495,
-      "dependent": 2350,
+      "price": 2990,
+      "dependent": 490,
       "maxDependents": 5,
-      "fees": "Includes government and admin fees.",
+      "fees": "Government fee $25–$155 per person (set by Circular 28/2026/TT-BTC) billed separately at cost.",
       "page": "services.html",
       "deposit": 0.7
     },
     "svc-trc-1": {
       "name": "TRC Package",
       "group": "Temporary Residence Card (TRC)",
-      "price": 1020,
-      "dependent": 395,
+      "price": 490,
+      "dependent": 190,
       "maxDependents": 5,
-      "fees": "Government application fees (~$335/applicant) billed separately.",
+      "fees": "Government fee $145–$165 per card (set by Circular 28/2026/TT-BTC) billed separately at cost.",
       "page": "services.html",
-      "deposit": 0.7
+      "deposit": 1
     },
     "svc-trc-2": {
       "name": "TRC + Permit Package",
       "group": "Temporary Residence Card (TRC)",
-      "price": 2845,
-      "dependent": 495,
+      "price": 1290,
+      "dependent": 190,
       "maxDependents": 5,
-      "fees": "Government application fees (~$335/applicant) billed separately.",
+      "fees": "Government fee $145–$165 per card (set by Circular 28/2026/TT-BTC) billed separately at cost. Work permit fee (about $15–$25) also billed at cost.",
       "page": "services.html",
       "deposit": 0.7
     },
     "svc-trc-3": {
       "name": "TRC Concierge Package",
       "group": "Temporary Residence Card (TRC)",
-      "price": 3950,
-      "dependent": 1200,
+      "price": 2290,
+      "dependent": 490,
       "maxDependents": 5,
-      "fees": "Government application fees (~$335/applicant) billed separately.",
+      "fees": "Government fee $145–$165 per card (set by Circular 28/2026/TT-BTC) billed separately at cost.",
       "page": "services.html",
       "deposit": 0.7
     },
@@ -147,23 +147,29 @@
     "svc-relocation-1": {
       "name": "Arrival Package",
       "group": "Relocation",
-      "price": null,
+      "price": 490,
       "page": "services.html",
-      "deposit": 0.7
+      "deposit": 1,
+      "dependent": 99,
+      "maxDependents": 5
     },
     "svc-relocation-2": {
       "name": "Home Package",
       "group": "Relocation",
-      "price": null,
+      "price": 790,
       "page": "services.html",
-      "deposit": 0.7
+      "deposit": 0.7,
+      "dependent": 99,
+      "maxDependents": 5
     },
     "svc-relocation-3": {
       "name": "Relocation Concierge Package",
       "group": "Relocation",
-      "price": null,
+      "price": 2490,
       "page": "services.html",
-      "deposit": 0.7
+      "deposit": 0.7,
+      "dependent": 390,
+      "maxDependents": 5
     },
     "overstay-review": {
       "name": "Overstay Case Review",
@@ -176,11 +182,11 @@
   "addons": {
     "tax-code": {
       "name": "Vietnamese tax code (MST)",
-      "price": 150
+      "price": 59
     },
     "bank-account": {
       "name": "Vietnamese bank account",
-      "price": 325
+      "price": 79
     },
     "driving-licence": {
       "name": "Driving licence conversion",
