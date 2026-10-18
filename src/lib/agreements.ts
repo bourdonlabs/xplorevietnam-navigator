@@ -40,7 +40,7 @@ const VERSION = "2026-10-18-draft1";
 export const COMPANY = {
   name: process.env.AGREEMENT_COMPANY_NAME?.trim() || "XPLOREVIETNAM INC",
   registeredAddress: process.env.AGREEMENT_REGISTERED_ADDRESS?.trim() || "6400, Floor 3, local 21 Roberts St, Burnaby, BC V5G 4E1, Canada",
-  office: process.env.AGREEMENT_OFFICE_ADDRESS?.trim() || "598/2 Điện Biên Phủ, Phường 22, Quận Bình Thạnh, Ho Chi Minh City, Vietnam",
+  office: process.env.AGREEMENT_OFFICE_ADDRESS?.trim() || "598/2 Điện Biên Phủ, District 2, Ho Chi Minh City, Vietnam",
   law: process.env.AGREEMENT_GOVERNING_LAW?.trim() || "the Province of British Columbia, Canada",
 };
 /** Live card payments open only after someone confirms the agreement wording has been reviewed by a lawyer (env AGREEMENTS_REVIEWED=1). */
