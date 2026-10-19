@@ -14,7 +14,7 @@ TABS = [
   "packages":[
    {"name":"TRC<br>Package","desc":"A residence card lets you stay up to two years without visa runs. We handle the paperwork.","price":"$1020","fees":["Government fee* $145–$165 per card,","billed separately at cost","Add dependent: $395"],
     "get":"Eligibility check, document list, translations and notarisation, submission to the immigration office and collection of your card.","best":"People with a work permit, investment or family link who qualify for a TRC."},
-   {"name":"TRC + Permit<br>Package","desc":"For employees who need a work permit before the residence card.","price":"$2845","fees":["Government fee* $145–$165 per card,","billed separately at cost","Add dependent: $495"],
+   {"name":"TRC + Permit<br>Package","desc":"For employees who need a work permit before the residence card.","price":"$2845","fees":["Government fees* billed separately at cost:","card $145–$165, work permit 400,000–1,000,000 VND (about $15–$40)","Add dependent: $495"],
     "get":"Everything in the TRC Package, plus the work permit or exemption, legalisation of your degree and criminal record, and employer paperwork.","best":"Professionals starting a new job in Vietnam."},
    {"name":"Concierge<br>Package","desc":"We manage every step for you and your family, from first document to final card.","price":"$3950","fees":["Government fee* $145–$165 per card,","billed separately at cost","Add dependent: $1,200"],"badge":"Best Value",
     "get":"Everything in the TRC + Permit Package, plus family cards, school registration support, housing search and a dedicated case manager.","best":"Families relocating together."}]},
