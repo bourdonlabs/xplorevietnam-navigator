@@ -163,7 +163,7 @@ RL_ROWS=[("Visa application preparation and review",[1,1,1]),("Document legalisa
  ("XploreVietnam client tracker",[1,1,1]),("Connections to XploreVietnam’s partner network",[1,1,1]),("Comprehensive relocation guides on shipping, pet relocation, housing, and more",[1,1,1]),
  ("Vietnam cost of living guide",[1,1,1]),("Vietnamese tax code (MST)",['o','o',1]),("Vietnamese bank account",['o','o',1]),("Driving licence conversion",['o','o',1]),
  ("Rental search support",[0,1,1]),("Dedicated relocation specialist",[0,1,1]),("Four 30-minute one-on-one coaching calls",[0,1,1]),("Unlimited coaching calls",[0,0,1]),
- ("Utilities set-up (electric, water, internet, phone)",[0,0,1]),("Airport pickup",[0,0,1]),("Medical planning support",[0,0,1]),("Temporary residence registration",[0,0,1]),("Access to Concierge WhatsApp line",[0,0,1])]
+ ("Utilities set-up (electric, water, internet, phone)",[0,0,1]),("Airport pickup",[0,0,1]),("Medical planning support",[0,0,1]),("Temporary residence registration",[0,0,1]),("Access to Concierge WhatsApp line",[0,0,1]),("24/7 support",[0,0,1])]
 def rl_rows():
     cell=lambda x: '{{i:check ck}}' if x==1 else ('optional' if x=='o' else '{{i:dash dsh}}')
     return '\n'.join('      <div class="t-row"><div class="t-f">'+f+'</div>'+''.join(f'<div class="t-c">{cell(x)}</div>' for x in inc)+'</div>' for f,inc in RL_ROWS)
