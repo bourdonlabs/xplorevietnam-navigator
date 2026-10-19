@@ -8,7 +8,7 @@
       "price": 975,
       "dependent": null,
       "maxDependents": 5,
-      "fees": "Government application fees (~$350/applicant) not included.",
+      "fees": "Government fees ($25–$165 per visa, $145–$165 per residence card) not included.",
       "options": {
         "visa_type": [
           "E-visa (up to 90 days)",
@@ -31,7 +31,7 @@
       "price": 2450,
       "dependent": null,
       "maxDependents": 5,
-      "fees": "Government application fees (~$350/applicant) not included.",
+      "fees": "Government fees ($25–$165 per visa, $145–$165 per residence card) not included.",
       "addons": [
         "tax-code",
         "bank-account",
@@ -46,7 +46,7 @@
       "deposit": 0.7,
       "dependent": null,
       "maxDependents": 5,
-      "fees": "Government application fees (~$350/applicant) not included.",
+      "fees": "Government fees ($25–$165 per visa, $145–$165 per residence card) not included.",
       "page": "relocate.html"
     },
     "rl-trc-renewal": {
@@ -67,7 +67,7 @@
       "price": 2650,
       "dependent": 1250,
       "maxDependents": 5,
-      "fees": "Includes government and admin fees (~$1,000).",
+      "fees": "Includes the government fee ($25–$165 per person).",
       "page": "services.html",
       "deposit": 0.7
     },
@@ -77,7 +77,7 @@
       "price": 4150,
       "dependent": 2250,
       "maxDependents": 5,
-      "fees": "Includes government and admin fees.",
+      "fees": "Includes the government fee ($25–$165 per person).",
       "page": "services.html",
       "deposit": 0.7
     },
@@ -87,7 +87,7 @@
       "price": 5495,
       "dependent": 2350,
       "maxDependents": 5,
-      "fees": "Includes government and admin fees.",
+      "fees": "Includes the government fee ($25–$165 per person).",
       "page": "services.html",
       "deposit": 0.7
     },
@@ -97,7 +97,7 @@
       "price": 1020,
       "dependent": 395,
       "maxDependents": 5,
-      "fees": "Government application fees (~$335/applicant) billed separately.",
+      "fees": "Government fee ($145–$165 per card) billed separately at cost.",
       "page": "services.html",
       "deposit": 0.7
     },
@@ -107,7 +107,7 @@
       "price": 2845,
       "dependent": 495,
       "maxDependents": 5,
-      "fees": "Government application fees (~$335/applicant) billed separately.",
+      "fees": "Government fee ($145–$165 per card) billed separately at cost.",
       "page": "services.html",
       "deposit": 0.7
     },
@@ -117,7 +117,7 @@
       "price": 3950,
       "dependent": 1200,
       "maxDependents": 5,
-      "fees": "Government application fees (~$335/applicant) billed separately.",
+      "fees": "Government fee ($145–$165 per card) billed separately at cost.",
       "page": "services.html",
       "deposit": 0.7
     },

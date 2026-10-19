@@ -123,7 +123,7 @@ def svc_tabs():
           {'' if p.get('no_dependents') else f'<label class="s-lab" for="dep-{t["id"]}-{len(cards)}">Dependents</label><select id="dep-{t["id"]}-{len(cards)}" data-opt="dependents"><option value="0">None</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select>'}
           {f'<ul class="s-pay"><li>{{{{i:info}}}}Pay {dep_pct}% at booking</li><li>{{{{i:info}}}}Pay {100-dep_pct}% after your application is submitted</li></ul>' if dep_pct<100 else '<ul class="s-pay"><li>{{i:info}}Payment due in full at booking</li></ul>' if priced else ''}
           <div class="s-div"></div>
-          <p class="s-fine">*Government fees are passed through at cost and paid to the relevant Vietnamese authority. You would pay these whoever handles your case. Other providers may add them on top of their quote; we show them upfront.</p>
+          <p class="s-fine">*Government fees are set by Vietnam’s Ministry of Finance (Circular 28/2026/TT-BTC) and passed through at cost to the relevant Vietnamese authority. You would pay them whoever handles your case.</p>
           <p class="s-get"><b>You get:</b> {p["get"]}<br><br><b>Best for:</b> {p["best"]}</p>
         </div>
         <div class="s-actions"><a class="btn-line" href="cart.html" data-add="{sku}">{'Add to Cart' if priced else 'Request a Quote'} <svg class="arr"><use href="#i-arr"/></svg></a><a class="s-ask" href="get-started.html">Have questions? Talk to an expert.</a></div>

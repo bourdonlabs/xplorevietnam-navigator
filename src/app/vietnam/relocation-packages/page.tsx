@@ -78,9 +78,9 @@ export default function RelocationPackagesPage() {
                 <span className="text-sm text-gray-700">/ total</span>
               </p>
               <p className="mt-2 text-xs text-gray-700">
-                Government application fees
+                Government fees ($25–$165 per visa,
                 <br />
-                (~$350/applicant) not included.
+                $145–$165 per residence card) not included.
               </p>
               <span className="mt-3 self-start rounded-lg bg-orange-50 px-2.5 py-1 text-xs text-orange-600">Optional add-on: {p.addons}</span>
               <ul className="mt-3 space-y-1.5">
