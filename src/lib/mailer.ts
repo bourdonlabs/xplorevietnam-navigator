@@ -3,6 +3,7 @@
 //   RESEND_API_KEY  required to send anything
 //   MAIL_FROM       e.g. "XploreVietnam <notifications@xplorevietnam.org>" (the domain must be verified in Resend)
 //   NOTIFY_TO       where staff notifications go (comma-separate several); defaults to info@xplorevietnam.org
+//   RESEND_API_URL  optional, only for testing against a stand-in server; defaults to Resend's address
 
 const FROM = process.env.MAIL_FROM || "XploreVietnam <notifications@xplorevietnam.org>";
 
@@ -14,15 +15,20 @@ export const NOTIFY_TO = (process.env.NOTIFY_TO || "info@xplorevietnam.org")
 export const esc = (v: unknown) =>
   String(v ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c] as string);
 
-export async function sendEmail(m: { to: string | string[]; subject: string; html: string; text: string; replyTo?: string }): Promise<boolean> {
+export const mailConfigured = () => !!process.env.RESEND_API_KEY;
+
+/** A file attached to an email. `content` is the file as base64. */
+export type MailAttachment = { filename: string; content: string };
+
+export async function sendEmail(m: { to: string | string[]; subject: string; html: string; text: string; replyTo?: string; attachments?: MailAttachment[] }): Promise<boolean> {
   const key = process.env.RESEND_API_KEY;
   if (!key) return false;
   try {
-    const res = await fetch("https://api.resend.com/emails", {
+    const res = await fetch(process.env.RESEND_API_URL || "https://api.resend.com/emails", {
       method: "POST",
       headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
-      body: JSON.stringify({ from: FROM, to: m.to, subject: m.subject, html: m.html, text: m.text, reply_to: m.replyTo }),
-      signal: AbortSignal.timeout(8000),
+      body: JSON.stringify({ from: FROM, to: m.to, subject: m.subject, html: m.html, text: m.text, reply_to: m.replyTo, ...(m.attachments?.length ? { attachments: m.attachments } : {}) }),
+      signal: AbortSignal.timeout(m.attachments?.length ? 20000 : 8000),
     });
     if (!res.ok) console.error("email_failed", res.status, await res.text().catch(() => ""));
     return res.ok;
@@ -59,7 +65,7 @@ export function staffMail(m: {
       const has = v && String(v).trim();
       return (
         `<tr><td style="padding:9px 16px 9px 0;width:150px;color:#6b7a8a;font-size:13px;vertical-align:top;border-bottom:1px solid #eef1f5">${esc(k)}</td>` +
-        `<td style="padding:9px 0;font-size:15px;line-height:1.45;vertical-align:top;border-bottom:1px solid #eef1f5;white-space:pre-wrap;color:${has ? "#090825" : "#9aa5b1"}">${has ? esc(v) : "Not provided"}</td></tr>`
+        `<td style="padding:9px 0;font-size:15px;line-height:1.45;vertical-align:top;border-bottom:1px solid #eef1f5;white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-word;color:${has ? "#090825" : "#9aa5b1"}">${has ? esc(v) : "Not provided"}</td></tr>`
       );
     })
     .join("");
