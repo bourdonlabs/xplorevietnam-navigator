@@ -2,9 +2,10 @@
 // before they can pay. The text lives here (server side) so what is shown, what is signed and what is stored are
 // always the same words: the browser only ever sends which items are in the cart.
 //
-// DRAFT NOTICE: this wording is a starting draft built from the website's package descriptions, the Terms & Conditions
-// and the Refund Policy. Until a lawyer has reviewed it, live card payments stay off: they open as soon as
-// AGREEMENTS_REVIEWED=1 is set in Vercel (no code change). See agreementsReady().
+// STATUS: this wording was built from the website's package descriptions, the Terms & Conditions and the Refund Policy
+// and was approved by the company's lawyers on 2026-10-19 (version 2026-10-19). The "draft" banner and the live-payment
+// guard are driven by AGREEMENTS_REVIEWED=1 in Vercel (see agreementsReady()). If the wording changes again, bump VERSION
+// and have a lawyer approve the new text before relying on it.
 import { createHash } from "node:crypto";
 import { esc } from "./mailer";
 import { itemInfo, type CartLine } from "./shop";
@@ -34,7 +35,7 @@ export type AgreementDoc = {
 };
 
 /** Bump when the wording of an agreement changes, so each signature records which text it was. */
-const VERSION = "2026-10-18-draft1";
+const VERSION = "2026-10-19";
 
 // Company details shown in every agreement. The registered address appears only in agreements (not elsewhere on the website).
 export const COMPANY = {
