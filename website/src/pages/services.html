@@ -35,6 +35,10 @@
 
 /* Tabs */
 .s-tabs{padding-top:80px}
+.s-which{margin:0 var(--pad-x) 40px;padding:20px 28px;border:1px solid var(--line);border-radius:14px;background:var(--light-grey)}
+.s-which p{font:400 18px/25px var(--body);color:var(--ink)}
+.s-which b{font-weight:700;color:var(--navy)}
+.s-which a{color:var(--navy);font-weight:600;text-decoration:underline}
 .s-tab-row{padding:0 var(--pad-x);display:flex;gap:45px;border-bottom:1px solid var(--line);overflow-x:auto;scrollbar-width:none}
 .s-tab{flex:0 0 auto;background:none;border:0;border-bottom:2px solid transparent;margin-bottom:-1px;padding:16px 0;font:700 18px/27px var(--body);color:var(--steel)}
 .s-tab.is-active{color:var(--navy);border-bottom-color:#FF0000}
@@ -129,6 +133,8 @@
   .one-l .amt{font-size:40px;line-height:48px}
 }
 @media (max-width:767px){
+  .s-which{padding:16px 18px;margin-bottom:28px}
+  .s-which p{font-size:16px;line-height:23px}
   .s-hero{padding:96px var(--pad-x) 24px}
   .s-hero-in{padding:28.8px 25.6px 44.8px}
   .s-hero h1{font-size:40px;line-height:46px}
@@ -207,6 +213,7 @@
 <script>
 // "View Packages" buttons switch to the matching tab before scrolling to it.
 // Opening services.html#overstay (or #visas, #trc…) selects that tab.
+document.addEventListener('click',function(e){ var a=e.target.closest&&e.target.closest('[data-go-tab]'); if(!a) return; e.preventDefault(); var t=document.querySelector('[data-tab="svc:'+a.getAttribute('data-go-tab')+'"]'); if(t){ t.click(); var p=document.getElementById('packages'); if(p) p.scrollIntoView({block:'start',behavior:'smooth'}); } });
 window.addEventListener('load',function(){ var id=location.hash.slice(1); var t=id&&document.querySelector('[data-tab="svc:'+id+'"]'); if(t){ t.click(); var p=document.getElementById('packages'); if(p) p.scrollIntoView({block:'start',behavior:'instant'}); } });
 document.querySelectorAll('[data-go]').forEach(function(a){
   a.addEventListener('click', function(){ var t=document.querySelector('[data-tab="'+a.dataset.go+'"]'); if(t) t.click(); });

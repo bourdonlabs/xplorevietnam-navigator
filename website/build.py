@@ -85,7 +85,10 @@ for _t in SV.TABS:
 CHECK='{{i:check ck}}'
 def svc_tabs():
     btns=''.join(f'<button type="button" class="s-tab{" is-active" if i==0 else ""}" data-tab="svc:{t["id"]}" aria-selected="{"true" if i==0 else "false"}">{t["tab"]}</button>' for i,t in enumerate(SV.TABS))
-    out=[f'  <section class="s-tabs" id="packages"><div class="s-tab-row" role="tablist">{btns}</div>']
+    which=('<div class="s-which"><p><b>Which one do I need?</b> If you have a job offer, a company in Vietnam or a Vietnamese spouse, you can usually get a '
+           '<a href="#trc" data-go-tab="trc">Temporary Residence Card (TRC)</a>, which replaces visas and visa runs. Everyone else starts with a '
+           '<a href="#visas" data-go-tab="visas">visa</a>.</p></div>')
+    out=[f'  <section class="s-tabs" id="packages">{which}<div class="s-tab-row" role="tablist">{btns}</div>']
     for i,t in enumerate(SV.TABS):
         if t.get('single'):
             o=t['single']; pts=''.join(f'<li><i></i>{x}</li>' for x in o['points'])
@@ -124,11 +127,11 @@ def svc_tabs():
           {f'<ul class="s-pay"><li>{{{{i:info}}}}Pay {dep_pct}% at booking</li><li>{{{{i:info}}}}Pay {100-dep_pct}% after your application is submitted</li></ul>' if dep_pct<100 else '<ul class="s-pay"><li>{{i:info}}Payment due in full at booking</li></ul>' if priced else ''}
           <div class="s-div"></div>
           {'<p class="s-fine">*Visa and residence card fees are set by Vietnam’s Ministry of Finance (Circular 28/2026/TT-BTC); work permit fees are set by each province. All are passed through at cost to the relevant Vietnamese authority. You would pay them whoever handles your case.</p>' if t.get('gov') else ''}
-          <p class="s-get"><b>You get:</b> {p["get"]}<br><br><b>Best for:</b> {p["best"]}</p>
+          <p class="s-get">{('<b>You walk away with:</b> '+p['out']+'<br><br>') if p.get('out') else ''}<b>You get:</b> {p["get"]}<br><br><b>Best for:</b> {p["best"]}</p>
         </div>
         <div class="s-actions"><a class="btn-line" href="cart.html" data-add="{sku}">{'Add to Cart' if priced else 'Request a Quote'} <svg class="arr"><use href="#i-arr"/></svg></a><a class="s-ask" href="get-started.html">Have questions? Talk to an expert.</a></div>
       </div></div>''')
-        rows=''.join(f'<div class="t-row"><div class="t-f">{f}</div>'+''.join(f'<div class="t-c">{CHECK if x else "{{i:dash dsh}}"}</div>' for x in inc)+'</div>' for f,inc in SV.FEATURES)
+        rows=''.join(f'<div class="t-row"><div class="t-f">{f}</div>'+''.join(f'<div class="t-c">{CHECK if x else "{{i:dash dsh}}"}</div>' for x in inc)+'</div>' for f,inc in SV.FEATURES_BY_TAB.get(t['id'],[]))
         names=[p['name'].replace('<br>',' ') for p in t['packages']]
         prices=''.join(f'<div class="t-c"><b>{price_label(svc_sku(t["id"],k))}</b></div>' for k in range(len(t['packages'])))
         compare_html=(f'''    <div class="s-compare" id="compare-{t["id"]}">
