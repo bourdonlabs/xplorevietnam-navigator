@@ -150,7 +150,7 @@ def svc_tabs():
       <div class="s-cards{' one' if len(cards)==1 else ''}">
 {chr(10).join(cards)}
       </div>
-      <p class="s-foot">*Please note that our fee does not include 1) costs of obtaining documents in your home country, and 2) government fees that change after booking. We confirm all government fees with you before we file.</p>
+      {'' if t['id']=='relocation' else '<p class="s-foot">*Please note that our fee does not include 1) costs of obtaining documents in your home country, and 2) government fees that change after booking. We confirm all government fees with you before we file.</p>'}
     </div>
 {compare_html}
   </div>''')
