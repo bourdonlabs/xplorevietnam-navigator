@@ -76,7 +76,7 @@ export default function RelocationPackagesPage() {
                 <strong className="text-brand-navy">Best for:</strong> {p.best}
               </p>
               <p className="mt-6 flex items-baseline gap-1">
-                <span className="text-3xl font-bold text-brand-navy">${p.price}</span>
+                <span className="text-3xl font-bold text-brand-navy">${p.price.toLocaleString("en-US")}</span>
                 <span className="text-sm text-gray-700">/ total</span>
               </p>
               <p className="mt-2 text-xs text-gray-700">

@@ -26,7 +26,7 @@ async function notifyTeam(r: Row, origin: string) {
   const company = d.company && typeof d.company === "object" ? (d.company as { structure?: string; selling?: string }) : null;
   const items = Array.isArray(d.items)
     ? (d.items as { name?: string; dependents?: number; price?: number | null }[])
-        .map((i) => `${i.name}${i.dependents ? ` + ${i.dependents} dependent(s)` : ""} (${i.price == null ? "quote needed" : "$" + i.price})`)
+        .map((i) => `${i.name}${i.dependents ? ` + ${i.dependents} dependent(s)` : ""} (${i.price == null ? "quote needed" : "$" + i.price.toLocaleString("en-US")})`)
         .join("\n")
     : "";
   const first = (r.name || "").split(" ")[0];
