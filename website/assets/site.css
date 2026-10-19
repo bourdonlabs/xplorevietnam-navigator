@@ -294,7 +294,8 @@ button{font:inherit;cursor:pointer}
 .news h2{font:400 var(--h2)/var(--h2-lh) var(--head);color:var(--white)}
 .news .club{display:flex;align-items:center;gap:16px}
 .news .club svg{width:40px;height:34px;color:var(--sky);flex-shrink:0}
-.news .club h2{color:var(--sky)}
+.news .club h2,.news .club>span{color:var(--sky)}
+.news-h{display:flex;flex-direction:column}
 .news-copy h3{max-width:367px;margin-top:12px;font:300 18px/21.6px var(--body)}
 .news form{width:100%;display:flex;flex-direction:column;gap:16px;align-items:flex-start}
 .news input{width:100%;height:45px;padding:14.4px;border:1px solid var(--line);border-radius:32px;background:var(--white);color:var(--navy);font:400 20px/1 var(--body)}

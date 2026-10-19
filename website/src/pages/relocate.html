@@ -172,6 +172,12 @@
   .rl-faq .sub{font-size:30px;line-height:36.8px}
   .rl-faq .faq summary{font-size:20px;line-height:28px}
 }
+.rl-cities .c-card{aspect-ratio:3/4}
+.rl-cities .c-card h3{font-size:28px;line-height:34px}
+.rl-dest{margin-top:32px;font:400 18px/25px var(--body);color:var(--ink)}
+.rl-dest a{color:var(--navy);text-decoration:underline}
+@media (max-width:1024px){.rl-cities{flex-wrap:wrap}.rl-cities .c-card{flex:1 1 calc(50% - 14px)}}
+@media (max-width:767px){.rl-cities .c-card{flex:none;width:100%;aspect-ratio:16/11}}
 <!-- /style -->
 <main id="top" class="rl">
   <section class="rl-hero">
@@ -315,6 +321,22 @@
     </div>
   </section>
 
+
+  <!-- City guides -->
+  <section class="cities" id="city-guides">
+    <div class="split">
+      <div class="l"><h2 class="sub">Explore our city guides.</h2></div>
+      <div class="r"><h3 class="lead">Neighbourhoods, rents, schools and daily life in each city, before you choose.</h3></div>
+    </div>
+    <div class="c-grid rl-cities">
+      <a class="c-card ph" href="ho-chi-minh-city.html" style="background:#1B1A2F url(img/guide-hcmc.jpg) 50% 35%/cover no-repeat"><svg class="go"><use href="#i-go-w"/></svg><h3>Ho Chi Minh City Guide</h3></a>
+      <a class="c-card ph" href="hanoi.html" style="background:#1B1A2F url(img/guide-hanoi.jpg) 50% 50%/cover no-repeat"><svg class="go"><use href="#i-go-w"/></svg><h3>Hanoi Guide</h3></a>
+      <a class="c-card ph" href="da-nang.html" style="background:#1B1A2F url(img/guide-danang.jpg) 50% 50%/cover no-repeat"><svg class="go"><use href="#i-go-w"/></svg><h3>Da Nang Guide</h3></a>
+      <a class="c-card ph" href="hoi-an.html" style="background:#1B1A2F url(img/guide-hoian.jpg) 50% 65%/cover no-repeat"><svg class="go"><use href="#i-go-w"/></svg><h3>Hoi An Guide</h3></a>
+      <a class="c-card ph" href="nha-trang.html" style="background:#1B1A2F url(img/dest/nhatrang.jpg) 50% 50%/cover no-repeat"><svg class="go"><use href="#i-go-w"/></svg><h3>Nha Trang Guide</h3></a>
+    </div>
+    <p class="rl-dest">Comparing more places? Read our <a href="destinations.html">Destinations guide</a> or <a href="quiz.html">take the city quiz</a>.</p>
+  </section>
 
   {{> cta heading="Don’t figure it out alone." text="Your new life in Vietnam is waiting. We’re ready to help."}}
 </main>
