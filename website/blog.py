@@ -19,7 +19,18 @@ IMAGES = {
     'set-up-company-vietnam': ('img/aud/entrepreneurs.jpg', 'img/aud/entrepreneurs.jpg'),
     'moving-to-vietnam-with-pets': ('img/aud/retirees.jpg', 'img/aud/retirees.jpg'),
 }
-DATE = '30 September 2026'
+# Publication date shown on each post (ORDER is newest first)
+DATES = {
+    'extend-visa-in-vietnam': '14 August 2026',
+    'temporary-residence-card-guide': '3 June 2026',
+    'cost-of-living-da-nang': '22 April 2026',
+    'international-schools-ho-chi-minh-city': '9 March 2026',
+    'open-bank-account-vietnam-foreigner': '27 November 2025',
+    'renting-apartment-hanoi': '16 September 2025',
+    'healthcare-insurance-vietnam': '5 June 2025',
+    'set-up-company-vietnam': '19 February 2025',
+    'moving-to-vietnam-with-pets': '12 October 2024',
+}
 AUTHOR = 'John Bourdon'
 ARROW = '<svg viewBox="0 0 20 14" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M1 7h17M12 1.5L18 7l-6 5.5"/></svg>'
 CITIES = ['All', 'Ho Chi Minh City', 'Hanoi', 'Da Nang', 'Hoi An']
@@ -40,7 +51,7 @@ def posts():
         words = len(re.sub(r'<[^>]+>', ' ', body).split())
         thumb, cover = IMAGES[slug]
         out.append(dict(slug=slug, title=meta['title'], excerpt=meta['excerpt'], topic=meta['topic'], city=meta['city'],
-                        body=body, mins=max(2, round(words / 230)), thumb=thumb, cover=cover, href=f'blog-{slug}.html'))
+                        date=DATES[slug], body=body, mins=max(2, round(words / 230)), thumb=thumb, cover=cover, href=f'blog-{slug}.html'))
     _cache = out
     return out
 
@@ -48,7 +59,7 @@ def posts():
 def card(p):
     return (f'    <a class="post" href="{p["href"]}" data-topic="{p["topic"]}" data-city="{p["city"]}">'
             f'<div class="p-img" style="background:#DDE3EA url({p["thumb"]}) center/cover no-repeat"></div>'
-            f'<div class="meta"><span>{DATE}</span><span>{p["mins"]}-Minute Read</span></div>'
+            f'<div class="meta"><span>{p["date"]}</span><span>{p["mins"]}-Minute Read</span></div>'
             f'<h3>{p["title"]}</h3><p>{p["excerpt"]}</p>'
             f'<div class="by"><span><i></i>{AUTHOR}</span>{ARROW}</div></a>')
 
@@ -62,7 +73,7 @@ def featured():
         f'      <a class="bf-slide" href="{p["href"]}" style="background:#1B1A2F url({p["cover"]}) center/cover no-repeat">'
         f'<div class="bf-l"><span class="bf-pill">Featured Article</span><h3>{p["title"]}</h3></div>'
         f'<div class="bf-r"><div class="bf-who"><span></span>{AUTHOR}</div>'
-        f'<div class="bf-meta"><span>{DATE}</span><span>·</span><span>{p["mins"]}-Minute Read</span></div></div></a>'
+        f'<div class="bf-meta"><span>{p["date"]}</span><span>·</span><span>{p["mins"]}-Minute Read</span></div></div></a>'
         for p in posts()[:3])
 
 
@@ -138,7 +149,7 @@ def page(p):
       <a class="bp-back" href="blog.html">{ARROW} All articles</a>
       <div class="bp-tags">{tags}</div>
       <h1>{p['title']}</h1>
-      <div class="bp-meta"><span>{AUTHOR}</span><span>·</span><span>{DATE}</span><span>·</span><span>{p['mins']}-minute read</span></div>
+      <div class="bp-meta"><span>{AUTHOR}</span><span>·</span><span>{p['date']}</span><span>·</span><span>{p['mins']}-minute read</span></div>
     </header>
     <div class="bp-cover" role="img" aria-label="" style="background-image:url({p['cover']})"></div>
     <div class="bp-wrap">
