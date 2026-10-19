@@ -272,9 +272,11 @@ def build():
     for p in pages:
         name=os.path.basename(p); src=open(p).read()
         title=re.search(r'<!-- title: (.*?) -->',src).group(1)
+        dm=re.search(r'<!-- description: (.*?) -->',src); desc=dm.group(1).replace('"','&quot;') if dm else DESCRIPTION
+        src=re.sub(r'<!-- description: .*? -->\n?','',src)
         style=re.search(r'<!-- style -->(.*?)<!-- /style -->',src,re.S)
         src=re.sub(r'<!-- title: .*? -->\n?','',src); src=re.sub(r'<!-- style -->.*?<!-- /style -->\n?','',src,flags=re.S)
-        write(name, title, f'<style>{style.group(1)}</style>\n' if style else '', src)
+        write(name, title, f'<style>{style.group(1)}</style>\n' if style else '', src, desc)
     for bp in blog.posts():
         write(bp['href'], f"{bp['title']} | XploreVietnam", blog.POST_STYLE, blog.page(bp), bp['excerpt'])
     pages=pages+[bp['href'] for bp in blog.posts()]
